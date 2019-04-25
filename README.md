@@ -1,33 +1,21 @@
 # Crystal React Bootstrap Dashboard
 
-![Crystal Dashboard](https://user-images.githubusercontent.com/1154740/31934597-c2b055dc-b8d6-11e7-869d-48e6f8992718.png)
 
-Crystal React Bootstrap Dashboard is a beautiful, multi-purpose admin dashboard which is with React, Redux & Bootstrap. It contains a lot of simple and easy to use React components. You can use this dashboard to build many kind of dashboard include health, employees, company dashboard.
-
-This package includes:
-- Charts
-- Buttons
-- Notifications
-- Sweet Alert
-- Redux Form
-- AirBnB React Dates
-- Google Map
-- Uber Vector Map
-- React Bootstrap Table
-- React Big Calendar
-
-In order to keep our stylesheet easy to maintain and customize by everyone. Stylesheet is writen by SCSS.
-
-**[Live preview](https://jslancerteam.github.io/crystal-dashboard/#/)**
-
-## Get started
+## Geting started
 *Development*
+FOr the first time only pull the code and install the packages locally
 ```
-git clone https://github.com/jslancerteam/crystal-dashboard
+git clone git@github.com:haseeb1431/iosl-dc3.git
 npm install
 npm start
 ```
+after that every time, just run `git pull` to get latest
 
+```
+git pull
+git branch newbranchName #create a new branch for the task you want to work on 
+git push # once changes are complete, do the git push and then we will merge
+```
 *Build*
 ```
 npm run build
@@ -153,8 +141,10 @@ npm run build
 │   └── index.js
 └── registerServiceWorker.js
 ```
-## Author
-David Tran [@davidtranwd](https://twitter.com/davidtranwd)
 
-## License
-Licensed under MIT
+## Author
+IOSL Team
+
+![Crystal Dashboard](https://user-images.githubusercontent.com/1154740/31934597-c2b055dc-b8d6-11e7-869d-48e6f8992718.png)
+
+
