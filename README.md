@@ -1,4 +1,4 @@
-# Crystal React Bootstrap Dashboard
+# Dashboard for command, control and communication
 
 
 ## Geting started
