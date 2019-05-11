@@ -21,7 +21,38 @@ git push # once changes are complete, do the git push and then we will merge
 npm run build
 ```
 
-## File structure
+### Git Commands
+```
+git clone URL #to copy the repo
+Git status #changed files in local repo
+git diff #changes to tracked files
+git add . #add all the files to next commit or stage them
+git reset filename #
+git commit #commit staged changes
+git commit -a #commit all changed files
+```
+### Branches
+```git branch -av #list all branches
+git checkout <branch> #switch to different branch
+git branch #will show the branch
+git branch newbranchName #create a new branch from the current commit
+git diff branchB...branchA #diff of what is in A that is not in B 
+```
+
+### Git Rebase
+```
+Git checkout develop
+git pull origin develop #git pull from the origin
+git checkout branchName
+git merge develop #for conflicts, do #gitstash and then merge and then git stash pop
+git push
+```
+
+### Git Cheat sheet
+https://education.github.com/git-cheat-sheet-education.pdf
+
+
+## Project File structure
 ```
 ./src/
 ├── assets
