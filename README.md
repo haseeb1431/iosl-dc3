@@ -51,6 +51,14 @@ git push
 ### Git Cheat sheet
 https://education.github.com/git-cheat-sheet-education.pdf
 
+### working on our own branch
+we need to do these 3 things after you already got the code on your local machine
+```git pull
+git checkout anubhav #or your branch name
+#Haseeb: once changes are done, do commit and push
+git commit -a -m "what are the changes you did"
+git push
+```
 
 ## Project File structure
 ```
