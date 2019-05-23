@@ -1,8 +1,7 @@
 html,
 body {
   font-family: 'Open Sans', sans-serif;
-  //background:white;
-  background:#235f24;
+  background: white;
   overflow: hidden;
 }
 
@@ -26,15 +25,12 @@ body, .wrapper {
 
 a {
   cursor: pointer;
-  text-decoration: white;
-  //color: #4A4A4A;
-  color: rgb(19, 219, 46);
+  text-decoration: none;
+  color: #4A4A4A;
 
   &:focus, &:hover {
-    //text-decoration: none;
-    text-decoration: white;
-    //color: #4A4A4A;
-    color: rgb(19, 219, 46);
+    text-decoration: none;
+    color: #4A4A4A;
   }
 }
 
@@ -51,12 +47,10 @@ a {
   color: $sidebar-color;
   font-weight: 200;
   transition-duration: .2s, .2s, .35s;
-  //background-color: $sidebar-bg;
-  background-color: #235f24;
+  background-color: $sidebar-bg;
 
   .sidebar-wrapper {
-    //background-color: $sidebar-bg;
-    background-color:#235f24;
+    background-color: $sidebar-bg;
     height: calc(100vh - 64px);
     overflow: auto;
   }

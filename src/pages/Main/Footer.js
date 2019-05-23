@@ -14,21 +14,16 @@ const Footer = () => (
             <a href="#">
               About Us
                   </a>
-          </li>
-          <li>
-            <a href="#">
-              Career
-                  </a>
-          </li>
+          </li>    
           <li>
             <a href="#">
               Contact Us
                   </a>
-          </li>
+          </li>      
         </ul>
       </nav>
       <p className="copyright pull-right">
-        © 2019 <a href="#">Group 6</a>, ISOL Project
+        © 2019 <a> DC3 </a>, Building Towards a Better Carrier Experience
       </p>
     </div>
   </footer>
