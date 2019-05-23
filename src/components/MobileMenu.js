@@ -16,7 +16,7 @@ const MobileMenu = ({
       }}>
       <div className="logo">
         <a href="http://jslancer.com" className="simple-text">
-          JSLancer
+          DC3
       </a>
       </div>
       <ul className="nav navbar-nav">

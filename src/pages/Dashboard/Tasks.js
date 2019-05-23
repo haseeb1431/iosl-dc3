@@ -9,17 +9,17 @@ class Tasks extends Component {
       {
         id: 1,
         content: 'Sign contract for "What are conference organizers afraid of?"',
-        completed: true
+        completed: false
       },
       {
         id: 2,
         content: 'Lines From Great Russian Literature? Or E-mails From My Boss?',
-        completed: true
+        completed: false
       },
       {
         id: 3,
         content: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit	',
-        completed: true
+        completed: false
       },
       {
         id: 4,
@@ -58,8 +58,8 @@ class Tasks extends Component {
     return (
       <div className="card ">
         <div className="header">
-          <h4 className="title">Tasks</h4>
-          <p className="category">Backend development</p>
+          <h4 className="title">Notifications</h4>
+          {/*<p className="category">Backend development</p>*/}
         </div>
         <div className="content">
           <form>
@@ -77,7 +77,7 @@ class Tasks extends Component {
                   <input type="checkbox" data-toggle="checkbox" checked={todo.completed} onChange={() => this.toggleComplete(todo.id)} />
                 </label>
                 <div className="todo-content">{todo.content}</div>
-                <a onClick={() => this.deleteTodo(todo.id)}>
+                <a onClick={() => this.resolve(todo.id)}>
                   &times;
                 </a>
               </div>
@@ -90,7 +90,7 @@ class Tasks extends Component {
         <div className="footer">
           <hr />
           <div className="stats">
-            <i className="fa fa-history"></i> Updated 3 minutes ago
+            <i className="fa fa-history"></i> Latest received 1 second ago
               </div>
         </div>
       </div>

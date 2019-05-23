@@ -22,7 +22,7 @@ const Header = ({
         <Nav>
           <NavItem><i className="fa fa-dashboard"></i></NavItem>
           <NavDropdown title={<i className="fa fa-globe" />} id="basic-nav-dropdown">
-            <MenuItem>Action</MenuItem>
+            <MenuItem>Action12345</MenuItem>
             <MenuItem>Another action</MenuItem>
             <MenuItem>Something else here</MenuItem>
             <MenuItem divider />

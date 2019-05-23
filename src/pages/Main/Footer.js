@@ -12,23 +12,23 @@ const Footer = () => (
           </li>
           <li>
             <a href="#">
-              Company
+              About Us
                   </a>
           </li>
           <li>
             <a href="#">
-              Portfolio
+              Career
                   </a>
           </li>
           <li>
             <a href="#">
-              Blog
+              Contact Us
                   </a>
           </li>
         </ul>
       </nav>
       <p className="copyright pull-right">
-        © 2017 <a href="http://jslancer.com">JSLancer</a>, made with love for a better web
+        © 2019 <a href="#">Group 6</a>, ISOL Project
       </p>
     </div>
   </footer>
