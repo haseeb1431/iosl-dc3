@@ -21,6 +21,7 @@ import Forms from '../Forms';
 import Charts from '../Charts';
 import Calendar from '../Calendar';
 import Tables from '../Tables';
+import Detailed from '../Dashboard/Detailed'
 
 const Main = ({
   mobileNavVisibility,
@@ -43,6 +44,7 @@ const Main = ({
         <div className="main-panel">
           <Header />
           <Route exact path="/" component={Dashboard} />
+          <Route exact path="/package/:OrderID" component={Detailed} />
           <Route path="/components" component={Components} />
           <Route path="/profile" component={UserProfile} />
           <Route path="/forms" component={Forms} />
