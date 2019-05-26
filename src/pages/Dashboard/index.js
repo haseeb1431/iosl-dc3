@@ -8,9 +8,12 @@ import StackedForm from '../Forms/RegularForms/StackedForm';
 import VectorMap from '../MapsPage/VectorMap';
 
 
+
 const Dashboard = () => (
+  
   <div className="content">
     <div className="container-fluid">
+      
       <div className="row">
         <div className="col-md-6">
           <TableWithLinks />
@@ -20,12 +23,15 @@ const Dashboard = () => (
         </div>
       </div>
       <div className="row">
-        <div className="col-md-6">
+        {/* <div className="col-md-6">
           <VectorMap />
         </div>
         <div className="col-md-6">
           <Tasks />
-        </div>
+        </div> */}
+        {/* <div className="col-md-6">
+          <StackedForm />
+        </div> */}
       </div>
 
     </div>
