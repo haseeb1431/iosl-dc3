@@ -19,7 +19,7 @@ class TableWithLinks extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });   
-    fetch("http://localhost:8000/orders")
+    fetch("http://localhost:8000/packages")
       .then(function(response){
         if (response.ok) {
             return response.json();
