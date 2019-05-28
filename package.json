@@ -49,6 +49,7 @@
     "react-dev-utils": "^4.0.1",
     "react-dom": "^15.6.1",
     "react-google-maps": "^7.3.0",
+    "react-horizontal-timeline": "^1.5.3",
     "react-map-gl": "^3.0.4",
     "react-notification-system": "^0.2.15",
     "react-redux": "^5.0.6",
