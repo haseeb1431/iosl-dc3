@@ -1,5 +1,5 @@
 import React from "react";
-import HorizontalTimeline from "react-horizontal-timeline";
+/*import HorizontalTimeline from "react-horizontal-timeline";*/
 
 
 
@@ -12,7 +12,19 @@ class Timeline extends React.Component {
     };
   }
 
-  //state = { value: 0, previous: 0 };
+  //state = { value: 0, previous: 0 }; <HorizontalTimeline
+  //          styles={{
+    //          background: "#f8f8f8",
+      //        foreground: "#1A79AD",
+        //      outline: "#dfdfdf"
+          //  }}
+            //index={this.state.curIdx}
+            //indexClick={index => {
+              //const curIdx = this.state.curIdx;
+              //this.setState({ curIdx: index, prevIdx: curIdx });
+            //}}            
+            //values={EXAMPLE.map(x => x.data)}
+          ///> 
 
   render() {
     var EXAMPLE = this.props.EXAMPLE    
@@ -32,19 +44,7 @@ class Timeline extends React.Component {
             fontSize: "15px"
           }}
         >
-          <HorizontalTimeline
-            styles={{
-              background: "#f8f8f8",
-              foreground: "#1A79AD",
-              outline: "#dfdfdf"
-            }}
-            index={this.state.curIdx}
-            indexClick={index => {
-              const curIdx = this.state.curIdx;
-              this.setState({ curIdx: index, prevIdx: curIdx });
-            }}            
-            values={EXAMPLE.map(x => x.data)}
-          />
+          
         </div>
         <div className="text-center">
           {/* any arbitrary component can go here */}
