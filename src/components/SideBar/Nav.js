@@ -7,7 +7,7 @@ import { stat } from 'fs';
 class Nav extends Component {
 
   state = {
-    persontype:2
+    persontype:3
   };
 
   render() {
