@@ -23,6 +23,7 @@ import Calendar from '../Calendar';
 import Tables from '../Tables';
 import Detailed from '../Dashboard/Detailed'
 import companyindex from '../Dashboard/companyindex'
+import postmanindex from '../Dashboard/postmanIndex'
 
 const Main = ({
   mobileNavVisibility,
@@ -47,6 +48,7 @@ const Main = ({
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/package/:OrderID" component={Detailed} />
           <Route exact path="/company" component={companyindex} />
+          <Route exact path="/postman" component={postmanindex} />
           <Route path="/components" component={Components} />
           <Route path="/profile" component={UserProfile} />
           <Route path="/forms" component={Forms} />
