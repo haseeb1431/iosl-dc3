@@ -79,7 +79,7 @@ class UserTableWithLinks extends Component {
                   <td>{item.FullName}</td>
                   <td>{item.Email}</td>
                   <td>******</td>
-                  <td>{item.PersonType ==1 ? "Customer" : (item.PersonType ==2 ? "Company":"Postman")}</td>
+                  <td>{item.PersonType ==0 ? "Customer" : (item.PersonType ==1 ? "Company":"Postman")}</td>
                   <td className="text-right"> {item.ArrivalDate}</td>
                 </tr>
               ))}
