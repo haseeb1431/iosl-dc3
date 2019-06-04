@@ -19,7 +19,7 @@ class TableWithLinks extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });   
-    fetch("http://localhost:8000/packages")
+    fetch("http://localhost:8000/packagesdetails")
       .then(function(response){
         if (response.ok) {
             return response.json();
@@ -55,7 +55,7 @@ class TableWithLinks extends Component {
     return (
       <div className="card">
         <div className="header">
-          <h4 className="title">Packegs</h4>
+          <h4 className="title">User Packages</h4>
           {/* <p className="category">Here is a subtitle for this table</p> */}
         </div>
         <div className="content table-responsive table-full-width">
@@ -63,8 +63,10 @@ class TableWithLinks extends Component {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Adress</th>
-                <th>Destenation</th>
+                <th>Street Adress</th>
+                <th>Post Code</th>
+                <th>City</th>
+                <th>Country</th>
                 <th className="text-right">Arrival Date</th>
                 <th className="text-middle">Details</th>
               </tr>
@@ -77,11 +79,13 @@ class TableWithLinks extends Component {
                       {item.OrderID}
                       </Link>
                   </td>
-                  <td>{item.PickAddressID}</td>
-                  <td>{item.DropAddressID}</td>
+                  <td>{item.StreetAddress}</td>
+                  <td>{item.PostCode}</td>
+                  <td>{item.City}</td>
+                  <td>{item.Country}</td>
                   <td className="text-right"> {item.ArrivalDate}</td>
                   <td className="text-middle">
-                      <Link to="/package">
+                      <Link to={`/package/${item.OrderID}`}>
                         <div className="btn btn-wd btn-info" >info</div>
                       </Link>
                     {/* <a rel="tooltip" */}
