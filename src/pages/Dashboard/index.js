@@ -1,3 +1,5 @@
+//User dashboard file
+
 import React from 'react';
 //import EmailChart from './EmailChart';
 //import SalesChart from './SalesChart';
