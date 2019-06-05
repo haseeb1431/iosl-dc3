@@ -10,6 +10,8 @@ import Footer from './Footer';
 import SideBar from '../../components/SideBar';
 import ThemeOptions from '../../components/ThemeOptions';
 import MobileMenu from '../../components/MobileMenu';
+import addUser from '../Forms/RegularForms/StackedForm'
+import registerPackage from '../Forms/RegularForms/Register'
 /**
  * Pages
  */
@@ -54,8 +56,9 @@ const Main = ({
           <Route path="/forms" component={Forms} />
           <Route path="/tables" component={Tables} />
           <Route path="/maps" component={MapsPage} />
-          <Route path="/charts" component={Charts} />
-          <Route path="/calendar" component={Calendar} />
+          <Route path="/registerPackage" component={registerPackage} />
+          <Route path="/addUser" component={addUser} />
+          
           <Footer />
         </div>
       </div>
