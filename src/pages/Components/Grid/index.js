@@ -1,13 +1,12 @@
-import React from 'react';
-import GridCollection from './GridCollection';
-import Paragraph from './Paragraph';
+import React from "react";
+import GridCollection from "./GridCollection";
+import Paragraph from "./Paragraph";
+import JobList from "./JobList";
 
 const Grid = () => (
   <div className="content">
-    <div className="container-fluid">
-      <GridCollection />
-      <Paragraph />
-    </div>
+    <div className="container-fluid" />
+    <JobList />
   </div>
 );
 
