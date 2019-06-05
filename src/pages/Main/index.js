@@ -10,6 +10,8 @@ import Footer from './Footer';
 import SideBar from '../../components/SideBar';
 import ThemeOptions from '../../components/ThemeOptions';
 import MobileMenu from '../../components/MobileMenu';
+import addUser from '../Forms/RegularForms/StackedForm'
+import registerPackage from '../Forms/RegularForms/Register'
 /**
  * Pages
  */
@@ -24,6 +26,7 @@ import Tables from '../Tables';
 import Detailed from '../Dashboard/Detailed'
 import companyindex from '../Dashboard/companyindex'
 import Login from '../Login'
+import postmanindex from '../Dashboard/postmanIndex'
 
 const Main = ({
   mobileNavVisibility,
@@ -52,13 +55,15 @@ const Main = ({
           <Route exact path="/Dashboard" component={Dashboard} />
           <Route exact path="/package/:OrderID" component={Detailed} />
           <Route exact path="/company" component={companyindex} />
+          <Route exact path="/postman" component={postmanindex} />
           <Route path="/components" component={Components} />
           <Route path="/profile" component={UserProfile} />
           <Route path="/forms" component={Forms} />
           <Route path="/tables" component={Tables} />
           <Route path="/maps" component={MapsPage} />
-          <Route path="/charts" component={Charts} />
-          <Route path="/calendar" component={Calendar} />
+          <Route path="/registerPackage" component={registerPackage} />
+          <Route path="/addUser" component={addUser} />
+          
           <Footer />
       </div>
       </div>
