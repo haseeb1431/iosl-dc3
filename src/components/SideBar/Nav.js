@@ -6,12 +6,19 @@ import { stat } from 'fs';
 
 class Nav extends Component {
 
+  constructor(props){
+    super(props)
+  }
+
   state = {
     persontype:1
   };
 
   render() {
     let { location } = this.props;
+    let qs = this.props.location.search.substr(1);
+    this.state.persontype = qs.split('=')[1];
+    
     const isUser = this.state.persontype==1;
 
     if (this.state.persontype == 1) {
@@ -49,8 +56,8 @@ class Nav extends Component {
       //Company
       return (
       <ul className="nav">
-          <li className={location.pathname === '/' ? 'active' : null}>
-            <Link to="/Dashboard">
+          <li className={location.pathname === '/company' ? 'active' : null}>
+            <Link to="/company">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
@@ -107,8 +114,8 @@ class Nav extends Component {
       //PostMan
       return (
 <ul className="nav">
-          <li className={location.pathname === '/' ? 'active' : null}>
-            <Link to="/Dashboard">
+          <li className={location.pathname === '/postman' ? 'active' : null}>
+            <Link to="/postman">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>

@@ -25,7 +25,17 @@ export default class Login extends Component {
   handleSubmit = event => {
     event.preventDefault();
     //TODO
-    this.props.history.push('/Dashboard');
+    if(this.state.email == "admin@dhl.com"){
+      this.props.history.push('/company');
+    }
+    else if(this.state.email == "postman@dhl.com"){
+      this.props.history.push('/postman');
+    }
+    else
+    {
+      this.props.history.push('/Dashboard');
+    }
+    
   }
 
   render() {
