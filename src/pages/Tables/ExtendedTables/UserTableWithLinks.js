@@ -63,24 +63,28 @@ class UserTableWithLinks extends Component {
                 <th>ID</th>
                 <th>Full Name</th>
                 <th>Email</th>
-                <th>Password</th>
+
                 <th>Person Type</th>
-                <th>Person Role</th>
+                
+                <th></th>
               </tr>
             </thead>
             <tbody>
               {this.state.items.map(item => (
                 <tr key={item.ID} >
-                  <td><Link to={`/package/${item.ID}`} style={{color: 'blue'}}>
+                  <td><Link to={`/persons/${item.ID}`} style={{color: 'blue'}}>
                       {/* <i className="pe-7s-graph"></i> */}
                       {item.ID}
                       </Link>
                   </td>                  
                   <td>{item.FullName}</td>
                   <td>{item.Email}</td>
-                  <td>******</td>
                   <td>{item.PersonType ==0 ? "Customer" : (item.PersonType ==1 ? "Company":"Postman")}</td>
-                  <td className="text-right"> {item.ArrivalDate}</td>
+                  <td className="text-middle">
+                      <Link to={`/persons/${item.ID}`}>
+                        <div className="btn btn-info" >edit</div>
+                      </Link>                    
+                  </td>
                 </tr>
               ))}
             </tbody>

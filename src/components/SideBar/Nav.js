@@ -8,7 +8,7 @@ import { stat } from 'fs';
 class Nav extends Component {
 
   state = {
-    persontype:3
+    persontype:1
   };
 
   render() {
@@ -20,7 +20,7 @@ class Nav extends Component {
       return (
         <ul className="nav">
           <li className={location.pathname === '/' ? 'active' : null}>
-            <Link to="/">
+            <Link to="/Dashboard">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
@@ -51,7 +51,7 @@ class Nav extends Component {
       return (
       <ul className="nav">
           <li className={location.pathname === '/' ? 'active' : null}>
-            <Link to="/">
+            <Link to="/Dashboard">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
@@ -70,6 +70,7 @@ class Nav extends Component {
             <div>
               <ul className="nav">
 <<<<<<< HEAD
+<<<<<<< HEAD
                { /*<li className={this.isPathActive('/components/buttons') ? 'active' : null}>
                   <Link to="/components/buttons">Buttons</Link>*/}
                   <li className={this.isPathActive('../pages/Forms/RegularForms/PostMan') ? 'active' : null}>
@@ -78,12 +79,16 @@ class Nav extends Component {
                   <li className={this.isPathActive('/components/buttons') ? 'active' : null}>
                   <Link to="/components/buttons">Add Postman</Link>
 >>>>>>> afe8c2196686f774e78c7e9a7edd821d0182ef60
+=======
+                  <li className={this.isPathActive('/addUser') ? 'active' : null}>
+                  <Link to="/addUser">Add Postman</Link>
+>>>>>>> 682703e6b03662256899c9bff52a9de9ce50e61c
                 </li>
                 <li className={this.isPathActive('/components/grid') ? 'active' : null}>
                   <Link to="/components/grid">View Jobs </Link>
                 </li>
-                <li className={this.isPathActive('/components/icons') ? 'active' : null}>
-                  <Link to="/components/icons">Assign Package</Link>
+                <li className={this.isPathActive('/components/') ? 'active' : null}>
+                  <Link to="/components/">Assign Package</Link>
                 </li>
               </ul>
             </div>
@@ -116,7 +121,7 @@ class Nav extends Component {
       return (
 <ul className="nav">
           <li className={location.pathname === '/' ? 'active' : null}>
-            <Link to="/">
+            <Link to="/Dashboard">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
