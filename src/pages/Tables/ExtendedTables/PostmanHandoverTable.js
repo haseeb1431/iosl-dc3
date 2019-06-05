@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import generateData from "../generateData";
 import { Link, Redirect } from "react-router-dom";
 
-class TableWithLinks extends Component {
+class PostmanHandoverTable extends Component {
   constructor() {
     super();
     this.state = {
@@ -48,19 +48,18 @@ class TableWithLinks extends Component {
     return (
       <div className="card">
         <div className="header">
-          <h4 className="title">Company Assigned Packages</h4>
+          <h4 className="title">Accept Handover Packages</h4>
           {/* <p className="category">Here is a subtitle for this table</p> */}
         </div>
         <div className="content table-responsive table-full-width">
           <table className="table table-hover table-striped">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Street Adress</th>
-                <th>Post Code</th>
-                <th>City</th>
-                <th>Country</th>
-                <th className="text-right">Arrival Date</th>
+                <th>Package ID</th>
+                <th>Releasing Postman</th>
+                <th>Releasing Company</th>
+                <th>Destination</th>
+
                 <th className="text-middle">Details</th>
               </tr>
             </thead>
@@ -79,8 +78,7 @@ class TableWithLinks extends Component {
                   <td>{item.StreetAddress}</td>
                   <td>{item.PostCode}</td>
                   <td>{item.City}</td>
-                  <td>{item.Country}</td>
-                  <td className="text-right"> {item.ArrivalDate}</td>
+
                   <td className="text-middle">
                     <Link to={`/package/${item.OrderID}`}>
                       <div className="btn btn-wd btn-info">info</div>
@@ -102,4 +100,4 @@ class TableWithLinks extends Component {
   }
 }
 
-export default TableWithLinks;
+export default PostmanHandoverTable;
