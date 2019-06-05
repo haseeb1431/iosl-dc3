@@ -23,6 +23,7 @@ import Calendar from '../Calendar';
 import Tables from '../Tables';
 import Detailed from '../Dashboard/Detailed'
 import companyindex from '../Dashboard/companyindex'
+import Login from '../Login'
 
 const Main = ({
   mobileNavVisibility,
@@ -34,17 +35,21 @@ const Main = ({
       hideMobileMenu();
     }
   });
+  const isUserloggedIn=true;
   return (
-    <div className={cx({
+       <div className={cx({
       'nav-open': mobileNavVisibility === true
     })}>
+
       <div className="wrapper">
         <div className="close-layer" onClick={hideMobileMenu}></div>
         <SideBar />
 
         <div className="main-panel">
-          <Header />
-          <Route exact path="/" component={Dashboard} />
+        
+          <Header /> 
+          <Route exact path="/" component={Login} />
+          <Route exact path="/Dashboard" component={Dashboard} />
           <Route exact path="/package/:OrderID" component={Detailed} />
           <Route exact path="/company" component={companyindex} />
           <Route path="/components" component={Components} />
@@ -55,8 +60,9 @@ const Main = ({
           <Route path="/charts" component={Charts} />
           <Route path="/calendar" component={Calendar} />
           <Footer />
-        </div>
       </div>
+      </div>
+     }
     </div>
   )
 };
