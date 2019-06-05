@@ -1,6 +1,6 @@
 import React from 'react';
-import Timeline from './Timeline';
-import { SingleDatePicker, DateRangePicker } from 'react-dates';
+import Tracking from 'assets/images/tracking.png';
+
 
 const VALUES = ["2018-03-22", "2018-03-23"];
 
@@ -11,13 +11,27 @@ const EXAMPLE = [
     statusB: "Ready for Dev",
     statusE: "In Progress"
   },
-  {
+  /* {
     data: "2018-03-23",
     status: "status",
     statusB: "In Progress",
     statusE: "Done"
-  }
+  } */
 ];
+const sharp = {
+  display: "inline-block", 
+  fontSize: "16px",
+  width: "30%",
+  padding: "10px"
+  
+} 
+const values = {
+  fontWeight: "Bold", 
+  fontSize: "16px",
+  display: "inline-block",
+  padding: "10px"
+} 
+
 
 class Detailed extends React.Component {
   constructor(props){
@@ -26,16 +40,17 @@ class Detailed extends React.Component {
     this.state = {
         loading: false,
         thePackage: {},
+        items: [],
         id: props.match.params.OrderID,
         characters: {}
     }
-    this.showPackage = this.showPackage.bind(this)
+
 }
 
 componentDidMount() {
   this.setState({ loading: true });
   console.log(this.state.id)
-  var api =   "http://localhost:8000/persons/" + this.state.id
+  var api =   "http://localhost:8000/packages/" + this.state.id
   fetch(api)
     .then(function(response){
       if (response.ok) {
@@ -47,11 +62,10 @@ componentDidMount() {
     })
     .then((data) => {
         console.log(data)
-          // data.forEach(elemnt => {
-          //     this.state.items.push(elemnt)
-          // })
-          this.setState({loading: false, thePackage: data})
-          console.log(this.state.thePackage);
+          data.forEach(elemnt => {
+              this.state.items.push(elemnt)
+          })
+          this.setState({loading: false})
           // console.log(this.state.items.length);
 
     })
@@ -59,45 +73,57 @@ componentDidMount() {
         console.log(error)
     })
 }
-    
+
     
 
 
-showPackage(){
-    
-    return(
-        <div>
-            <h2>Package Information</h2>
-            <div className="row">
-              <div className="col-md-6">
-                <h4 className="title">Package</h4>
-                <div className="form-group">
-                  
-                </div>
-              </div>
-              <div className="col-md-6">
-                <h4 className="title">DateRange Picker</h4>
-                <div className="form-group">
-                </div>
-              </div>
-            </div>
-            <ul>
-                <li>id:{this.state.thePackage.Password}</li>
-                {/* <li>From: {this.state.thePackage.Adress}</li>
-                <li>to: {this.state.thePackage.Destenation}</li>
-                {this.state.thePackage.heatSensor ? <li>heat sensor included</li> : ""} 
-                <li>status: {this.state.thePackage.status}</li> */}
-                
-            </ul>
-            <Timeline EXAMPLE={EXAMPLE} />
-        </div>
-    )
-}
 
 render() {
     return (
         <div>
-            {this.state.loading ? "loading..." : this.showPackage()} 
+            {this.state.items.map(item => (
+              <div className = "row">
+                <div className = "col-md-12">
+                    <div className = "col-md-6">
+                    <div className="card">
+                        <div className="header">
+                            <h4 className="title">Package Information</h4>
+                        </div>
+                        <div className = "content ">
+                          {/*<ul>
+                              <li className = "control-label"><h6>Package Id:</h6>{item.OrderID}</li>
+                              <li className = "control-label"><h6>Pickup Address:</h6> {item.PickAddressID}</li>
+                              <li className = "control-label"><h6>Drop Address:</h6> {item.DropAddressID}</li>
+                              <li className = "control-label"><h6>Sensor Type:</h6> {item.DropAddressID}</li> 
+                              <li className = "control-label"> <h6> Status: </h6> {this.state.statusE}</li> 
+                          </ul>*/}
+                          
+                              <div className = "control-label card"  ><h6 style={sharp}>Package Id: </h6><h6 style={values}>{item.OrderID }</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Pickup Address:</h6><h6 style={values}>{item.PickAddressID}</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Drop Address:</h6><h6 style={values}> {item.DropAddressID}</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Sensor Type:</h6> <h6 style={values}>{item.PostCode}</h6> </div>
+                              <div className = "control-label card"> <h6 style={sharp}> Status: </h6> <h6 style={values}>{EXAMPLE.statusB}</h6></div> 
+                          
+                        </div>
+                        </div>
+                    </div>
+                  
+                    <div className = "col-md-6">
+                    <div className="card">
+                          <div className="header">
+                              <h4 className="title">Tracking</h4>
+                          </div>
+                              <div className = "col-md-12 card " > 
+                              <img src={Tracking} style={{width:"100%"}}></img>
+                              
+
+                              </div>
+                      </div>
+                    </div>
+                    </div>
+      
+          </div>
+            ))}
         </div>
     )    
 }
@@ -105,3 +131,7 @@ render() {
 
 
 export default Detailed;
+
+
+
+
