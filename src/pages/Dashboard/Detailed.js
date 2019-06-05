@@ -1,9 +1,6 @@
 import React from 'react';
 import Tracking from 'assets/images/tracking.png';
 
-
-const VALUES = ["2018-03-22", "2018-03-23"];
-
 const EXAMPLE = [
   {
     data: "2018-03-22",
@@ -20,16 +17,16 @@ const EXAMPLE = [
 ];
 const sharp = {
   display: "inline-block", 
-  fontSize: "16px",
+  fontSize: "12px",
   width: "30%",
-  padding: "10px"
+  padding: "5px"
   
 } 
 const values = {
   fontWeight: "Bold", 
-  fontSize: "16px",
+  fontSize: "12px",
   display: "inline-block",
-  padding: "10px"
+  padding: "5px"
 } 
 
 
@@ -89,20 +86,21 @@ render() {
                         <div className="header">
                             <h4 className="title">Package Information</h4>
                         </div>
-                        <div className = "content ">
-                          {/*<ul>
-                              <li className = "control-label"><h6>Package Id:</h6>{item.OrderID}</li>
-                              <li className = "control-label"><h6>Pickup Address:</h6> {item.PickAddressID}</li>
-                              <li className = "control-label"><h6>Drop Address:</h6> {item.DropAddressID}</li>
-                              <li className = "control-label"><h6>Sensor Type:</h6> {item.DropAddressID}</li> 
-                              <li className = "control-label"> <h6> Status: </h6> {this.state.statusE}</li> 
-                          </ul>*/}
-                          
-                              <div className = "control-label card"  ><h6 style={sharp}>Package Id: </h6><h6 style={values}>{item.OrderID }</h6></div>
-                              <div className = "control-label card"><h6 style={sharp}>Pickup Address:</h6><h6 style={values}>{item.PickAddressID}</h6></div>
-                              <div className = "control-label card"><h6 style={sharp}>Drop Address:</h6><h6 style={values}> {item.DropAddressID}</h6></div>
-                              <div className = "control-label card"><h6 style={sharp}>Sensor Type:</h6> <h6 style={values}>{item.PostCode}</h6> </div>
-                              <div className = "control-label card"> <h6 style={sharp}> Status: </h6> <h6 style={values}>{EXAMPLE.statusB}</h6></div> 
+                        <div className = "content ">                          
+                              <div className = "control-label card"><h6 style={sharp}>Package Id: </h6><h6 style={values}>{item.OrderID }</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Pickup Address:</h6><h6 style={values}>{item.pickstreetaddress}</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Pickup City:</h6><h6 style={values}>{item.pickcity}</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Pickup Country:</h6><h6 style={values}>{item.pickcountry}</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Pickup PostCode:</h6><h6 style={values}>{item.pickpostcode}</h6></div>
+
+
+                              <div className = "control-label card"><h6 style={sharp}>Drop Address:</h6><h6 style={values}> {item.dropstreetaddress}</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Drop City:</h6><h6 style={values}> {item.dropcity}</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Drop Country:</h6><h6 style={values}> {item.dropcountry}</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Drop PostCode:</h6><h6 style={values}> {item.droppostcode}</h6></div>
+
+                              <div className = "control-label card"><h6 style={sharp}>Sensor Type:</h6> <h6 style={values}>Heat Sensor </h6> </div>
+                              <div className = "control-label card"> <h6 style={sharp}> Status: </h6> <h6 style={values}>In Transit</h6></div> 
                           
                         </div>
                         </div>
