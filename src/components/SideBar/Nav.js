@@ -7,7 +7,7 @@ import { stat } from 'fs';
 class Nav extends Component {
 
   state = {
-    persontype:3
+    persontype:1
   };
 
   render() {
@@ -19,7 +19,7 @@ class Nav extends Component {
       return (
         <ul className="nav">
           <li className={location.pathname === '/' ? 'active' : null}>
-            <Link to="/">
+            <Link to="/Dashboard">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
@@ -50,7 +50,7 @@ class Nav extends Component {
       return (
       <ul className="nav">
           <li className={location.pathname === '/' ? 'active' : null}>
-            <Link to="/">
+            <Link to="/Dashboard">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
@@ -68,14 +68,14 @@ class Nav extends Component {
           <Collapse in={this.state.componentMenuOpen}>
             <div>
               <ul className="nav">
-                  <li className={this.isPathActive('/components/buttons') ? 'active' : null}>
-                  <Link to="/components/buttons">Add Postman</Link>
+                  <li className={this.isPathActive('/addUser') ? 'active' : null}>
+                  <Link to="/addUser">Add Postman</Link>
                 </li>
                 <li className={this.isPathActive('/components/grid') ? 'active' : null}>
                   <Link to="/components/grid">View Jobs </Link>
                 </li>
-                <li className={this.isPathActive('/components/icons') ? 'active' : null}>
-                  <Link to="/components/icons">Assign Package</Link>
+                <li className={this.isPathActive('/components/') ? 'active' : null}>
+                  <Link to="/components/">Assign Package</Link>
                 </li>
               </ul>
             </div>
@@ -108,7 +108,7 @@ class Nav extends Component {
       return (
 <ul className="nav">
           <li className={location.pathname === '/' ? 'active' : null}>
-            <Link to="/">
+            <Link to="/Dashboard">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
