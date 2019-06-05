@@ -7,7 +7,7 @@ import { stat } from 'fs';
 class Nav extends Component {
 
   state = {
-    persontype:3
+    persontype:1
   };
 
   render() {
@@ -19,7 +19,7 @@ class Nav extends Component {
       return (
         <ul className="nav">
           <li className={location.pathname === '/' ? 'active' : null}>
-            <Link to="/">
+            <Link to="/Dashboard">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
@@ -50,7 +50,7 @@ class Nav extends Component {
       return (
       <ul className="nav">
           <li className={location.pathname === '/' ? 'active' : null}>
-            <Link to="/">
+            <Link to="/Dashboard">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
@@ -108,7 +108,7 @@ class Nav extends Component {
       return (
 <ul className="nav">
           <li className={location.pathname === '/' ? 'active' : null}>
-            <Link to="/">
+            <Link to="/Dashboard">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
