@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Collapse } from 'react-bootstrap';
 
 
+
 class Nav extends Component {
 
   state = {};
@@ -32,8 +33,8 @@ class Nav extends Component {
               <ul className="nav">
                { /*<li className={this.isPathActive('/components/buttons') ? 'active' : null}>
                   <Link to="/components/buttons">Buttons</Link>*/}
-                  <li className={this.isPathActive('/components/buttons') ? 'active' : null}>
-                  <Link to="/components/buttons">Add Postman</Link>
+                  <li className={this.isPathActive('../pages/Forms/RegularForms/PostMan') ? 'active' : null}>
+                  <Link to="../pages/Forms/RegularForms/PostMan">Add Postman</Link>
                 </li>
                 <li className={this.isPathActive('/components/grid') ? 'active' : null}>
                   <Link to="/components/grid">View Jobs </Link>
