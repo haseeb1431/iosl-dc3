@@ -24,6 +24,8 @@ export default class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    //TODO
+    this.props.history.push('/Dashboard');
   }
 
   render() {
