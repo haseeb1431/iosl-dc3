@@ -9,8 +9,7 @@ class TableWithLinks extends Component {
       package: {},
       items : [],
       isLoading: false,
-      error:null,
-      // items: generateData()
+      error:null
     }
   }
 
@@ -53,7 +52,7 @@ class TableWithLinks extends Component {
     return (
       <div className="card">
         <div className="header">
-          <h4 className="title">User Packages</h4>
+          <h4 className="title">Postman Packages</h4>
           {/* <p className="category">Here is a subtitle for this table</p> */}
         </div>
         <div className="content table-responsive table-full-width">
@@ -84,9 +83,14 @@ class TableWithLinks extends Component {
                   <td className="text-right"> {item.ArrivalDate}</td>
                   <td className="text-middle">
                       <Link to={`/package/${item.OrderID}`}>
-                        <div className="btn btn-info" >info</div>
+                        <div className="btn btn-wd btn-info" >info</div>
                       </Link>
-                    
+                    {/* <a rel="tooltip" */}
+                    {/* //   className="btn btn-info btn-simple btn-xs"
+                    //   // onClick={() => this.deleteItem(item.id)}
+                    //   onClick={() => <Redirect to='/package' />}>
+                    //   <i className="fa fa-remove"></i> */}
+                    {/* // </a> */}
                   </td>
                 </tr>
               ))}
@@ -100,4 +104,3 @@ class TableWithLinks extends Component {
 }
 
 export default TableWithLinks;
-

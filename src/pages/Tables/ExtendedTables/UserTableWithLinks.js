@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import generateData from '../generateData';
 import { Link, Redirect } from 'react-router-dom';
 
-class TableWithLinks extends Component {
+class UserTableWithLinks extends Component {
   constructor(){
     super()
     this.state = {
@@ -14,10 +13,9 @@ class TableWithLinks extends Component {
     }
   }
 
-
   componentDidMount() {
     this.setState({ isLoading: true });   
-    fetch("http://localhost:8000/packagesdetails")
+    fetch("http://localhost:8000/persons")
       .then(function(response){
         if (response.ok) {
             return response.json();
@@ -42,6 +40,8 @@ class TableWithLinks extends Component {
   }
 
 
+
+
   deleteItem = itemId => {
     this.setState({
       items: this.state.items.filter(item => item.id !== itemId)
@@ -53,7 +53,7 @@ class TableWithLinks extends Component {
     return (
       <div className="card">
         <div className="header">
-          <h4 className="title">User Packages</h4>
+          <h4 className="title">Users</h4>
           {/* <p className="category">Here is a subtitle for this table</p> */}
         </div>
         <div className="content table-responsive table-full-width">
@@ -61,33 +61,26 @@ class TableWithLinks extends Component {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Street Adress</th>
-                <th>Post Code</th>
-                <th>City</th>
-                <th>Country</th>
-                <th className="text-right">Arrival Date</th>
-                <th className="text-middle">Details</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Person Type</th>
+                <th>Person Role</th>
               </tr>
             </thead>
             <tbody>
               {this.state.items.map(item => (
-                <tr key={item.OrderID} >
-                  <td><Link to={`/package/${item.OrderID}`} style={{color: 'blue'}}>
+                <tr key={item.ID} >
+                  <td><Link to={`/package/${item.ID}`} style={{color: 'blue'}}>
                       {/* <i className="pe-7s-graph"></i> */}
-                      {item.OrderID}
+                      {item.ID}
                       </Link>
-                  </td>
-                  <td>{item.StreetAddress}</td>
-                  <td>{item.PostCode}</td>
-                  <td>{item.City}</td>
-                  <td>{item.Country}</td>
+                  </td>                  
+                  <td>{item.FullName}</td>
+                  <td>{item.Email}</td>
+                  <td>******</td>
+                  <td>{item.PersonType ==0 ? "Customer" : (item.PersonType ==1 ? "Company":"Postman")}</td>
                   <td className="text-right"> {item.ArrivalDate}</td>
-                  <td className="text-middle">
-                      <Link to={`/package/${item.OrderID}`}>
-                        <div className="btn btn-info" >info</div>
-                      </Link>
-                    
-                  </td>
                 </tr>
               ))}
             </tbody>
@@ -99,5 +92,4 @@ class TableWithLinks extends Component {
   }
 }
 
-export default TableWithLinks;
-
+export default UserTableWithLinks;
