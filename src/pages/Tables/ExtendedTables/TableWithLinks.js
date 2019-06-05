@@ -13,9 +13,7 @@ class TableWithLinks extends Component {
       // items: generateData()
     }
   }
-  // state = {
-  //   items: generateData()
-  // };
+
 
   componentDidMount() {
     this.setState({ isLoading: true });   
@@ -86,14 +84,9 @@ class TableWithLinks extends Component {
                   <td className="text-right"> {item.ArrivalDate}</td>
                   <td className="text-middle">
                       <Link to={`/package/${item.OrderID}`}>
-                        <div className="btn btn-wd btn-info" >info</div>
+                        <div className="btn btn-info" >info</div>
                       </Link>
-                    {/* <a rel="tooltip" */}
-                    {/* //   className="btn btn-info btn-simple btn-xs"
-                    //   // onClick={() => this.deleteItem(item.id)}
-                    //   onClick={() => <Redirect to='/package' />}>
-                    //   <i className="fa fa-remove"></i> */}
-                    {/* // </a> */}
+                    
                   </td>
                 </tr>
               ))}

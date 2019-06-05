@@ -1,8 +1,5 @@
 import React from 'react';
-import Timeline from './Timeline';
-import { SingleDatePicker, DateRangePicker } from 'react-dates';
-
-const VALUES = ["2018-03-22", "2018-03-23"];
+import Tracking from 'assets/images/tracking.png';
 
 const EXAMPLE = [
   {
@@ -11,13 +8,27 @@ const EXAMPLE = [
     statusB: "Ready for Dev",
     statusE: "In Progress"
   },
-  {
+  /* {
     data: "2018-03-23",
     status: "status",
     statusB: "In Progress",
     statusE: "Done"
-  }
+  } */
 ];
+const sharp = {
+  display: "inline-block", 
+  fontSize: "12px",
+  width: "30%",
+  padding: "5px"
+  
+} 
+const values = {
+  fontWeight: "Bold", 
+  fontSize: "12px",
+  display: "inline-block",
+  padding: "5px"
+} 
+
 
 class Detailed extends React.Component {
   constructor(props){
@@ -26,16 +37,17 @@ class Detailed extends React.Component {
     this.state = {
         loading: false,
         thePackage: {},
+        items: [],
         id: props.match.params.OrderID,
         characters: {}
     }
-    this.showPackage = this.showPackage.bind(this)
+
 }
 
 componentDidMount() {
   this.setState({ loading: true });
   console.log(this.state.id)
-  var api =   "http://localhost:8000/persons/" + this.state.id
+  var api =   "http://localhost:8000/packages/" + this.state.id
   fetch(api)
     .then(function(response){
       if (response.ok) {
@@ -47,11 +59,10 @@ componentDidMount() {
     })
     .then((data) => {
         console.log(data)
-          // data.forEach(elemnt => {
-          //     this.state.items.push(elemnt)
-          // })
-          this.setState({loading: false, thePackage: data})
-          console.log(this.state.thePackage);
+          data.forEach(elemnt => {
+              this.state.items.push(elemnt)
+          })
+          this.setState({loading: false})
           // console.log(this.state.items.length);
 
     })
@@ -59,45 +70,58 @@ componentDidMount() {
         console.log(error)
     })
 }
-    
+
     
 
 
-showPackage(){
-    
-    return(
-        <div>
-            <h2>Package Information</h2>
-            <div className="row">
-              <div className="col-md-6">
-                <h4 className="title">Package</h4>
-                <div className="form-group">
-                  
-                </div>
-              </div>
-              <div className="col-md-6">
-                <h4 className="title">DateRange Picker</h4>
-                <div className="form-group">
-                </div>
-              </div>
-            </div>
-            <ul>
-                <li>id:{this.state.thePackage.Password}</li>
-                {/* <li>From: {this.state.thePackage.Adress}</li>
-                <li>to: {this.state.thePackage.Destenation}</li>
-                {this.state.thePackage.heatSensor ? <li>heat sensor included</li> : ""} 
-                <li>status: {this.state.thePackage.status}</li> */}
-                
-            </ul>
-            <Timeline EXAMPLE={EXAMPLE} />
-        </div>
-    )
-}
 
 render() {
     return (
         <div>
-            {this.state.loading ? "loading..." : this.showPackage()} 
+            {this.state.items.map(item => (
+              <div className = "row">
+                <div className = "col-md-12">
+                    <div className = "col-md-6">
+                    <div className="card">
+                        <div className="header">
+                            <h4 className="title">Package Information</h4>
+                        </div>
+                        <div className = "content ">                          
+                              <div className = "control-label card"><h6 style={sharp}>Package Id: </h6><h6 style={values}>{item.OrderID }</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Pickup Address:</h6><h6 style={values}>{item.pickstreetaddress}</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Pickup City:</h6><h6 style={values}>{item.pickcity}</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Pickup Country:</h6><h6 style={values}>{item.pickcountry}</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Pickup PostCode:</h6><h6 style={values}>{item.pickpostcode}</h6></div>
+
+
+                              <div className = "control-label card"><h6 style={sharp}>Drop Address:</h6><h6 style={values}> {item.dropstreetaddress}</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Drop City:</h6><h6 style={values}> {item.dropcity}</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Drop Country:</h6><h6 style={values}> {item.dropcountry}</h6></div>
+                              <div className = "control-label card"><h6 style={sharp}>Drop PostCode:</h6><h6 style={values}> {item.droppostcode}</h6></div>
+
+                              <div className = "control-label card"><h6 style={sharp}>Sensor Type:</h6> <h6 style={values}>Heat Sensor </h6> </div>
+                              <div className = "control-label card"> <h6 style={sharp}> Status: </h6> <h6 style={values}>In Transit</h6></div> 
+                          
+                        </div>
+                        </div>
+                    </div>
+                  
+                    <div className = "col-md-6">
+                    <div className="card">
+                          <div className="header">
+                              <h4 className="title">Tracking</h4>
+                          </div>
+                              <div className = "col-md-12 card " > 
+                              <img src={Tracking} style={{width:"100%"}}></img>
+                              
+
+                              </div>
+                      </div>
+                    </div>
+                    </div>
+      
+          </div>
+            ))}
         </div>
     )    
 }
@@ -105,3 +129,7 @@ render() {
 
 
 export default Detailed;
+
+
+
+
