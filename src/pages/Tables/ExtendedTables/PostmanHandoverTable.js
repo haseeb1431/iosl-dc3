@@ -48,7 +48,7 @@ class PostmanHandoverTable extends Component {
     return (
       <div className="card">
         <div className="header">
-          <h4 className="title">Accept Handover Packages</h4>
+          <h4 className="title">Receieved Handover Packages</h4>
           {/* <p className="category">Here is a subtitle for this table</p> */}
         </div>
         <div className="content table-responsive table-full-width">
@@ -70,8 +70,7 @@ class PostmanHandoverTable extends Component {
                     <Link
                       to={`/package/${item.OrderID}`}
                       style={{ color: "blue" }}
-                    >
-                      {/* <i className="pe-7s-graph"></i> */}
+                    >                      
                       {item.OrderID}
                     </Link>
                   </td>
@@ -82,13 +81,7 @@ class PostmanHandoverTable extends Component {
                   <td className="text-middle">
                     <Link to={`/package/${item.OrderID}`}>
                       <div className="btn btn-wd btn-info">info</div>
-                    </Link>
-                    {/* <a rel="tooltip" */}
-                    {/* //   className="btn btn-info btn-simple btn-xs"
-                    //   // onClick={() => this.deleteItem(item.id)}
-                    //   onClick={() => <Redirect to='/package' />}>
-                    //   <i className="fa fa-remove"></i> */}
-                    {/* // </a> */}
+                    </Link>                    
                   </td>
                 </tr>
               ))}
