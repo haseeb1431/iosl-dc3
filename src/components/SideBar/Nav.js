@@ -4,7 +4,6 @@ import { Collapse } from 'react-bootstrap';
 import { stat } from 'fs';
 
 
-
 class Nav extends Component {
 
   constructor(props){
@@ -76,20 +75,8 @@ class Nav extends Component {
           <Collapse in={this.state.componentMenuOpen}>
             <div>
               <ul className="nav">
-<<<<<<< HEAD
-<<<<<<< HEAD
-               { /*<li className={this.isPathActive('/components/buttons') ? 'active' : null}>
-                  <Link to="/components/buttons">Buttons</Link>*/}
-                  <li className={this.isPathActive('../pages/Forms/RegularForms/PostMan') ? 'active' : null}>
-                  <Link to="../pages/Forms/RegularForms/PostMan">Add Postman</Link>
-=======
-                  <li className={this.isPathActive('/components/buttons') ? 'active' : null}>
-                  <Link to="/components/buttons">Add Postman</Link>
->>>>>>> afe8c2196686f774e78c7e9a7edd821d0182ef60
-=======
                   <li className={this.isPathActive('/addUser') ? 'active' : null}>
                   <Link to="/addUser">Add Postman</Link>
->>>>>>> 682703e6b03662256899c9bff52a9de9ce50e61c
                 </li>
                 <li className={this.isPathActive('/components/grid') ? 'active' : null}>
                   <Link to="/components/grid">View Jobs </Link>
