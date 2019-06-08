@@ -40,29 +40,29 @@ import Register from '../Forms/RegularForms/Register';
       //     .catch(err => console.log(err))
       }
 
-    // reciverValidation(receiverEmail){
-    //   console.log(receiverEmail)
-    //   fetch("http://localhost:8000/persons")
-    //     .then(function(response){
-    //       if (response.ok) {
-    //           return response.json();
-    //         } 
-    //         else {
-    //           throw new Error('NO receiverEmail');
-    //         }
-    //     })
-    //     .then((data) => {
-    //           data.forEach(elemnt => {
-    //             if (elemnt.Email === receiverEmail){
-    //               console.log("reciever is a register user" + elemnt.Email)
-    //               this.reciverData = true
-    //             }
-    //           })                          
-    //     })
-    //     .catch(function(error){
-    //         console.log(error)
-    //     })    
-    // }
+    reciverValidation(receiverEmail){
+      console.log(receiverEmail)
+      fetch("http://localhost:8000/persons")
+        .then(function(response){
+          if (response.ok) {
+              return response.json();
+            } 
+            else {
+              throw new Error('NO receiverEmail');
+            }
+        })
+        .then((data) => {
+              data.forEach(elemnt => {
+                if (elemnt.Email === receiverEmail){
+                  console.log("reciever is a register user" + elemnt.Email)
+                  this.reciverData = true
+                }
+              })                          
+        })
+        .catch(function(error){
+            console.log(error)
+        })    
+    }
       
 
   render(){

@@ -2,19 +2,67 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import renderField from 'components/FormInputs/renderField';
 
+const required= (value) => {
+    if (!value || value === ""){
+        return "this field is required"
+    }
+    else{
+        return undefined
+    }
+  }
+
+  const allowedEmail= (value) => {
+    if (this.state.registerUsers.indexOf(value) === -1){
+        return "user is not register"
+    }
+    else{
+        return undefined
+    }
+  }
+
+
+
+
 class Register extends React.Component {
     constructor(){
         super()
         this.state = {
-          package: {},
-          
+            registerUsers: ["test"]
         }
       }
-    
-        
+
+      componentDidMount(){
+        fetch("http://localhost:8000/persons")
+            .then(function(response){
+            if (response.ok) {
+                return response.json();
+                } 
+                else {
+                throw new Error('NO receiverEmail');
+                }
+            })
+            .then((data) => {
+                data.forEach(elemnt => {
+                    this.state.registerUsers.push(elemnt)
+                })                          
+            })
+            .catch(function(error){
+                console.log(error)
+            })    
+    }
 
     render(){
-        const { handleSubmit } = this.props;
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log(this.props)
+        const { handleSubmit , valid } = this.props;
+        const allowedEmaill= (value) => {
+            if (this.state.registerUsers.indexOf(value) === -1){
+                return "user is not register"
+            }
+            else{
+                return undefined
+            }
+          }
         return(
             <div className="card">
                 <div className="header">
@@ -32,7 +80,8 @@ class Register extends React.Component {
                             name="Sender Name"
                             placeholder = "Joh Doe"
                             type="text"
-                            component={renderField} 
+                            component={renderField}
+                            validate = {required} 
                             helpText="as appear on your Mailbox" /> 
                         </div>
                         </div>
@@ -44,6 +93,7 @@ class Register extends React.Component {
                             name="country"
                             type="text"
                             placeholder = "Germany"
+                            validate = {required} 
                             component={renderField} />
                             {/* helpText="A block of help text that breaks onto a new line." /> */}
                         </div>
@@ -56,6 +106,7 @@ class Register extends React.Component {
                             name="street"
                             placeholder = "berlinstr.88"
                             type="text"
+                            validate = {required} 
                             component={renderField} />
                         </div>
                         </div>
@@ -67,6 +118,7 @@ class Register extends React.Component {
                                 name="zip"
                                 placeholder = "10235"
                                 type="text"
+                                validate = {required} 
                                 component={renderField} />
                             </div>
                         </div>
@@ -75,14 +127,16 @@ class Register extends React.Component {
                         <legend>Destenation Address</legend>
 
                         <div className="form-group">
-                            <label className="control-label col-md-3">Name</label>
+                            <label className="control-label col-md-3">receiver email</label>
                             <div className="col-md-9">
                                 <Field
-                                name="dSender Name"
+                                name="receiverEmail"
                                 placeholder = "Joh Doe"
                                 type="text"
-                                component={renderField} 
-                                helpText="as appear on reciever Mailbox" /> 
+                                component={renderField}
+                                validate = {[required, allowedEmaill]} 
+                                helpText="as appear on reciever Mailbox" />
+                                
                             </div>
                         </div>
 
@@ -92,6 +146,7 @@ class Register extends React.Component {
                                 <Field
                                 name="dcountry"
                                 type="text"
+                                validate = {required} 
                                 placeholder = "Germany"
                                 component={renderField} />
                                 {/* helpText="A block of help text that breaks onto a new line." /> */}
@@ -105,6 +160,7 @@ class Register extends React.Component {
                                 name="dstreet"
                                 placeholder = "berlinstr.88"
                                 type="text"
+                                validate = {required} 
                                 component={renderField} />
                             </div>
                         </div>
@@ -116,6 +172,7 @@ class Register extends React.Component {
                                 name="dzip"
                                 placeholder = "10235"
                                 type="text"
+                                validate = {required} 
                                 component={renderField} />
                             </div>
                         </div>
@@ -127,7 +184,7 @@ class Register extends React.Component {
                             <div className="col-md-9 checkbox-group">
                                 <Field
                                 name="checkbox1"
-                                type="checkbox"
+                                type="checkbox"                               
                                 label="Heat Sensor"
                                 component={renderField} />
 
@@ -138,7 +195,7 @@ class Register extends React.Component {
                                 component={renderField} />                           
                             </div>
                         </div>
-                        <button type="submit" className="btn btn-fill btn-info">Submit</button>
+                        <button disabled={!valid}  type="submit" className="btn btn-fill btn-info">Submit</button>
                     </form>
                 </div>
             </div>
@@ -146,7 +203,7 @@ class Register extends React.Component {
         )
     }
 }
-
+// disabled={this.state.validate}
 export default reduxForm({
     form: 'formElements'
   })(Register);
