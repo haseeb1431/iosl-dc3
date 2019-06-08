@@ -47,7 +47,7 @@ class TableWithLinks extends Component {
       items: this.state.items.filter(item => item.id !== itemId)
     });
   }
-
+ 
   render() {
     // let { items, isShowingAlert } = this.state;
     return (
@@ -65,8 +65,10 @@ class TableWithLinks extends Component {
                 <th>Post Code</th>
                 <th>City</th>
                 <th>Country</th>
-                <th className="text-right">Arrival Date</th>
-                <th className="text-middle">Details</th>
+                
+                <th className="text-right">Status</th>
+                {/* <th className="text-middle">Details</th> */}
+                <th className="text-right">Reciver</th>
               </tr>
             </thead>
             <tbody>
@@ -82,12 +84,13 @@ class TableWithLinks extends Component {
                   <td>{item.City}</td>
                   <td>{item.Country}</td>
                   <td className="text-right"> {item.ArrivalDate}</td>
-                  <td className="text-middle">
+                  <td className="text-right"> {item.ArrivalDate}</td>
+                  {/* <td className="text-middle">
                       <Link to={`/package/${item.OrderID}`}>
                         <div className="btn btn-info" >info</div>
                       </Link>
                     
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>
