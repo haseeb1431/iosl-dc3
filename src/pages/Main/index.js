@@ -27,6 +27,7 @@ import Detailed from '../Dashboard/Detailed'
 import companyindex from '../Dashboard/companyindex'
 import Login from '../Login'
 import postmanindex from '../Dashboard/postmanIndex'
+import UserSpace from '../Dashboard/UserSpace'
 
 const Main = ({
   mobileNavVisibility,
@@ -53,6 +54,7 @@ const Main = ({
           <Header /> 
           <Route exact path="/" component={Login} />
           <Route exact path="/Dashboard" component={Dashboard} />
+          <Route exact path="/user" component={UserSpace} />
           <Route exact path="/package/:OrderID" component={Detailed} />
           <Route exact path="/company" component={companyindex} />
           <Route exact path="/postman" component={postmanindex} />
