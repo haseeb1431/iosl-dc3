@@ -11,14 +11,14 @@ const required= (value) => {
     }
   }
 
-  const allowedEmail= (value) => {
-    if (this.state.registerUsers.indexOf(value) === -1){
-        return "user is not register"
-    }
-    else{
-        return undefined
-    }
-  }
+//   const allowedEmail= (value) => {
+//     if (this.state.registerUsers.indexOf(value) === -1){
+//         return "user is not register"
+//     }
+//     else{
+//         return undefined
+//     }
+//   }
 
 
 
@@ -55,7 +55,7 @@ class Register extends React.Component {
         console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         console.log(this.props)
         const { handleSubmit , valid } = this.props;
-        const allowedEmaill= (value) => {
+        const allowedEmail= (value) => {
             if (this.state.registerUsers.indexOf(value) === -1){
                 return "user is not register"
             }
@@ -134,7 +134,7 @@ class Register extends React.Component {
                                 placeholder = "Joh Doe"
                                 type="text"
                                 component={renderField}
-                                validate = {[required, allowedEmaill]} 
+                                validate = {[required, allowedEmail]} 
                                 helpText="as appear on reciever Mailbox" />
                                 
                             </div>
