@@ -27,7 +27,7 @@ class Register extends React.Component {
     constructor(){
         super()
         this.state = {
-            registerUsers: ["test"]
+            registerUsers: []
         }
       }
 
@@ -43,7 +43,7 @@ class Register extends React.Component {
             })
             .then((data) => {
                 data.forEach(elemnt => {
-                    this.state.registerUsers.push(elemnt)
+                    this.state.registerUsers.push(elemnt.Email)
                 })                          
             })
             .catch(function(error){
@@ -54,12 +54,14 @@ class Register extends React.Component {
     render(){
         console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         console.log(this.props)
+        console.log(this.state.registerUsers)
         const { handleSubmit , valid } = this.props;
         const allowedEmail= (value) => {
             if (this.state.registerUsers.indexOf(value) === -1){
                 return "user is not register"
             }
             else{
+                console.log("*******" + this.state.registerUsers)
                 return undefined
             }
           }
