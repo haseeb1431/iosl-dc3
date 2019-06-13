@@ -9,7 +9,7 @@ const Forms = ({match}) => (
     <div className="container-fluid">
       <Route path={`${match.url}/regular-forms`} component={RegularForms} />
       <Route path={`${match.url}/extended-forms`} component={ExtendedForms} />
-      <Route path={`${match.url}/validation-forms`} render={props => {
+      <Route path={`${match.url}/incident-form`} render={props => {
         return <IncidentForm {...props} onSubmit={values => alert(JSON.stringify(values, null, 2))}/>
       }} />
     </div>
