@@ -6,7 +6,10 @@ import JobList from "./JobList";
 const Grid = () => (
   <div className="content">
     <div className="container-fluid" />
-    <JobList />
+    <div classname="row">
+      <JobList />
+    </div>
+    <div classname="row" />
   </div>
 );
 
