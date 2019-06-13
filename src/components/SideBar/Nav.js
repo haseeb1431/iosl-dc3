@@ -39,11 +39,11 @@ class Nav extends Component {
           <Collapse in={this.state.formMenuOpen}>
             <div>
               <ul className="nav">
-                <li className={this.isPathActive('/forms/validation-forms') ? 'active' : null}>
-                  <Link to="/forms/validation-forms">Create incident</Link>
+                <li className={this.isPathActive('/forms/incident-form') ? 'active' : null}>
+                  <Link to="/forms/incident-form">Create incident</Link>
                 </li>
-                <li className={this.isPathActive('/Tables/RegularTables') ? 'active' : null}>
-                  <Link to="/Tables/RegularTables">Incidents</Link>
+                <li className={this.isPathActive('/Incidents/viewIncident') ? 'active' : null}>
+                  <Link to="/viewIncident">Incidents</Link>
                 </li>
               </ul>
             </div>
@@ -97,11 +97,11 @@ class Nav extends Component {
           <Collapse in={this.state.formMenuOpen}>
             <div>
               <ul className="nav">
-                <li className={this.isPathActive('/forms/validation-forms') ? 'active' : null}>
-                  <Link to="/forms/validation-forms">Create incident</Link>
+                <li className={this.isPathActive('/forms/incident-form') ? 'active' : null}>
+                  <Link to="/forms/incident-form">Create incident</Link>
                 </li>
-                <li className={this.isPathActive('/Tables/RegularTables') ? 'active' : null}>
-                  <Link to="/Tables/RegularTables">Incidents</Link>
+                <li className={this.isPathActive('/Incidents/viewIncident') ? 'active' : null}>
+                  <Link to="/viewIncident">Incidents</Link>
                 </li>
               </ul>
             </div>
@@ -151,11 +151,11 @@ class Nav extends Component {
           <Collapse in={this.state.formMenuOpen}>
             <div>
               <ul className="nav">
-                <li className={this.isPathActive('/forms/validation-forms') ? 'active' : null}>
-                  <Link to="/forms/validation-forms">Create incident</Link>
+                <li className={this.isPathActive('/forms/incident-form') ? 'active' : null}>
+                  <Link to="/forms/incident-form">Create incident</Link>
                 </li>
-                <li className={this.isPathActive('/Tables/RegularTables') ? 'active' : null}>
-                  <Link to="/Tables/RegularTables">Incidents</Link>
+                <li className={this.isPathActive('/Incidents/viewIncident') ? 'active' : null}>
+                  <Link to="/viewIncident">Incidents</Link>
                 </li>
               </ul>
             </div>

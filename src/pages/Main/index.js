@@ -12,6 +12,7 @@ import ThemeOptions from '../../components/ThemeOptions';
 import MobileMenu from '../../components/MobileMenu';
 import addUser from '../Forms/RegularForms/StackedForm'
 import registerPackage from '../Forms/RegularForms/Register'
+import viewIncident from '../Incidents/index'
 /**
  * Pages
  */
@@ -63,6 +64,7 @@ const Main = ({
           <Route path="/maps" component={MapsPage} />
           <Route path="/registerPackage" component={registerPackage} />
           <Route path="/addUser" component={addUser} />
+          <Route path="/viewIncident" component={viewIncident} />
           
           <Footer />
       </div>
@@ -81,3 +83,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 });
 
 export default withRouter(connect(mapStateToProp, mapDispatchToProps)(Main));
+
