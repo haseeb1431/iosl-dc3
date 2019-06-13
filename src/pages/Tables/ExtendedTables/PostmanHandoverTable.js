@@ -15,7 +15,7 @@ class PostmanHandoverTable extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    fetch("http://localhost:8000/packagesdetails")
+    fetch(global.backendURL+"packagesdetails")
       .then(function(response) {
         if (response.ok) {
           return response.json();
