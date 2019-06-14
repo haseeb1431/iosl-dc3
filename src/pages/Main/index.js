@@ -12,6 +12,8 @@ import ThemeOptions from '../../components/ThemeOptions';
 import MobileMenu from '../../components/MobileMenu';
 import addUser from '../Forms/RegularForms/StackedForm'
 import registerPackage from '../Forms/RegularForms/Register'
+import Active from '../../components/userSpace/Active';
+import UserSpace from '../../components/userSpace/UserSpace'
 /**
  * Pages
  */
@@ -27,7 +29,8 @@ import Detailed from '../Dashboard/Detailed'
 import companyindex from '../Dashboard/companyindex'
 import Login from '../Login'
 import postmanindex from '../Dashboard/postmanIndex'
-import UserSpace from '../Dashboard/UserSpace'
+// import UserSpace from '../Dashboard/UserSpace'
+
 
 const Main = ({
   mobileNavVisibility,
@@ -56,6 +59,7 @@ const Main = ({
           <Route exact path="/Dashboard" component={Dashboard} />
           <Route exact path="/user" component={UserSpace} />
           <Route exact path="/package/:OrderID" component={Detailed} />
+          <Route exact path="/packages/active" component={Active} />
           <Route exact path="/company" component={companyindex} />
           <Route exact path="/postman" component={postmanindex} />
           <Route path="/components" component={Components} />
