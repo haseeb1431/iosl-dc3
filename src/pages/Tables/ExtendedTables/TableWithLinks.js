@@ -83,6 +83,7 @@ class TableWithLinks extends Component {
                   <td>{item.PostCode}</td>
                   <td>{item.City}</td>
                   <td>{item.Country}</td>
+                  <td>{item.Status}</td>
                   <td className="text-right"> {item.ArrivalDate}</td>
                   <td className="text-right"> {item.ArrivalDate}</td>
                   {/* <td className="text-middle">
