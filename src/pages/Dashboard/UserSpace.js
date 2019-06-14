@@ -9,67 +9,102 @@ import Register from '../Forms/RegularForms/Register';
     constructor(){
       super()
       this.state = {
-        api : 'http://localhost:8000/persons',
-        reciverData : false
+        api : 'http://localhost:8000/address',
+        addressID : 0,
+        recieverID: 0
       }
       // this.reciverValidation = this.reciverValidation.bind(this);
       this.submit = this.submit.bind(this);
+      this.addPackage =  this.addPackage.bind(this)
     }
     
 
     submit(values){
-      console.log("values!!!!!!!!!!!!!!!!!!!!!!")
+      console.log("sumbit start")
       console.log(values)
-      // this.reciverValidation(values.receiverEmail)
-      // this.reciverData ? console.log("work") : console.log("bummer")
+      fetch("http://localhost:8000/address", {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "street":values.street,
+	        "city":values.city,
+	        "country": values.country,
+	        "postcode": Number(values.zip)
+        })
+        })
+          .then(res => res.json())
+          .then(data => this.setState({
+            addressID : data.AddressID
+          }))
+          .catch(err => console.log(err))
+      
+      console.log("finish pick up, start destenation " + this.state.addressID)
 
-      // fetch('http://localhost:8000/persons', {
-      //   method: 'POST',
-      //   headers:{
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify({
-      //     fullname:"hhdkjhgjfdk1111",
-      //     email:"alon@hgfdhg.com",
-      //     password:"122121",
-      //     dateofbirth:"2010-04-30T22:00:00.000Z",
-      //   })
-      //   })
-      //     .then(res => res.json())
-      //     .then(data => console.log(data))
-      //     .catch(err => console.log(err))
+      fetch("http://localhost:8000/address", {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "street":values.dstreet,
+          "city":values.dcity,
+          "country": values.dcountry,
+          "postcode": Number(values.dzip)
+        })
+        })
+          .then(res => res.json())
+          .then(data => this.setState({
+            recieverID : data.AddressID
+          }))
+          .then(data => console.log(data))
+          .catch(err => console.log(err))
+
+        console.log("finish destenation " + this.state.recieverID)
+        
       }
 
-    reciverValidation(receiverEmail){
-      console.log(receiverEmail)
-      fetch("http://localhost:8000/persons")
-        .then(function(response){
-          if (response.ok) {
-              return response.json();
-            } 
-            else {
-              throw new Error('NO receiverEmail');
-            }
+    addPackage(){
+      console.log("starting to add package")
+      console.log(this.state.recieverID)
+      console.log(this.state.addressID)
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var yyyy = today.getFullYear();
+      
+      today = mm + '-' + dd + '-' + yyyy;
+      
+      fetch("http://localhost:8000/packages", {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "pickaddressid":this.state.addressID,
+          "dropaddressid":this.state.recieverID,
+          "pickdate": today,
+          "arrivaldate": null,
+          "personid":33,
+          "receieverid":34,
+          "status": "Registered"   
         })
-        .then((data) => {
-              data.forEach(elemnt => {
-                if (elemnt.Email === receiverEmail){
-                  console.log("reciever is a register user" + elemnt.Email)
-                  this.reciverData = true
-                }
-              })                          
         })
-        .catch(function(error){
-            console.log(error)
-        })    
+      return "The package have been registered, thank"
     }
+
+    
       
 
   render(){
+    // if (this.state.addressID){
+    //   this.addPackage() this.state.addressID > 0 && 
+    // }
   return(
           <div className="content">
             <div className="container-fluid">
-              
+            {this.state.recieverID === 0 ? 
               <div className="row">
                 <div className="col-md-6">
                   <TableWithLinks />
@@ -77,7 +112,7 @@ import Register from '../Forms/RegularForms/Register';
                 <div className="col-md-6">
                   <Register onSubmit={this.submit} />
                 </div>
-              </div>
+              </div> : <h2>{this.addPackage()}</h2>}
             </div>
           </div>
     );
