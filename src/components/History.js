@@ -14,8 +14,9 @@ class History extends Component {
 
 
   componentDidMount() {
+    const userID = 33
     this.setState({ isLoading: true });   
-    fetch("http://localhost:8000/packagesdetails")
+    fetch("http://localhost:8000/packages/user/" + userID)
       .then(function(response){
         if (response.ok) {
             return response.json();
@@ -47,12 +48,11 @@ class History extends Component {
   }
  
   render() {
-    // let { items, isShowingAlert } = this.state;
+ 
     return (
       <div className="card">
         <div className="header">
           <h4 className="title">User Packages</h4>
-          {/* <p className="category">Here is a subtitle for this table</p> */}
         </div>
         <div className="content table-responsive table-full-width">
           <table className="table table-hover table-striped">
@@ -63,9 +63,7 @@ class History extends Component {
                 <th>Post Code</th>
                 <th>City</th>
                 <th>Country</th>
-                
                 <th className="text-right">Status</th>
-                {/* <th className="text-middle">Details</th> */}
                 <th className="text-right">Reciver</th>
               </tr>
             </thead>
@@ -73,17 +71,15 @@ class History extends Component {
               {this.state.items.map(item => (
                 <tr key={item.OrderID} >
                   <td><Link to={`/package/${item.OrderID}`} style={{color: 'blue'}}>
-                      {/* <i className="pe-7s-graph"></i> */}
                       {item.OrderID}
                       </Link>
                   </td>
-                  <td>{item.StreetAddress}</td>
-                  <td>{item.PostCode}</td>
-                  <td>{item.City}</td>
-                  <td>{item.Country}</td>
+                  <td>{item.dropstreetaddress}</td>
+                  <td>{item.droppostcode}</td>
+                  <td>{item.dropcity}</td>
+                  <td>{item.dropcountry}</td>
                   <td>{item.Status}</td>
-                  <td className="text-right"> {item.ArrivalDate}</td>
-                  <td className="text-right"> {item.ArrivalDate}</td>
+                  <td className="text-right"> {item.PickDate}</td>
                   {/* <td className="text-middle">
                       <Link to={`/package/${item.OrderID}`}>
                         <div className="btn btn-info" >info</div>
