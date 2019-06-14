@@ -11,48 +11,78 @@ const required= (value) => {
     }
   }
 
-//   const allowedEmail= (value) => {
-//     if (this.state.registerUsers.indexOf(value) === -1){
-//         return "user is not register"
-//     }
-//     else{
-//         return undefined
-//     }
-//   }
-
-
-
-
 class Register extends React.Component {
     constructor(){
         super()
         this.state = {
-            registerUsers: []
+            registerUsers: [],
+            verifyName : "user is not register"
         }
-      }
+        // this.verify = this.verify.bind(this)
+        // this.allowedEmail = this.allowedEmail.bind(this)
 
-      componentDidMount(){
-        fetch("http://localhost:8000/persons")
-            .then(function(response){
-            if (response.ok) {
-                return response.json();
-                } 
-                else {
-                throw new Error('NO receiverEmail');
-                }
-            })
-            .then((data) => {
-                data.forEach(elemnt => {
-                    this.state.registerUsers.push(elemnt.Email)
-                })                          
-            })
-            .catch(function(error){
-                console.log(error)
-            })    
     }
 
+    componentDidMount(){
+    fetch("http://localhost:8000/persons")
+        .then(function(response){
+        if (response.ok) {
+            return response.json();
+            } 
+            else {
+            throw new Error('NO receiverEmail');
+            }
+        })
+        .then((data) => {
+            data.forEach(elemnt => {
+                this.state.registerUsers.push(elemnt.Email)
+            })                          
+        })
+        .catch(function(error){
+            console.log(error)
+        })    
+    }
+
+    // verify(value){
+    //     console.log(value)
+    //     console.log("verify")
+    //     fetch("http://localhost:8000/persons/exists/" + value)
+    //     .then(function(response){
+    //     if (response.ok) {
+    //         return response.json();
+    //         } 
+    //         else {
+    //         throw new Error('NO receiverEmail');
+    //         }
+    //     })
+    //     .then((data) => {
+    //         console.log(data)
+    //         if (data === undefined || data.length === 0) {
+    //             console.log("false")
+    //             // this.setState({verifyName :"user is not register"})
+    //             this.setState({verifyName :false})
+    //         }
+    //         else{
+    //             console.log("ture, return nudefined")
+    //             // this.setState({verifyName :undefined})
+    //             this.setState({verifyName :true})   
+    //         }                 
+    //     })
+
+    //     // return this.state.verifyName
+    // }
+
+    // allowedEmail(value){
+    //     if (!this.state.verifyName){
+    //         return "user is not register"
+    //     }
+    //     else{
+    //         return undefined
+    //     }
+    // }
+
     render(){
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log("!!! rendering again!!!")
         console.log(this.props)
         console.log(this.state.registerUsers)
         const { handleSubmit , valid } = this.props;
@@ -65,6 +95,8 @@ class Register extends React.Component {
                 return undefined
             }
           }
+        
+        
         return(
             <div className="card">
                 <div className="header">
@@ -102,7 +134,19 @@ class Register extends React.Component {
                         </div>
 
                         <div className="form-group">
-                        <label className="control-label col-md-3">street</label>
+                        <label className="control-label col-md-3">City</label>
+                        <div className="col-md-9">
+                            <Field
+                            name="city"
+                            placeholder = "Berlin"
+                            type="text"
+                            validate = {required} 
+                            component={renderField} />
+                        </div>
+                        </div>
+
+                        <div className="form-group">
+                        <label className="control-label col-md-3">Street</label>
                         <div className="col-md-9">
                             <Field
                             name="street"
@@ -136,6 +180,7 @@ class Register extends React.Component {
                                 placeholder = "Joh Doe"
                                 type="text"
                                 component={renderField}
+                                onCj
                                 validate = {[required, allowedEmail]} 
                                 helpText="as appear on reciever Mailbox" />
                                 
@@ -153,6 +198,18 @@ class Register extends React.Component {
                                 component={renderField} />
                                 {/* helpText="A block of help text that breaks onto a new line." /> */}
                             </div>
+                        </div>
+
+                        <div className="form-group">
+                        <label className="control-label col-md-3">City</label>
+                        <div className="col-md-9">
+                            <Field
+                            name="dcity"
+                            placeholder = "Berlin"
+                            type="text"
+                            validate = {required} 
+                            component={renderField} />
+                        </div>
                         </div>
 
                         <div className="form-group">
