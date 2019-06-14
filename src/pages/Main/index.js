@@ -11,9 +11,10 @@ import SideBar from '../../components/SideBar';
 import ThemeOptions from '../../components/ThemeOptions';
 import MobileMenu from '../../components/MobileMenu';
 import addUser from '../Forms/RegularForms/StackedForm'
-import registerPackage from '../Forms/RegularForms/Register'
+import registerPackage from '../../components/userSpace/Register'
 import Active from '../../components/userSpace/Active';
 import UserSpace from '../../components/userSpace/UserSpace'
+import Detailed from '../../components/userSpace/Detailed'
 /**
  * Pages
  */
@@ -25,7 +26,6 @@ import Forms from '../Forms';
 import Charts from '../Charts';
 import Calendar from '../Calendar';
 import Tables from '../Tables';
-import Detailed from '../Dashboard/Detailed'
 import companyindex from '../Dashboard/companyindex'
 import Login from '../Login'
 import postmanindex from '../Dashboard/postmanIndex'
