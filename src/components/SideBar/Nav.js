@@ -11,21 +11,22 @@ class Nav extends Component {
   }
 
   state = {
-    persontype:1
-  };
+    /*persontype: global.persontype */
+    persontype: 1
+   };
 
   render() {
     let { location } = this.props;
-    let qs = this.props.location.search.substr(1);
-    this.state.persontype = qs.split('=')[1];
+    /*let qs = this.props.location.search.substr(1);
+    this.state.persontype = qs.split('=')[1];*/
     
-    const isUser = this.state.persontype==1;
+  
 
     if (this.state.persontype == 1) {
       //User Navigation bar
       return (
         <ul className="nav">
-          <li className={location.pathname === '/' ? 'active' : null}>
+          <li className={location.pathname === '/Dashboard' ? 'active' : null}>
             <Link to="/Dashboard">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>

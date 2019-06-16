@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
+import { Alert } from "react-bootstrap";
+import { len } from "gl-matrix/src/gl-matrix/vec3";
+import SetPersonType from '../globals'
+
 
 export default class Login extends Component {
   constructor(props) {
@@ -8,7 +12,8 @@ export default class Login extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      loginFailed: false
     };
   }
 
@@ -22,20 +27,43 @@ export default class Login extends Component {
     });
   }
 
+  checkLogin = async (email, password) => {
+    let self = this;
+    fetch('http://localhost:8000/login', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'email': email,
+        'password': password,
+      })
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      if (data.length > 0) {
+        self.setState({ loginfailed: false });
+        <SetPersonType PersonType="#" Email='#' ID='#' />;
+        if(global.Persontype == 1){
+          self.props.history.push('/Dashboard');          
+        }
+        else if(global.Persontype == 2){
+          self.props.history.push('/postman');
+        }
+        else
+        {
+          self.props.history.push('/company');
+        } 
+      }
+      else {
+        self.setState({ loginfailed: true });
+      };
+    });
+  }
+
   handleSubmit = event => {
     event.preventDefault();
-    //TODO
-    if(this.state.email == "admin@dhl.com"){
-      this.props.history.push('/company');
-    }
-    else if(this.state.email == "postman@dhl.com"){
-      this.props.history.push('/postman');
-    }
-    else
-    {
-      this.props.history.push('/Dashboard');
-    }
-    
+    this.checkLogin(this.state.email, this.state.password);
   }
 
   render() {
@@ -68,6 +96,9 @@ export default class Login extends Component {
             Login
           </Button>
         </form>
+        <Alert variant="danger" className={this.state.loginfailed ? 'visible' : 'hidden'}>
+          Login failed, Please try again
+          </Alert>
       </div>
     );
   }
