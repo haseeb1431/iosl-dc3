@@ -29,7 +29,7 @@ import Tables from '../Tables';
 import companyindex from '../Dashboard/companyindex'
 import Login from '../Login'
 import postmanindex from '../Dashboard/postmanIndex'
-// import UserSpace from '../Dashboard/UserSpace'
+
 
 
 const Main = ({
@@ -57,9 +57,10 @@ const Main = ({
           <Header /> 
           <Route exact path="/" component={Login} />
           <Route exact path="/Dashboard" component={Dashboard} />
-          <Route exact path="/user" component={UserSpace} />
+          <Route exact path="/packages" component={UserSpace} />
           <Route exact path="/package/:OrderID" component={Detailed} />
           <Route exact path="/packages/active" component={Active} />
+          <Route path="/packages/registerPackage" component={registerPackage} />
           <Route exact path="/company" component={companyindex} />
           <Route exact path="/postman" component={postmanindex} />
           <Route path="/components" component={Components} />
@@ -67,7 +68,6 @@ const Main = ({
           <Route path="/forms" component={Forms} />
           <Route path="/tables" component={Tables} />
           <Route path="/maps" component={MapsPage} />
-          <Route path="/registerPackage" component={registerPackage} />
           <Route path="/addUser" component={addUser} />
           
           <Footer />
