@@ -2,15 +2,27 @@ import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
 
+import TwitterLogin from 'react-twitter-auth';
+import FacebookLogin from 'react-facebook-login';
+import { GoogleLogin } from 'react-google-login';
+//https://medium.com/@alexanderleon/implement-social-authentication-with-react-restful-api-9b44f4714fa
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      isAuthenticated: false,
+      user: null, //store it in the memroy to make it persisent across session
+      token: ''
     };
   }
+
+  logout = () => {
+    this.setState({ isAuthenticated: false, token: '', user: null })
+  };
 
   validateForm() {
     return this.state.email.length > 0 && this.state.password.length > 0;
@@ -25,49 +37,94 @@ export default class Login extends Component {
   handleSubmit = event => {
     event.preventDefault();
     //TODO
-    if(this.state.email == "admin@dhl.com"){
+    if (this.state.email == "admin@dhl.com") {
       this.props.history.push('/company');
     }
-    else if(this.state.email == "postman@dhl.com"){
+    else if (this.state.email == "postman@dhl.com") {
       this.props.history.push('/postman');
     }
-    else
-    {
+    else {
       this.props.history.push('/Dashboard');
     }
-    
+  }
+
+  render1() {
+
   }
 
   render() {
+    let content = this.state.isAuthenticated ?
+      (
+        <div>
+          <p>Authenticated</p>
+          <div>
+            {this.state.user.email}
+          </div>
+          <div>
+            <button onClick={this.logout} className="button">
+              Log out
+                    </button>
+          </div>
+        </div>
+      ) :
+      (
+        <div>
+          <TwitterLogin loginUrl="http://localhost:4000/api/v1/auth/twitter"
+            onFailure={this.twitterResponse} onSuccess={this.twitterResponse}
+            requestTokenUrl="http://localhost:4000/api/v1/auth/twitter/reverse" />
+          
+          <FacebookLogin
+            appId="XXXXXXXXXX"
+            autoLoad={false}
+            fields="name,email,picture"
+            callback={this.facebookResponse} />
+          
+          <GoogleLogin
+            clientId="XXXXXXXXXX"
+            buttonText="Login"
+            onSuccess={this.googleResponse}
+            onFailure={this.googleResponse}
+          />
+        </div>
+      );
+
     return (
-      <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email" bsSize="large">
-            <ControlLabel>Email</ControlLabel>
-            <FormControl
-              autoFocus
-              type="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              value={this.state.password}
-              onChange={this.handleChange}
-              type="password"
-            />
-          </FormGroup>
-          <Button
-            block
-            bsSize="large"
-            disabled={!this.validateForm()}
-            type="submit"
-          >
-            Login
-          </Button>
-        </form>
+      <div>
+        <div className="Login">
+          <form onSubmit={this.handleSubmit}>
+            <FormGroup controlId="email" bsSize="large">
+              <ControlLabel>Email</ControlLabel>
+              <FormControl
+                autoFocus
+                type="email"
+                value={this.state.email}
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup controlId="password" bsSize="large">
+              <ControlLabel>Password</ControlLabel>
+              <FormControl
+                value={this.state.password}
+                onChange={this.handleChange}
+                type="password"
+              />
+            </FormGroup>
+            <Button
+              block
+              bsSize="large"
+              disabled={!this.validateForm()}
+              type="submit"
+            >
+              Login
+            </Button>
+          </form>
+        </div>
+
+        <div>
+          <div className="App">
+            {content}
+          </div>
+        </div>
       </div>
     );
   }
