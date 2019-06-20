@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactChartist from 'react-chartist';
-import Chartist from 'chartist';
+import React from "react";
+import ReactChartist from "react-chartist";
+//import Chartist from "chartist";
 
 const dataPreferences = {
-  labels: ['62%','32%','6%'],
-  series: [62, 32, 6]
+  labels: ["62%", "38%"],
+  series: [62, 38]
 };
 
 const optionsPreferences = {
@@ -26,17 +26,20 @@ const optionsPreferences = {
 const PublicPreference = () => (
   <div className="card">
     <div className="header">
-      <h4>Public Preferences</h4>
-      <p className="category">Pie Chart</p>
+      <h4>Job Statistics</h4>
     </div>
     <div className="content">
-      <ReactChartist data={dataPreferences} options={optionsPreferences} type="Pie" className="ct-chart" />
+      <ReactChartist
+        data={dataPreferences}
+        options={optionsPreferences}
+        type="Pie"
+        className="ct-chart"
+      />
     </div>
     <div className="footer">
       <h6>Legend</h6>
-      <i className="fa fa-circle text-info"></i> Apple
-      <i className="fa fa-circle text-warning"></i> Samsung
-      <i className="fa fa-circle text-danger"></i> Windows Phone
+      <i className="fa fa-circle text-info" /> Completed
+      <i className="fa fa-circle text-danger" /> Pending
     </div>
   </div>
 );
