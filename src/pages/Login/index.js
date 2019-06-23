@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
 
-import TwitterLogin from 'react-twitter-auth';
-import FacebookLogin from 'react-facebook-login';
 import { GoogleLogin } from 'react-google-login';
 //https://medium.com/@alexanderleon/implement-social-authentication-with-react-restful-api-9b44f4714fa
 
@@ -18,10 +16,22 @@ export default class Login extends Component {
       user: null, //store it in the memroy to make it persisent across session
       token: ''
     };
-  }
+  };
 
-  logout = () => {
+   logout = () => {
     this.setState({ isAuthenticated: false, token: '', user: null })
+  };
+
+  googleResponse = (response) => {
+    
+    localStorage.setItem('googleAuth', JSON.stringify(response));
+    this.setState({
+      isAuthenticated: true,
+      token: response.accessToken,
+      user: response.profileObj
+    });
+
+    debugger;
   };
 
   validateForm() {
@@ -68,19 +78,9 @@ export default class Login extends Component {
         </div>
       ) :
       (
-        <div>
-          <TwitterLogin loginUrl="http://localhost:4000/api/v1/auth/twitter"
-            onFailure={this.twitterResponse} onSuccess={this.twitterResponse}
-            requestTokenUrl="http://localhost:4000/api/v1/auth/twitter/reverse" />
-          
-          <FacebookLogin
-            appId="XXXXXXXXXX"
-            autoLoad={false}
-            fields="name,email,picture"
-            callback={this.facebookResponse} />
-          
+        <div>          
           <GoogleLogin
-            clientId="XXXXXXXXXX"
+            clientId="204559914410-83fsef9pb97suhi6o550uqeo2utb8591.apps.googleusercontent.com"
             buttonText="Login"
             onSuccess={this.googleResponse}
             onFailure={this.googleResponse}
