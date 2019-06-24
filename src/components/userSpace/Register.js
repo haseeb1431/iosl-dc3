@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import renderField from 'components/FormInputs/renderField';
+import RangeBar from './RangeBar'
 
 const required= (value) => {
     if (!value || value === ""){
@@ -11,16 +12,42 @@ const required= (value) => {
     }
   }
 
+
+
 class Register extends React.Component {
     constructor(){
         super()
         this.state = {
             registerUsers: [],
-            verifyName : "user is not register"
+            verifyName : "user is not register",
+            checkedTemp: false,
+            checkedShock: false,
+            validCheckBox: false,
+            
+            
         }
         // this.verify = this.verify.bind(this)
         // this.allowedEmail = this.allowedEmail.bind(this)
+        this.handleChange = this.handleChange.bind(this)
 
+    }
+
+    handleCheckboxChange = event =>{
+    if (event.target.name === "shock"){
+        this.setState(
+            { checkedShock: event.target.checked })
+    }
+    else{
+        this.setState(
+            { checkedTemp: event.target.checked })
+    }
+}
+
+    handleChange(event) {
+        const {name, value} = event.target
+        this.setState({
+            [name]: value
+        }) 
     }
 
     componentDidMount(){
@@ -95,6 +122,10 @@ class Register extends React.Component {
                 return undefined
             }
           }
+
+        const minValue = min => value =>
+        value && value < min ? `Must be at least ${min}` : undefined
+        const minValue13 = minValue(0)
         
         
         return(
@@ -242,21 +273,68 @@ class Register extends React.Component {
                             <label className="control-label col-md-3">Sensors</label>
                             <div className="col-md-9 checkbox-group">
                                 <Field
-                                name="checkbox1"
+                                name="Temp"
                                 type="checkbox"                               
                                 label="Heat Sensor"
+                                onChange={this.handleCheckboxChange}
                                 component={renderField} />
+                                
+                                { !this.state.checkedTemp ? null : <RangeBar tempVal={this.props.tempertureValues} temperatureChange={this.props.tempChange} />}
 
                                 <Field
-                                name="checkbox2"
+                                name="shock"
                                 type="checkbox"
-                                label="Pressure Sensors"
-                                component={renderField} />                           
+                                label="Shock sensor"
+                                onChange={this.handleCheckboxChange}
+                                component={renderField} />  
+
+                                { 
+                                !this.state.checkedShock ? null : 
+                                    <div>
+                                            <label>LIght:</label>
+                                            <br />
+                                            <input 
+                                                name="light"
+                                                type="number" 
+                                                value={this.props.light} 
+                                                onChange={this.props.handleChange} 
+                                                min="0"
+                                                max="1000"
+                                                 
+                                                />
+                                            <br />
+
+                                            <label>Heavy:</label>
+                                            <br />
+                                            <input 
+                                                name="heavy"
+                                                type="number" 
+                                                value={this.props.heavy} 
+                                                onChange={this.props.handleChange} 
+                                                min="0"
+                                                max="1000"
+                                                />
+                                            <br />
+
+                                            <label>Severe:</label>
+                                            <br />
+                                            <input 
+                                                name="severe"
+                                                type="number" 
+                                                value={this.props.severe} 
+                                                onChange={this.props.handleChange} 
+                                                min="0"
+                                                max="1000"
+                                                />
+                                            <br />
+                                    </div>
+                                }                         
                             </div>
                         </div>
                         <button disabled={!valid}  type="submit" className="btn btn-fill btn-info">Submit</button>
                     </form>
                 </div>
+                
             </div>
 
         )

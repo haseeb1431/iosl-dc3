@@ -6,22 +6,45 @@ import Register from './Register';
 
 
   class UserSpace extends React.Component{
-    constructor(){
-      super()
+    constructor(props){
+      super(props)
       this.state = {
         api : 'http://localhost:8000/address',
         addressID : 0,
-        recieverID: 0
+        recieverID: 0,
+        light: 0,
+        heavy: 0,
+        severe: 0,
+        tempValues : [2 , 4],
+         
       }
       // this.reciverValidation = this.reciverValidation.bind(this);
       this.submit = this.submit.bind(this);
       this.addPackage =  this.addPackage.bind(this)
+      this.handleChange =  this.handleChange.bind(this)
+      this.TempChange =  this.TempChange.bind(this)
     }
+
+    handleChange(event) { 
+      const {name, value} = event.target
+      console.log(name, value)
+      this.setState({
+          [name]: value
+      })
+  }
+
+    TempChange(value) { 
+      console.log(value)
+      this.setState({
+        tempValues: value
+      })
+  }
     
 
     submit(values){
       console.log("sumbit start")
       console.log(values)
+      console.log(this.state)
       fetch("http://localhost:8000/address", {
         method: 'POST',
         headers:{
@@ -110,9 +133,15 @@ import Register from './Register';
                   <TableWithLinks />
                 </div>
                 <div className="col-md-6">
-                  <Register onSubmit={this.submit} />
+                  <Register 
+                    onSubmit={this.submit} 
+                    light={this.state.light} 
+                    tempertureValues={this.state.tempValues}
+                    tempChange={this.TempChange}
+                    handleChange={this.handleChange} />
                 </div>
-              </div> : <h2>{this.addPackage()}</h2>}
+              </div> : 
+                <h2>{this.addPackage()}</h2>}
             </div>
           </div>
     );
