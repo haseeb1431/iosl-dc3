@@ -18,20 +18,44 @@ export default class Login extends Component {
     };
   };
 
-   logout = () => {
+  logout = () => {
     this.setState({ isAuthenticated: false, token: '', user: null })
+  };
+  sendRequest = () => {
+
+    var response = JSON.parse(localStorage.getItem('googleAuth'))
+    const tokenBlob = new Blob([JSON.stringify({ access_token: response.accessToken }, null, 2)], { type: 'application/json' });
+
+    const options = {
+      method: 'POST',
+      body: tokenBlob,
+      mode: 'cors',
+      cache: 'default'
+    };
+    
+    fetch('http://localhost:8000/auth/google', options).then(resp => {
+
+      if (resp.status < 400) {
+        debugger; //TODO
+        const token = resp.headers.get('x-auth-token');
+        resp.json().then(user => {
+          if (token) {
+            this.setState({ isAuthenticated: true, user, token })
+          }
+        });
+      }
+    });
   };
 
   googleResponse = (response) => {
-    
+
+    //use session storage
     localStorage.setItem('googleAuth', JSON.stringify(response));
     this.setState({
       isAuthenticated: true,
       token: response.accessToken,
       user: response.profileObj
     });
-
-    debugger;
   };
 
   validateForm() {
@@ -58,10 +82,6 @@ export default class Login extends Component {
     }
   }
 
-  render1() {
-
-  }
-
   render() {
     let content = this.state.isAuthenticated ?
       (
@@ -70,6 +90,13 @@ export default class Login extends Component {
           <div>
             {this.state.user.email}
           </div>
+
+          <div>
+            <button onClick={this.sendRequest} className="button">
+              Request to Server
+                    </button>
+          </div>
+
           <div>
             <button onClick={this.logout} className="button">
               Log out
@@ -78,7 +105,7 @@ export default class Login extends Component {
         </div>
       ) :
       (
-        <div>          
+        <div>
           <GoogleLogin
             clientId="204559914410-83fsef9pb97suhi6o550uqeo2utb8591.apps.googleusercontent.com"
             buttonText="Login"
@@ -121,7 +148,7 @@ export default class Login extends Component {
         </div>
 
         <div>
-          <div className="App">
+          <div className="Login">
             {content}
           </div>
         </div>
