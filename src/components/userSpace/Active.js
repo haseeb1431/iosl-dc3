@@ -63,7 +63,7 @@ class Active extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        "Status":"canceled",
+        "Status":"Canceled",
         "PickAddressID":item.PickAddressID,
         "PickDate":item.PickDate,
         "PersonID":item.PersonID,
