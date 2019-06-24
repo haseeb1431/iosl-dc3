@@ -41,24 +41,27 @@ export default class Login extends Component {
     }).then(function (response) {
       return response.json();
     }).then(function (data) {
-      if (data.length > 0) {
-        self.setState({ loginfailed: false });
-        <SetPersonType PersonType="#" Email='#' ID='#' />;
-        if(global.Persontype == 1){
-          self.props.history.push('/Dashboard');          
+
+      if (data && data.length > 0) {
+
+        let user = data[0];
+        SetPersonType(user);
+
+        switch (global.PersonType) {
+
+          case 1: self.props.history.push('/Dashboard'); break;
+          case 2: self.props.history.push('/company'); break;
+          case 3: self.props.history.push('/postman'); break;
+          default:
+            self.setState({ loginfailed: true });
+            break;
         }
-        else if(global.Persontype == 2){
-          self.props.history.push('/postman');
-        }
-        else
-        {
-          self.props.history.push('/company');
-        } 
       }
       else {
         self.setState({ loginfailed: true });
       };
     });
+
   }
 
   handleSubmit = event => {

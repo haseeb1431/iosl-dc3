@@ -7,13 +7,13 @@ import { stat } from 'fs';
 class Nav extends Component {
 
   constructor(props){
-    super(props)
-  }
+    super(props);
 
-  state = {
-    /*persontype: global.persontype */
-    persontype: 1
-   };
+    this.state = {
+      persontype : 1
+      /*persontype : global.PersonType*/
+    }
+  }
 
   render() {
     let { location } = this.props;
@@ -53,6 +53,8 @@ class Nav extends Component {
         </ul>
       );
     }
+    
+
     else if(this.state.persontype == 2){
       //Company
       return (
@@ -111,7 +113,7 @@ class Nav extends Component {
         </ul>
       );
     }
-    else{
+    else if (this.state.persontype == 3){
       //PostMan
       return (
 <ul className="nav">
