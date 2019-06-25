@@ -1,4 +1,4 @@
-//User dashboard file
+//Company dashboard file
 
 import React from 'react';
 //import EmailChart from './EmailChart';
@@ -6,6 +6,7 @@ import React from 'react';
 //import UserBehaviorChart from './UserBehaviorChart';
 import Tasks from './Tasks';
 import TableWithLinks from '../Tables/ExtendedTables/TableWithLinks';
+import UserTableWithLinks from '../Tables/ExtendedTables/UserTableWithLinks';
 import FormElements from '../Forms/RegularForms/FormElements';
 import Register from '../Forms/RegularForms/Register';
 import VectorMap from '../MapsPage/VectorMap';
@@ -13,36 +14,13 @@ import VectorMap from '../MapsPage/VectorMap';
 
 
 // const Dashboard = () => (
-  class Dashboard extends React.Component{
+  class CompanyDashboard extends React.Component{
     constructor(){
       super()
       this.state = {
       }
     }
     
-    // {
-    //   userid:,
-    //   pickup:{
-    //     name:
-    //     pickupaddress:{
-    //       'street':''
-    //       country:
-    //       zip:
-    //       city:
-    //     }
-    //   },
-    //   drop:{
-    //     name:
-    //     email:
-    //     pickupaddress:{
-    //       'street':''
-    //       country:
-    //       zip:
-    //       city:
-    //     }
-    //   }
-
-
    
 
 
@@ -75,6 +53,7 @@ import VectorMap from '../MapsPage/VectorMap';
               <div className="row">
                 <div className="col-md-6">
                   <TableWithLinks />
+                  <UserTableWithLinks />
                 </div>
                 <div className="col-md-6">
                   <Register onSubmit={this.submit} />
@@ -98,4 +77,4 @@ import VectorMap from '../MapsPage/VectorMap';
   }
 }
 
-export default Dashboard;
+export default CompanyDashboard;

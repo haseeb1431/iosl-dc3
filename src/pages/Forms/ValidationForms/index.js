@@ -14,11 +14,14 @@ const validate = values => {
   if (values.number && _.isNaN(values.number)) {
     errors.number = 'Please enter a number';
   }
-  if (values.url && !/^https?:\/\//i.test(values.url)) {
-    errors.url = 'Please enter a valid URL';
+  if (values.number1 && _.isNaN(values.number1)) {
+    errors.number1 = 'Please enter a number';
   }
-  if (values.equal1 && values.equal1 !== values.equal2) {
-    errors.equal2 = 'Does not match';
+  if (!values.required1) {
+    errors.required1 = 'This field is required';
+  }
+  if (!values.required2) {
+    errors.required2 = 'This field is required';
   }
   return errors;
 }
@@ -30,11 +33,11 @@ const ValidationForm = ({
     <div className="row">
       <div className="col-md-12">
         <div className="card">
-          <div className="header"><h4>Validation</h4></div>
+          <div className="header"><h4>Create Incident</h4></div>
           <form className="form-horizontal" onSubmit={handleSubmit(onSubmit)}>
             <div className="content">
               <div className="form-group">
-                <label className="col-sm-3 control-label">Required text</label>
+                <label className="col-sm-3 control-label">Issue Description</label>
                 <div className="col-sm-9">
                   <Field
                     type="text"
@@ -54,40 +57,25 @@ const ValidationForm = ({
               </div>
 
               <div className="form-group">
-                <label className="col-sm-3 control-label">Number</label>
+                <label className="col-sm-3 control-label">Package ID</label>
                 <div className="col-sm-9">
                   <Field
-                    type="text"
-                    name="number"
+                    type="number"
+                    name="required1"
                     component={renderField} />
                 </div>
               </div>
 
               <div className="form-group">
-                <label className="col-sm-3 control-label">URL</label>
+                <label className="col-sm-3 control-label">Sensor ID</label>
                 <div className="col-sm-9">
                   <Field
-                    type="text"
-                    name="url"
+                    type="number"
+                    name="required2"
                     component={renderField} />
                 </div>
               </div>
 
-              <div className="form-group">
-                <label className="col-sm-3 control-label">Equal to</label>
-                <div className="col-sm-4">
-                  <Field
-                    type="text"
-                    name="equal1"
-                    component={renderField} />
-                </div>
-                <div className="col-sm-5">
-                  <Field
-                    type="text"
-                    name="equal2"
-                    component={renderField} />
-                </div>
-              </div>
             </div>
             <div className="footer text-center">
               <button type="submit" className="btn btn-info btn-fill">Submit</button>
