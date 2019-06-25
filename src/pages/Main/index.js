@@ -26,7 +26,6 @@ import Calendar from '../Calendar';
 import Tables from '../Tables';
 import Detailed from '../Dashboard/Detailed'
 import companyindex from '../Dashboard/companyindex'
-import Login from '../Login'
 import postmanindex from '../Dashboard/postmanIndex'
 import Register from '../RegisterUser'
 import RegisterUser from '../RegisterUser';
@@ -41,7 +40,19 @@ const Main = ({
       hideMobileMenu();
     }
   });
-  const isUserloggedIn=true;
+  
+  //Determine which page needs to be shown as dashboard
+  var userHome=Dashboard;
+  const userObj = JSON.parse(sessionStorage.getItem('userAuth'));
+  if (userObj) {
+    if (userObj.PersonType==3) {
+      userHome= postmanindex
+    }
+    else if(userObj.PersonType==2){
+      userHome = companyindex
+    }
+  }
+
   return (
        <div className={cx({
       'nav-open': mobileNavVisibility === true
@@ -53,9 +64,9 @@ const Main = ({
 
         <div className="main-panel">
         
-          <Header /> 
-          <Route exact path="/" component={Login} />
-          <Route exact path="/Dashboard" component={Dashboard} />
+          <Header />          
+          <Route exact path="/" component={userHome} />  
+          <Route exact path="/user" component={Dashboard} />  
           <Route exact path="/package/:OrderID" component={Detailed} />
           <Route exact path="/company" component={companyindex} />
           <Route exact path="/postman" component={postmanindex} />

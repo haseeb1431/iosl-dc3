@@ -3,9 +3,17 @@ import { connect } from 'react-redux';
 import { toggleMobileNavVisibility } from '../../reducers/Layout';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormControl } from 'react-bootstrap';
 
+
+const handleLogout = () => {
+  localStorage.removeItem('userAuthToken');
+  global.isAuthenticated = false;
+  //TODO Redirect to home page
+}
+
 const Header = ({
   showMobileMenu,
-  toggleMobileNavVisibility
+  toggleMobileNavVisibility,
+  handleLogout
 }) => (
   <Navbar fluid={true}>
   <Navbar.Header>
@@ -23,10 +31,14 @@ const Header = ({
         <Navbar.Form pullLeft>
         </Navbar.Form>
         <Nav pullRight>
+          <NavItem>Account</NavItem>
+          <NavItem onClick={handleLogout} >Log out</NavItem>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
   );
+
+
 
 const mapDispatchToProp = dispatch => ({
   toggleMobileNavVisibility: () => dispatch(toggleMobileNavVisibility())

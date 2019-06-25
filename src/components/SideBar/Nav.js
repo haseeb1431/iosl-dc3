@@ -7,21 +7,24 @@ import { stat } from 'fs';
 class Nav extends Component {
 
   constructor(props){
-    super(props);
+    super(props)
 
-    this.state = {
-      persontype : 1
-      /*persontype : global.PersonType*/
+    this.state={
+      persontype:1 //fall back to minimum functionality
     }
   }
+  
 
   render() {
     let { location } = this.props;
-    /*let qs = this.props.location.search.substr(1);
-    this.state.persontype = qs.split('=')[1];*/
-    
-  
 
+    //check the logged in user and render the menu accordingly
+    var userObj = JSON.parse(sessionStorage.getItem('userAuth'));
+    if (userObj && userObj.PersonType) {
+      this.state.persontype = userObj.PersonType;
+    }
+
+    debugger;
     if (this.state.persontype == 1) {
       //User Navigation bar
       return (
