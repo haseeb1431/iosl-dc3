@@ -4,9 +4,9 @@ import registerServiceWorker from './registerServiceWorker';
 import { HashRouter } from 'react-router-dom';
 import './assets/styles/base.scss';
 import 'sweetalert/dist/sweetalert.css';
-import Main from './pages/Main';
 import configureStore from './config/configureStore';
 import { Provider } from 'react-redux';
+import LandingPage from './pages/Login';
 
 const store = configureStore();
 const rootElement = document.getElementById('root');
@@ -22,11 +22,12 @@ const renderApp = Component => {
   );
 };
 
-renderApp(Main);
+
+renderApp(LandingPage);
 
 if (module.hot) {
-  module.hot.accept('./pages/Main', () => {
-    const NextApp = require('./pages/Main').default
+  module.hot.accept('./pages/Login', () => {
+    const NextApp = require('./pages/Login').default
     renderApp(NextApp);
   });
 }
