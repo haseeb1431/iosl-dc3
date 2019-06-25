@@ -78,7 +78,7 @@ export default class Login extends Component {
     });
   }
 
-  checkLogin = async (email, password) => {
+  /*checkLogin = async (email, password) => {
     let self = this;
     fetch('http://localhost:8000/login', {
       method: 'post',
@@ -127,7 +127,7 @@ export default class Login extends Component {
     else {
       this.props.history.push('/Dashboard');
     }
-  }
+  }*/
 
   render() {
     
