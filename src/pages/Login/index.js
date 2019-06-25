@@ -69,6 +69,11 @@ export default class Login extends Component {
     this.checkLogin(this.state.email, this.state.password);
   }
 
+  handleRegister = event => {
+    event.preventDefault();
+    this.props.history.push('/RegisterUser')
+  }
+
   render() {
     return (
       <div className="Login">
@@ -98,10 +103,23 @@ export default class Login extends Component {
           >
             Login
           </Button>
-        </form>
-        <Alert variant="danger" className={this.state.loginfailed ? 'visible' : 'hidden'}>
+          </form>
+
+          <Alert variant="danger" className={this.state.loginfailed ? 'visible' : 'hidden'}>
           Login failed, Please try again
           </Alert>
+
+          <form onSubmit={this.handleRegister}>
+          <div className="Register"></div>
+          <Button
+            block
+            bsSize="large"
+            type="submit"
+          >
+            Register 
+          </Button>
+        </form>
+      
       </div>
     );
   }

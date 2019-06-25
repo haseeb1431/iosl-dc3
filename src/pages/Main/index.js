@@ -28,6 +28,8 @@ import Detailed from '../Dashboard/Detailed'
 import companyindex from '../Dashboard/companyindex'
 import Login from '../Login'
 import postmanindex from '../Dashboard/postmanIndex'
+import Register from '../RegisterUser'
+import RegisterUser from '../RegisterUser';
 
 const Main = ({
   mobileNavVisibility,
@@ -65,6 +67,7 @@ const Main = ({
           <Route path="/registerPackage" component={registerPackage} />
           <Route path="/addUser" component={addUser} />
           <Route path="/viewIncident" component={viewIncident} />
+          <Route path="/RegisterUser" component={RegisterUser} />
           
           <Footer />
       </div>
