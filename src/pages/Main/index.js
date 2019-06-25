@@ -51,7 +51,7 @@ const Main = ({
         
           <Header /> 
           
-          <Route exact path="/Dashboard" component={Dashboard} />
+          <Route exact path="/" component={Dashboard} />
           <Route exact path="/package/:OrderID" component={Detailed} />
           <Route exact path="/company" component={companyindex} />
           <Route exact path="/postman" component={postmanindex} />
