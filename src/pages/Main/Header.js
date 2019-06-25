@@ -5,8 +5,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormControl } f
 
 
 const handleLogout = () => {
-  debugger;
-  localStorage.removeItem('googleAuth');
+  localStorage.removeItem('userAuthToken');
   global.isAuthenticated = false;
   //TODO Redirect to home page
 }
