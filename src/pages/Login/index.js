@@ -130,6 +130,17 @@ export default class Login extends Component {
   }
 
   render() {
+    if(this.state.isAuthenticated){
+      global.isAuthenticated = true;
+      global.user = this.state.user;
+      global.token = this.state.token;
+    }
+    else{
+      global.isAuthenticated = false;
+      global.user = null;
+      global.token = '';
+    }
+    
     let content = this.state.isAuthenticated ?
       (
         <div>
