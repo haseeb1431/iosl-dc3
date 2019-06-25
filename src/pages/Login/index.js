@@ -96,7 +96,7 @@ export default class Login extends Component {
       if (data && data.length > 0) {
 
         let user = data[0];
-        SetPersonType(user);
+  
 
         switch (global.PersonType) {
 
