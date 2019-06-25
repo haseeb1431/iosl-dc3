@@ -21,56 +21,37 @@ const StackedForm = ({
   submitting,
   handleSubmit,
   submitForm
-}) => (
-  <div className="card">
-    <div className="header">
-      <h4>Add Postman</h4>
-    </div>
-    <div className="content">
-      <form onSubmit={handleSubmit}>
-        {/*<div className="form-group">
-          <label className="control-label">Email</label>
-          <Field
-            name="email"
-            type="email"
-            component={renderField} />
-        </div>*/}
+}) => {
+    return (<div className="card">
+      <div className="header">
+        <h4>Add Postman</h4>
+      </div>
+      <div className="content">
+        <form onSubmit={handleSubmit}>
 
-        <div className="form-group">
-          <label className="control-label">First Name</label>
-          <Field
-            name="placeholder"
-            type="text"
-            component={renderField} />
-        </div>
 
-        <div className="form-group">
-          <label className="control-label">Last Name</label>
-          <Field
-            name="placeholder"
-            type="text"
-            component={renderField} />
-        </div>
+          <div className="form-group">
+            <label className="control-label">First Name</label>
+            <Field name="placeholder" type="text" component={renderField} />
+          </div>
 
-        <div className="form-group">
-          <label className="control-label">Email</label>
-          <Field
-            name="email"
-            type="email"
-            component={renderField} />
-        </div>
+          <div className="form-group">
+            <label className="control-label">Last Name</label>
+            <Field name="placeholder" type="text" component={renderField} />
+          </div>
 
-        <Field
-          name="newsletter"
-          type="checkbox"
-          component={renderField}
-          label="Send Invitation Link" />
+          <div className="form-group">
+            <label className="control-label">Email</label>
+            <Field name="email" type="email" component={renderField} />
+          </div>
 
-        <button type="submit" className="btn btn-fill btn-info" enabled={submitting}>Add Postman</button>
-      </form>
-    </div>
-  </div>
-);
+          <Field name="newsletter" type="checkbox" component={renderField} label="Send Invitation Link" />
+
+          <button type="submit" className="btn btn-fill btn-info" enabled={submitting}>Add Postman</button>
+        </form>
+      </div>
+    </div>);
+  };
 
 export default reduxForm({
   form: 'stackedForm',
