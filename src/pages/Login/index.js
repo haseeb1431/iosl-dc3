@@ -10,29 +10,23 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      email: "",
-      password: "",
-      isAuthenticated: false,
-      user: null, //store it in the memroy to make it persisent across session
-      token: ''
-    };
-    if (localStorage.getItem('googleAuth')) {
-      var userObj = JSON.parse(localStorage.getItem('googleAuth'));
 
+    if (sessionStorage.getItem('userAuth')) {
+      var userObj = JSON.parse(sessionStorage.getItem('userAuth'));
+      var token = JSON.parse(sessionStorage.getItem('userAuthToken'));
       this.state = {
-        email: userObj.profileObj.email,
+        email: userObj.Email,
         password: "",
         isAuthenticated: true,
-        user: userObj.profileObj, //store it in the memroy to make it persisent across session
-        token: userObj.accessToken
+        user: userObj, 
+        token: token
       };
     } else {
       this.state = {
         email: "",
         password: "",
         isAuthenticated: false,
-        user: null, //store it in the memroy to make it persisent across session
+        user: null, 
         token: ''
       };
     }
@@ -42,9 +36,11 @@ export default class Login extends Component {
     this.setState({ isAuthenticated: false, token: '', user: null })
   };
 
-  sendRequest = () => {
 
-    var response = JSON.parse(localStorage.getItem('googleAuth'));
+  googleResponse = (response) => {
+
+    sessionStorage.setItem('googleAuth', JSON.stringify(response));
+    
     const tokenBlob = new Blob([JSON.stringify({ access_token: response.accessToken }, null, 2)], { type: 'application/json' });
 
     const options = {
@@ -54,55 +50,22 @@ export default class Login extends Component {
       cache: 'default'
     };
 
-    debugger;
-
-    /*fetch('http://localhost:8000/auth/google', options).then(resp => {
+    //send the request to back-end, get the token
+    fetch('http://localhost:8000/auth/google', options).then(resp => {
 
       if (resp.status < 400) {
-        debugger; //TODO
         const token = resp.headers.get('x-auth-token');
         resp.json().then(user => {
           if (token) {
-            this.setState({ isAuthenticated: true, user, token });
-            this.authHandler(true);
-          }
-        });
-      }
-    });*/
-  };
+            sessionStorage.setItem('userAuth',JSON.stringify(user));
+            sessionStorage.setItem('userAuthToken',JSON.stringify(token));
 
-  sendRequestSample = () => {
-
-    const options = {
-      headers: {
-        'Authorization': this.state.token,
-      },
-      method: 'GET'
-    };
-
-    fetch('http://localhost:8000/packages', options).then(resp => {
-
-      if (resp.status < 400) {
-        debugger; //TODO
-        const token = resp.headers.get('x-auth-token');
-        resp.json().then(user => {
-          if (token) {
-            this.setState({ isAuthenticated: true, user, token })
+            this.setState({ isAuthenticated: true, user, token });            
           }
         });
       }
     });
-  };
 
-  googleResponse = (response) => {
-
-    //use session storage
-    localStorage.setItem('googleAuth', JSON.stringify(response));
-    this.setState({
-      isAuthenticated: true,
-      token: response.accessToken,
-      user: response.profileObj
-    });
   };
 
   validateForm() {
@@ -130,16 +93,6 @@ export default class Login extends Component {
   }
 
   render() {
-    if(this.state.isAuthenticated){
-      global.isAuthenticated = true;
-      global.user = this.state.user;
-      global.token = this.state.token;
-    }
-    else{
-      global.isAuthenticated = false;
-      global.user = null;
-      global.token = '';
-    }
     
     let content = this.state.isAuthenticated ?
       (
