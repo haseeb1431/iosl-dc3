@@ -16,6 +16,25 @@ export default class Login extends Component {
       user: null, //store it in the memroy to make it persisent across session
       token: ''
     };
+    if(localStorage.getItem('googleAuth')){
+      var userObj = JSON.parse(localStorage.getItem('googleAuth'));
+      
+      this.state = {
+        email: userObj.profileObj.email,
+        password: "",
+        isAuthenticated: true,
+        user: userObj.profileObj, //store it in the memroy to make it persisent across session
+        token: userObj.accessToken
+      };
+    }else{
+      this.state = {
+        email: "",
+        password: "",
+        isAuthenticated: false,
+        user: null, //store it in the memroy to make it persisent across session
+        token: ''
+      };
+    }
   };
 
   logout = () => {
@@ -23,7 +42,7 @@ export default class Login extends Component {
   };
   sendRequest = () => {
 
-    var response = JSON.parse(localStorage.getItem('googleAuth'))
+    var response = JSON.parse(localStorage.getItem('googleAuth'));
     const tokenBlob = new Blob([JSON.stringify({ access_token: response.accessToken }, null, 2)], { type: 'application/json' });
 
     const options = {
@@ -34,6 +53,29 @@ export default class Login extends Component {
     };
     
     fetch('http://localhost:8000/auth/google', options).then(resp => {
+
+      if (resp.status < 400) {
+        debugger; //TODO
+        const token = resp.headers.get('x-auth-token');
+        resp.json().then(user => {
+          if (token) {
+            this.setState({ isAuthenticated: true, user, token })
+          }
+        });
+      }
+    });
+  };
+
+  sendRequestSample = () => {
+
+    const options = {
+      headers:{
+        'Authorization': this.state.token,
+      },
+      method: 'GET'
+    };
+    
+    fetch('http://localhost:8000/packages', options).then(resp => {
 
       if (resp.status < 400) {
         debugger; //TODO
@@ -94,6 +136,12 @@ export default class Login extends Component {
           <div>
             <button onClick={this.sendRequest} className="button">
               Request to Server
+                    </button>
+          </div>
+
+          <div>
+            <button onClick={this.sendRequestSample} className="button">
+              packages
                     </button>
           </div>
 
