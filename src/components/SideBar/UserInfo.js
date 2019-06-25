@@ -15,18 +15,29 @@ class UserInfo extends Component {
     return (
       <div className="user-wrapper">
         <div className="user">
-        <img src={user.image} alt={user.name} className="photo" />
+          <img src={user.image} alt={user.name} className="photo" />
           <div className="userinfo">
             <div className="username">
-              {user.name}
+              {global.FullName}
             </div>
+                <div className="title">User</div>
           </div>
+          <span
+            onClick={() => this.setState({ isShowingUserMenu: !this.state.isShowingUserMenu })}
+            className={cx("pe-7s-angle-down collapse-arrow", {
+              active: isShowingUserMenu
+            })}></span>
         </div>
+        <Collapse in={isShowingUserMenu}>
+          <ul className="nav user-nav">
+            <li><a href="#">Edit Profile</a></li>
+            <li><a href="/">Logout</a></li>
+          </ul>
+        </Collapse>
       </div>
-    );
+     );
   }
 }
-
 const mapStateToProps = state => ({
   user: state.Auth.user
 });

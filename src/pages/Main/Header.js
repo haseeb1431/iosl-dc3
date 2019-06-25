@@ -23,8 +23,6 @@ const Header = ({
         <Navbar.Form pullLeft>
         </Navbar.Form>
         <Nav pullRight>
-          <NavItem>Account</NavItem>
-          <NavItem>Log out</NavItem>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
