@@ -8,18 +8,21 @@ class Nav extends Component {
 
   constructor(props){
     super(props)
-  }
 
-  state = {
-    persontype:1
-  };
+    this.state={
+      persontype:1 //fall back to minimum functionality
+    }
+  }
+  
 
   render() {
     let { location } = this.props;
-    let qs = this.props.location.search.substr(1);
-    this.state.persontype = qs.split('=')[1];
-    
-    const isUser = this.state.persontype==1;
+
+    //check the logged in user and render the menu accordingly
+    var userObj = JSON.parse(sessionStorage.getItem('userAuth'));
+    if (userObj && userObj.PersonType) {
+      this.state.persontype = userObj.PersonType;
+    }
 
     if (this.state.persontype == 1) {
       //User Navigation bar
