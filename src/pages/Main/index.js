@@ -15,6 +15,7 @@ import registerPackage from '../../components/userSpace/Register'
 import Active from '../../components/userSpace/Active';
 import UserSpace from '../../components/userSpace/UserSpace'
 import Detailed from '../../components/userSpace/Detailed'
+import History from '../../components/History'
 /**
  * Pages
  */
@@ -42,15 +43,18 @@ const Main = ({
     }
   });
   
-  //Determine which page needs to be shown as dashboard
-  var userHome=Dashboard;
+  // it is dose not matter company/postman/user
+  // main landing page is always the history of the login user
+  var userHome=History;
   const userObj = JSON.parse(sessionStorage.getItem('userAuth'));
+  console.log("Main.js started  with the user:")
+  console.log(userObj)
   if (userObj) {
     if (userObj.PersonType==3) {
-      userHome= postmanindex
+      userHome= History
     }
     else if(userObj.PersonType==2){
-      userHome = companyindex
+      userHome = History
     }
   }
 
@@ -66,8 +70,8 @@ const Main = ({
         <div className="main-panel">
         
           <Header />          
+          <Route exact path="/packages" component={UserSpace} />  
           <Route exact path="/" component={userHome} />  
-          <Route exact path="/user" component={Dashboard} />  
           <Route exact path="/package/:OrderID" component={Detailed} />
           <Route exact path="/packages/active" component={Active} />
           <Route path="/packages/registerPackage" component={registerPackage} />
