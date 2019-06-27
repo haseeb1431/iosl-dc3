@@ -1,11 +1,22 @@
 import React from 'react';
 
-import TableWithLinks from '../History';
+import History from '../History';
 import Register from './Register';
+import authLib from '../../config/authlib'
+
 
 
 
   class UserSpace extends React.Component{
+    /*
+      the user sapce is a controller for the Registration compenent.
+      after the user enter the data in the Registration, the data is being process here.
+
+      the class has 2 possibles views
+      1. user history ( see history compnent) with a registration package form
+      2. if the user press the sumbit button -> a view with "order registered appear"
+
+    */
     constructor(props){
       super(props)
       this.state = {
@@ -16,13 +27,14 @@ import Register from './Register';
         heavy: 0,
         severe: 0,
         tempValues : [2 , 4],
-         
+        orderID: null
       }
-      // this.reciverValidation = this.reciverValidation.bind(this);
       this.submit = this.submit.bind(this);
       this.addPackage =  this.addPackage.bind(this)
       this.handleChange =  this.handleChange.bind(this)
       this.TempChange =  this.TempChange.bind(this)
+      this.getAdressId =  this.getAdressId.bind(this)
+      this.addSensore =  this.addSensore.bind(this)
     }
 
     handleChange(event) { 
@@ -42,9 +54,36 @@ import Register from './Register';
     
 
     submit(values){
+      /*
+        input: values as user inserted to form
+        when pressing the sumbit button,
+        make allpreperation to 
+      */
       console.log("sumbit start")
       console.log(values)
       console.log(this.state)
+      const sender = {
+        "street":values.street,
+	      "city":values.city,
+	      "country": values.country,
+	      "postcode": values.zip
+      }
+      const rec = {
+        "street":values.dstreet,
+	      "city":values.dcity,
+	      "country": values.dcountry,
+	      "postcode": values.dzip
+      }
+      this.getAdressId(sender, "sender")
+      this.getAdressId(rec, "reciever")
+      }
+
+    getAdressId(values,flag){
+      /*
+        fettching the address id from the table.
+        set the state thereciver adress and sender .
+      */
+      console.log("get adreess id started with flag:" + flag)
       fetch("http://localhost:8000/address", {
         method: 'POST',
         headers:{
@@ -52,46 +91,41 @@ import Register from './Register';
         },
         body: JSON.stringify({
           "street":values.street,
-	        "city":values.city,
-	        "country": values.country,
-	        "postcode": Number(values.zip)
+          "city":values.city,
+          "country": values.country,
+          "postcode": Number(values.postcode)
         })
         })
           .then(res => res.json())
-          .then(data => this.setState({
-            addressID : data.AddressID
-          }))
+          .then((data) => {
+              console.log(data)
+              if (flag === "sender"){
+                this.setState({
+                  addressID : data.AddressID})
+              }
+              else{
+                this.setState({
+                  recieverID : data.AddressID})
+              }
+            })
           .catch(err => console.log(err))
-      
-      console.log("finish pick up, start destenation " + this.state.addressID)
-
-      fetch("http://localhost:8000/address", {
-        method: 'POST',
-        headers:{
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          "street":values.dstreet,
-          "city":values.dcity,
-          "country": values.dcountry,
-          "postcode": Number(values.dzip)
-        })
-        })
-          .then(res => res.json())
-          .then(data => this.setState({
-            recieverID : data.AddressID
-          }))
-          .then(data => console.log(data))
-          .catch(err => console.log(err))
-
-        console.log("finish destenation " + this.state.recieverID)
-        
       }
 
+
     addPackage(){
+    /*
+      input : State,
+      aftetr the user press on sumbit and on sumbit collected reciever and sender address
+      "add package" will start. the function
+    */
       console.log("starting to add package")
       console.log(this.state.recieverID)
       console.log(this.state.addressID)
+      const options = authLib.getUserObj() ;
+      console.log(options)
+      const userID = options.ID
+      console.log(userID)
+
       var today = new Date();
       var dd = String(today.getDate()).padStart(2, '0');
       var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -109,28 +143,60 @@ import Register from './Register';
           "dropaddressid":this.state.recieverID,
           "pickdate": today,
           "arrivaldate": null,
-          "personid":33,
+          "personid": userID,
           "receieverid":34,
           "status": "Registered"   
         })
         })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            this.state.orderID = data.OrderID
+            this.addSensore() 
+        })
+        .catch(err => console.log(err))
+
+      
+      console.log("finished add package");
       return "The package have been registered, Thank you"
     }
 
-    
-      
+    addSensore(sensoreIndex){
+    /*
+      input state : order id ,sensorsID and corresponding values
+      the function post the data into the OrderSensors table.  
+    */
+      console.log("add sensor started");
+      console.log(this.state.orderID)
+      fetch("http://localhost:8000/OrderSensors", {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "OrderId":this.state.orderID,
+          "SensorId":sensoreIndex,
+          "MinThreshold": this.state.tempValues[0],
+          "MaxThreshold": this.state.tempValues[1]
+        })
+        })
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data)
+        })
+
+      console.log("finished add Sensor");
+    }
 
   render(){
-    // if (this.state.addressID){
-    //   this.addPackage() this.state.addressID > 0 && 
-    // }
   return(
           <div className="content">
             <div className="container-fluid">
+            {/* if reciever id is zero default view  */}
             {this.state.recieverID === 0 ? 
               <div className="row">
                 <div className="col-md-6">
-                  <TableWithLinks />
+                  <History />
                 </div>
                 <div className="col-md-6">
                   <Register 
@@ -142,6 +208,7 @@ import Register from './Register';
                 </div>
               </div> : 
                 <h2>{this.addPackage()}</h2>}
+                 {/* if recieverID is not zero means that the user pressed sumbit and change the state. */}
             </div>
           </div>
     );
