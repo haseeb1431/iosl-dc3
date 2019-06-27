@@ -1,22 +1,4 @@
 import React from 'react';
-import Tracking from 'assets/images/tracking.png';
-import RangeBar from './RangeBar'
-
-
-const EXAMPLE = [
-  {
-    data: "2018-03-22",
-    status: "status",
-    statusB: "Ready for Dev",
-    statusE: "In Progress"
-  },
-  {
-    data: "2018-03-23",
-    status: "status",
-    statusB: "In Progress",
-    statusE: "Done"
-  }
-];
 
 const sharp = {
   display: "inline-block", 
@@ -103,35 +85,14 @@ render() {
                           </div>
                       </div>
                     </div>
-                  
-                    {/* <div className = "col-md-6">
-                      <div className="card">
-                            <div className="header">
-                                <h4 className="title">Tracking</h4>
-                            </div>
-                            <div className = "col-md-12 card " > 
-                              <img src={Tracking} style={{width:"100%"}}></img>                           
-                            </div>
-                      </div>
-                    </div> */}
-                    
-
-                    
-
               </div>     
             </div>
             ))}
 
-            <RangeBar />
-            
-            
-            
         </div>
     )    
 }
 }
-
-
 export default Detailed;
 
 

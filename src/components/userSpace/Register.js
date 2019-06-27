@@ -15,6 +15,12 @@ const required= (value) => {
 
 
 class Register extends React.Component {
+    /**
+     * register a new package using redux form 
+     * validation  - all filed are required to be filed except the sensores!
+     * the reciever must be a register user( in the system)
+     * only after clicking the checkbox of the sensore,values filed will appeare.
+     */
     constructor(){
         super()
         this.state = {
@@ -28,7 +34,7 @@ class Register extends React.Component {
         }
         // this.verify = this.verify.bind(this)
         // this.allowedEmail = this.allowedEmail.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+        // this.handleChange = this.handleChange.bind(this)
 
     }
 
@@ -43,12 +49,12 @@ class Register extends React.Component {
     }
 }
 
-    handleChange(event) {
-        const {name, value} = event.target
-        this.setState({
-            [name]: value
-        }) 
-    }
+    // handleChange(event) {
+    //     const {name, value} = event.target
+    //     this.setState({
+    //         [name]: value
+    //     }) 
+    // }
 
     componentDidMount(){
     fetch("http://localhost:8000/persons")
@@ -70,43 +76,7 @@ class Register extends React.Component {
         })    
     }
 
-    // verify(value){
-    //     console.log(value)
-    //     console.log("verify")
-    //     fetch("http://localhost:8000/persons/exists/" + value)
-    //     .then(function(response){
-    //     if (response.ok) {
-    //         return response.json();
-    //         } 
-    //         else {
-    //         throw new Error('NO receiverEmail');
-    //         }
-    //     })
-    //     .then((data) => {
-    //         console.log(data)
-    //         if (data === undefined || data.length === 0) {
-    //             console.log("false")
-    //             // this.setState({verifyName :"user is not register"})
-    //             this.setState({verifyName :false})
-    //         }
-    //         else{
-    //             console.log("ture, return nudefined")
-    //             // this.setState({verifyName :undefined})
-    //             this.setState({verifyName :true})   
-    //         }                 
-    //     })
 
-    //     // return this.state.verifyName
-    // }
-
-    // allowedEmail(value){
-    //     if (!this.state.verifyName){
-    //         return "user is not register"
-    //     }
-    //     else{
-    //         return undefined
-    //     }
-    // }
 
     render(){
         console.log("!!! rendering again!!!")
@@ -123,11 +93,6 @@ class Register extends React.Component {
             }
           }
 
-        const minValue = min => value =>
-        value && value < min ? `Must be at least ${min}` : undefined
-        const minValue13 = minValue(0)
-        
-        
         return(
             <div className="card">
                 <div className="header">

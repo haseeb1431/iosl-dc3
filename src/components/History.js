@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import authLib from '../config/authlib'
 
 class History extends Component {
+  /*
+    Extract after user login the user ID in the database and 
+    present all the specific user packages hostry in a table,
+    present only main pakcages properties.
+  */
   constructor(){
     super()
     this.state = {
@@ -12,9 +18,13 @@ class History extends Component {
     }
   }
 
-
   componentDidMount() {
-    const userID = 33
+    /**
+     fetch user data from database
+     */
+    const options = authLib.getUserObj() ;
+    console.log(options)
+    const userID = options.ID
     this.setState({ isLoading: true });   
     fetch("http://localhost:8000/packages/user/" + userID)
       .then(function(response){
@@ -41,11 +51,11 @@ class History extends Component {
   }
 
 
-  deleteItem = itemId => {
-    this.setState({
-      items: this.state.items.filter(item => item.id !== itemId)
-    });
-  }
+  // deleteItem = itemId => {
+  //   this.setState({
+  //     items: this.state.items.filter(item => item.id !== itemId)
+  //   });
+  // }
  
   render() {
  
@@ -80,12 +90,6 @@ class History extends Component {
                   <td>{item.dropcountry}</td>
                   <td>{item.Status}</td>
                   <td className="text-right"> {item.PickDate}</td>
-                  {/* <td className="text-middle">
-                      <Link to={`/package/${item.OrderID}`}>
-                        <div className="btn btn-info" >info</div>
-                      </Link>
-                    
-                  </td> */}
                 </tr>
               ))}
             </tbody>

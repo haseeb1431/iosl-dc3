@@ -9,6 +9,10 @@ const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 
 class RangeBar extends React.Component {
+  /**
+   * a simple compenet to crate a range bar using the slider react lib.
+   * @param {a} props 
+   */
     constructor(props){
       super(props)
       this.state = {
@@ -26,12 +30,12 @@ class RangeBar extends React.Component {
               <div style={wrapperStyle}>
                 <p>Temperture Range</p>
                 <Range 
-                    min={this.state.min} 
-                    max={this.state.max} 
-                    defaultValue={[2, 4]} 
-                    tipFormatter={value => `${value}`}
-                    marks={{ 0: 0, 10: 10, 20: 20, 30: 30, 40:40 }}
-                    onChange={this.props.temperatureChange}
+                    min={this.state.min} //min psossible temp 
+                    max={this.state.max} //max possible test
+                    defaultValue={[2, 4]} // deafult start value
+                    tipFormatter={value => `${value}`} //showing user the cutrrent value
+                    marks={{ 0: 0, 10: 10, 20: 20, 30: 30, 40:40 }} //marking on bar
+                    onChange={this.props.temperatureChange} 
                     />
                 </div>
                 <div>

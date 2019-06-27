@@ -1,9 +1,17 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import authLib from '../../config/authlib'
 
 
 class Active extends React.Component {
-  
+  /**
+   * display only packages which are in Regitstered mode,
+   * Same functionalty as in the Hisorty compnent only with filter
+   * the user has the abilty to press on a the delete button to cancel unwanted packages.
+   * packages wont be deleted form the db but will be in status Canceled
+   * to do: 
+   *  1. build a table compnent which fet data and return a table.
+   */
   constructor(){
     super()
     this.state = {
@@ -16,7 +24,12 @@ class Active extends React.Component {
 
 
   componentDidMount() {
-    const userID = 33
+
+    const options = authLib.getUserObj() ;
+    console.log(options)
+    const userID = options.ID
+    console.log(userID)
+    
     this.setState({ isLoading: true });   
     fetch("http://localhost:8000/packages/user/" + userID)
       .then(function(response){
@@ -47,6 +60,9 @@ class Active extends React.Component {
 
 
   deleteItem(itemToDelete ){
+    /**
+     * get an item to delete anf remove from view 
+     */
     console.log("deleted item start")
     console.log(itemToDelete)
     this.setState({items: this.state.items.filter(item => item.OrderID !== itemToDelete.OrderID)
@@ -55,6 +71,9 @@ class Active extends React.Component {
   }
 
   changedStatus(item){ 
+    /**
+     * put request to the database changeing the status of the the item to Canceled
+     */
     console.log("changedStatus start")
     console.log(item.OrderID)
     fetch("http://localhost:8000/packages/" + item.OrderID, {
