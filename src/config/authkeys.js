@@ -1,13 +1,7 @@
 module.exports={
     google:{
-        clientid:'204559914410-83fsef9pb97suhi6o550uqeo2utb8591.apps.googleusercontent.com',
-        clientsecret:'OA6-NVNgjUBVLdFxe5VjDtFv'
-    },
-    auth0:{
-        AUTH0_CLIENT_ID:'w3PuqZfu6WP33ZFYu26G3X4haWPSnlTr',
-        AUTH0_DOMAIN:'dev-md38pbvf.eu.auth0.com',
-        AUTH0_CLIENT_SECRET:'FYCi4Pqo3PwgwNbR0vQWJJefOBIPkwyzQVrBgqAudNSo6t9C9yCyhTI6EhRCxvLG',
-        AUTH0_CALLBACK_URL:'http://localhost:8001/auth0/callback'
+        clientid:'',
+        clientsecret:''
     },
     sessionSecret:'This1Is2Dillas3Service'
 }

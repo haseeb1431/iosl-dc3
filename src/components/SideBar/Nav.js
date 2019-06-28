@@ -24,7 +24,6 @@ class Nav extends Component {
       this.state.persontype = userObj.PersonType;
     }
 
-
     if (this.state.persontype == 1) {
       //User Navigation bar
       return (
