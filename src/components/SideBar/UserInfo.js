@@ -37,17 +37,8 @@ class UserInfo extends Component {
             </div>
                 <div className="title">{UserType}</div>
           </div>
-          <span
-            onClick={() => this.setState({ isShowingUserMenu: !this.state.isShowingUserMenu })}
-            className={cx("pe-7s-angle-down collapse-arrow", {
-              active: isShowingUserMenu
-            })}></span>
         </div>
-        <Collapse in={isShowingUserMenu}>
-          <ul className="nav user-nav">
-            <li><a href="/LandingPage">Logout</a></li>
-          </ul>
-        </Collapse>
+    
       </div>
      );
   }
