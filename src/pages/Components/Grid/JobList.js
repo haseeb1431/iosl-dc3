@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import authLib from '../../../config/authlib'
 import { Link } from "react-router-dom";
 
 class JobList extends Component {
@@ -15,7 +15,8 @@ class JobList extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    fetch("http://localhost:8000/packagesdetails")
+    const options = authLib.getFetchOptions()  ;
+    fetch("http://localhost:8000/packagesdetails",options)
       .then(function(response) {
         if (response.ok) {
           return response.json();

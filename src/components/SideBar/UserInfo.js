@@ -12,6 +12,7 @@ class UserInfo extends Component {
   render() {
     let { user } = this.props;
     let { isShowingUserMenu } = this.state;
+    
     return (
       <div className="user-wrapper">
         <div className="user">

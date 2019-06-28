@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import authLib from '../../../config/authlib'
 
 class UserTableWithLinks extends Component {
   constructor(){
@@ -14,8 +15,9 @@ class UserTableWithLinks extends Component {
   }
 
   componentDidMount() {
-    this.setState({ isLoading: true });   
-    fetch("http://localhost:8000/persons")
+    this.setState({ isLoading: true }); 
+    const options = authLib.getFetchOptions()  ;  
+    fetch("http://localhost:8000/persons",options)
       .then(function(response){
         if (response.ok) {
             return response.json();
