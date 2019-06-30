@@ -34,6 +34,12 @@ class Nav extends Component {
               <p>Dashboard</p>
             </Link>
           </li>
+          <li className={location.pathname === '/#' ? 'active' : null}>
+            <Link to="/#">
+              <i className="pe-7s-mail"></i>
+              <p>Register Package</p>                 
+            </Link>
+          </li>
           <li className={this.isPathActive('/forms') || this.state.formMenuOpen ? 'active' : null}>
           <a onClick={() => this.setState({ formMenuOpen: !this.state.formMenuOpen })} data-toggle="collapse">
             <i className="pe-7s-note2"></i>
@@ -81,7 +87,8 @@ class Nav extends Component {
             <div>
               <ul className="nav">
                   <li className={this.isPathActive('/addUser') ? 'active' : null}>
-                  <Link to="/addUser">Add Postman</Link>
+                  <i className="pe-7s-id"></i>
+                  <Link to="/addUser">Postman Management</Link>
                 </li>
                 <li className={this.isPathActive('/components/grid') ? 'active' : null}>
                   <Link to="/components/grid">View Jobs </Link>
