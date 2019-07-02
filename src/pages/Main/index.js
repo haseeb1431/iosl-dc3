@@ -12,6 +12,7 @@ import ThemeOptions from '../../components/ThemeOptions';
 import MobileMenu from '../../components/MobileMenu';
 import addUser from '../Forms/RegularForms/StackedForm'
 import registerPackage from '../Forms/RegularForms/Register'
+import viewIncident from '../Incidents/index'
 /**
  * Pages
  */
@@ -26,6 +27,8 @@ import Tables from '../Tables';
 import Detailed from '../Dashboard/Detailed'
 import companyindex from '../Dashboard/companyindex'
 import postmanindex from '../Dashboard/postmanIndex'
+import Register from '../RegisterUser'
+import RegisterUser from '../RegisterUser';
 
 const Main = ({
   mobileNavVisibility,
@@ -74,6 +77,8 @@ const Main = ({
           <Route path="/maps" component={MapsPage} />
           <Route path="/registerPackage" component={registerPackage} />
           <Route path="/addUser" component={addUser} />
+          <Route path="/viewIncident" component={viewIncident} />
+          <Route path="/RegisterUser" component={RegisterUser} />
           
           <Footer />
       </div>
@@ -92,3 +97,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 });
 
 export default withRouter(connect(mapStateToProp, mapDispatchToProps)(Main));
+

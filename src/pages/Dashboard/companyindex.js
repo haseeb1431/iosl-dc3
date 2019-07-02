@@ -26,7 +26,6 @@ import VectorMap from '../MapsPage/VectorMap';
 
     submit(values){
       console.log(values)
-
       fetch('http://localhost:8000/persons', {
         method: 'POST',
         headers:{
