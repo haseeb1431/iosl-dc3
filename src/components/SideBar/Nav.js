@@ -29,17 +29,29 @@ class Nav extends Component {
       return (
         <ul className="nav">
           <li className={location.pathname === '/Dashboard' ? 'active' : null}>
-            <Link to="/Dashboard">
+            <Link to="/">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
           </li>
-          <li className={location.pathname === '/#' ? 'active' : null}>
-            <Link to="/#">
-              <i className="pe-7s-mail"></i>
-              <p>Register Package</p>                 
-            </Link>
-          </li>
+          <li className={this.isPathActive('/forms') || this.state.formMenuOpen ? 'active' : null}>
+          <a onClick={() => this.setState({ formMenuOpen: !this.state.formMenuOpen })} data-toggle="collapse">
+            <i className="pe-7s-note2"></i>
+            <p>Package Management<b className="caret"></b></p>
+          </a>
+          <Collapse in={this.state.formMenuOpen}>
+            <div>
+              <ul className="nav">
+                <li className={this.isPathActive('/packages/registerPackage') ? 'active' : null}>
+                  <Link to="/packages/registerPackage">Register Package</Link>
+                </li>
+                <li className={this.isPathActive('/packages/active') ? 'active' : null}>
+                  <Link to="/packages/active">Delete Package</Link>
+                </li>
+              </ul>
+            </div>
+          </Collapse>
+        </li>
           <li className={this.isPathActive('/forms') || this.state.formMenuOpen ? 'active' : null}>
           <a onClick={() => this.setState({ formMenuOpen: !this.state.formMenuOpen })} data-toggle="collapse">
             <i className="pe-7s-note2"></i>
