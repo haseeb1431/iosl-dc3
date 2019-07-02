@@ -10,7 +10,7 @@ import Footer from './Footer';
 import SideBar from '../../components/SideBar';
 import ThemeOptions from '../../components/ThemeOptions';
 import MobileMenu from '../../components/MobileMenu';
-import addUser from '../Forms/RegularForms/StackedForm'
+import UpgradeUser from '../Forms/RegularForms/UpgradeUser'
 import registerPackage from '../Forms/RegularForms/Register'
 import viewIncident from '../Incidents/index'
 /**
@@ -76,7 +76,7 @@ const Main = ({
           <Route path="/tables" component={Tables} />
           <Route path="/maps" component={MapsPage} />
           <Route path="/registerPackage" component={registerPackage} />
-          <Route path="/addUser" component={addUser} />
+          <Route path="/UpgradeUser" component={UpgradeUser} />
           <Route path="/viewIncident" component={viewIncident} />
           <Route path="/RegisterUser" component={RegisterUser} />
           

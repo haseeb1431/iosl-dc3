@@ -1,5 +1,5 @@
 import React from 'react';
-import StackedForm from './StackedForm';
+import UpgradeUser from './UpgradeUser';
 import HorizontalForm from './HorizontalForm';
 import FormElements from './FormElements';
 
@@ -7,7 +7,7 @@ const RegularForms = () => (
   <div>
     <div className="row">
       <div className="col-md-6">
-        <StackedForm onSubmit={values => alert('Enter values: ' + JSON.stringify(values, null, 2))} />
+        <UpgradeUser onSubmit={values => alert('Enter values: ' + JSON.stringify(values, null, 2))} />
       </div>
       <div className="col-md-6">
         <HorizontalForm  onSubmit={values => alert('Enter values: ' + JSON.stringify(values, null, 2))} />
