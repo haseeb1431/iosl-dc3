@@ -79,7 +79,7 @@ const Main = ({
           <Route exact path="/" component={userHome} />  
           <Route exact path="/package/:OrderID" component={Detailed} />
           <Route exact path="/packages/active" component={Active} />
-          <Route path="/packages/registerPackage" component={registerPackage} />
+          <Route path="/packages/registerPackage" component={UserSpace} />
           <Route exact path="/company" component={companyindex} />
           <Route exact path="/postman" component={postmanindex} />
           <Route path="/components" component={Components} />

@@ -229,9 +229,9 @@ const fetchOption = authLib.getFetchOptions();
             {/* if reciever id is zero default view  */}
             {this.state.recieverID === 0 ? 
               <div className="row">
-                <div className="col-md-6">
+                {/* <div className="col-md-6">
                   <History />
-                </div>
+                </div> */}
                 <div className="col-md-6">
                   <Register 
                     onSubmit={this.submit} 
