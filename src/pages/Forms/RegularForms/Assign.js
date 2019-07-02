@@ -21,7 +21,7 @@ render(){
                 <form onSubmit={handleSubmit} className="form-horizontal">
 
                     <div className="form-group">
-                    <label className="control-label col-md-3">Username/E-mail</label>
+                    <label className="control-label col-md-3">Username/E-mail </label>
                     <div className="col-md-9">
                         <Field
                         name="Postman Email"
@@ -30,9 +30,10 @@ render(){
                         component={renderField} 
                         helpText="as appear on DC3 account" /> 
                     </div>
+                    <div className= "col-md-6"> <button type="submit" className="btn btn-fill btn-info">Assign</button>  </div>
+                    
                     </div>
-
-                    <button type="submit" className="btn btn-fill btn-info">Assign</button>
+            
                 </form>
             </div>
         </div>
