@@ -29,8 +29,8 @@ class Detailed extends React.Component {
         id: props.match.params.OrderID,
         characters: {}
     }
-
-}
+    this.getSensoresData = this.getSensoresData.bind(this)
+  }
 
 componentDidMount() {
   this.setState({ loading: true });
@@ -51,6 +51,7 @@ componentDidMount() {
               this.state.items.push(elemnt)
           })
           this.setState({loading: false})
+          this.getSensoresData()
           // console.log(this.state.items.length);
 
     })
@@ -58,6 +59,28 @@ componentDidMount() {
         console.log(error)
     })
 }
+
+getSensoresData(){
+  fetch("http://localhost:8000/OrderSensors/" + this.state.id, fetchOption)
+    .then(function(response){
+      if (response.ok) {
+          return response.json();
+        } 
+        else {
+          throw new Error('Something went wrong ...');
+        }
+    })
+    .then((data) => {
+        console.log(data)
+          data.forEach(elemnt => {
+              this.state.items.push(elemnt)
+          })
+    })
+    .catch(function(error){
+        console.log(error)
+    })
+}
+
 render() {
     return (
         <div>

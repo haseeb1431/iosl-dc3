@@ -165,7 +165,7 @@ const fetchOption = authLib.getFetchOptions();
         .then(data => {
             console.log(data)
             this.state.orderID = data.OrderID
-            if (this.state.tempOn)
+            if (this.state.tempOn )
             {
               console.log("temp on ");
               const tempObj = {

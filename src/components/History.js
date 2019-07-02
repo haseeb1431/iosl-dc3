@@ -27,6 +27,7 @@ class History extends Component {
     const userID = options.ID
 
     const fetchOption = authLib.getFetchOptions();
+    
 
     this.setState({ isLoading: true });   
     fetch("http://localhost:8000/packages/user/" + userID, fetchOption)
