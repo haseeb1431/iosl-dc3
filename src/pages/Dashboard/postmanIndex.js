@@ -19,16 +19,12 @@ class Dashboard extends React.Component {
       <div className="content">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-md-6">
-              <PostmanTableWithLinks />
-            </div>
-            <div className="col-md-6">
-              <PostmanHandoverTable />
-            </div>
+            <PostmanTableWithLinks />
           </div>
           <div className="row">
-            <PendingJobs />
+            <PostmanHandoverTable />
           </div>
+
           <div className="row">
             <div className="col-md-6">
               <PublicPreference />

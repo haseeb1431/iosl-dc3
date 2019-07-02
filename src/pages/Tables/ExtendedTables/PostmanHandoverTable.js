@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import generateData from "../generateData";
 import { Link, Redirect } from "react-router-dom";
+import authLib from "../../../config/authlib";
 
 class PostmanHandoverTable extends Component {
   constructor() {
@@ -15,7 +16,8 @@ class PostmanHandoverTable extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    fetch(global.backendURL+"packagesdetails")
+    const options = authLib.getFetchOptions();
+    fetch("http://localhost:8000/orderHistory", options)
       .then(function(response) {
         if (response.ok) {
           return response.json();
@@ -48,40 +50,37 @@ class PostmanHandoverTable extends Component {
     return (
       <div className="card">
         <div className="header">
-          <h4 className="title">Receieved Handover Packages</h4>
+          <h4 className="title">Handover Table</h4>
           {/* <p className="category">Here is a subtitle for this table</p> */}
         </div>
         <div className="content table-responsive table-full-width">
           <table className="table table-hover table-striped">
             <thead>
               <tr>
-                <th>Package ID</th>
-                <th>Releasing Postman</th>
-                <th>Releasing Company</th>
+                <th>ID</th>
+                <th>Postman ID</th>
+                <th>Pickup Address</th>
+                <th>Pickup Date</th>
                 <th>Destination</th>
+                <th>Status</th>
 
-                <th className="text-middle">Details</th>
+                <th className="text-middle">Action</th>
               </tr>
             </thead>
             <tbody>
               {this.state.items.map(item => (
                 <tr key={item.OrderID}>
-                  <td>
-                    <Link
-                      to={`/package/${item.OrderID}`}
-                      style={{ color: "blue" }}
-                    >                      
-                      {item.OrderID}
-                    </Link>
-                  </td>
-                  <td>{item.StreetAddress}</td>
-                  <td>{item.PostCode}</td>
-                  <td>{item.City}</td>
+                  <td>{item.OrderID}</td>
+                  <td>{item.PostmanId}</td>
+                  <td>{item.PickAddressID}</td>
+                  <td>{item.PickDate}</td>
+                  <td>{item.DropAddressID}</td>
+                  <td>{item.Status}</td>
 
                   <td className="text-middle">
-                    <Link to={`/package/${item.OrderID}`}>
-                      <div className="btn btn-wd btn-info">info</div>
-                    </Link>                    
+                    <Link to={`/components/buttons`}>
+                      <div className="btn btn-wd btn-info">Handover</div>
+                    </Link>
                   </td>
                 </tr>
               ))}

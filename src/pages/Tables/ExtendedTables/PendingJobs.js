@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import generateData from "../generateData";
 import { Link, Redirect } from "react-router-dom";
+import authLib from "../../../config/authlib";
 
 class PendingJobs extends Component {
   constructor() {
@@ -15,7 +16,8 @@ class PendingJobs extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    fetch("http://localhost:8000/packagesdetails")
+    const options = authLib.getFetchOptions();
+    fetch("http://localhost:8000/orderHistory", options)
       .then(function(response) {
         if (response.ok) {
           return response.json();
@@ -56,23 +58,37 @@ class PendingJobs extends Component {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Address</th>
-                <th>Post Code</th>
+                <th>Postman ID</th>
+                <th>Pickup Adress</th>
+                <th>Pickup Date</th>
                 <th>Destination</th>
+                <th>Status</th>
 
-                <th className="text-right">Arrival Date</th>
-                <th className="text-middle">Status</th>
+                <th className="text-middle">Details</th>
               </tr>
             </thead>
             <tbody>
               {this.state.items.map(item => (
                 <tr key={item.OrderID}>
-                  <td>{item.StreetAddress}</td>
-                  <td>{item.PostCode}</td>
-                  <td>{item.City}</td>
-                  <td>{item.Country}</td>
-                  <td className="text-right"> {item.ArrivalDate}</td>
+                  <td>
+                    <Link
+                      to={`/package/${item.OrderID}`}
+                      style={{ color: "blue" }}
+                    >
+                      {/* <i className="pe-7s-graph"></i> */}
+                      {item.OrderID}
+                    </Link>
+                  </td>
+                  <td>{item.PostmanId}</td>
+                  <td>{item.PickAddressID}</td>
+                  <td>{item.PickDate}</td>
+                  <td>{item.DropAddressID}</td>
+                  <td>{item.Status}</td>
+
                   <td className="text-middle">
+                    <Link to={`/package/${item.OrderID}`}>
+                      <div className="btn btn-wd btn-info">info</div>
+                    </Link>
                     {/* <a rel="tooltip" */}
                     {/* //   className="btn btn-info btn-simple btn-xs"
                     //   // onClick={() => this.deleteItem(item.id)}
