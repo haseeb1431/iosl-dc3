@@ -25,7 +25,6 @@ class Assign extends React.Component {
         this.setState({ loading: true });
         const options = authLib.getFetchOptions()  ;
         console.log(this.state.id);
-        debugger;
         var api =   "http://localhost:8000/packages/" + this.state.id
         fetch(api,options)
           .then(function(response){
@@ -33,13 +32,13 @@ class Assign extends React.Component {
                 return response.json();
               } 
               else {
-                throw new Error('Something went wrong ...');
+                throw new Error('No postmanEmail');
               }
           })
           .then((data) => {
               console.log(data)
                 data.forEach(elemnt => {
-                    this.state.items.push(elemnt)
+                    this.state.registerUsers.push(elemnt.Email)
                 })
                 this.setState({loading: false})
                 // console.log(this.state.items.length);
@@ -51,7 +50,19 @@ class Assign extends React.Component {
       }
 
 render(){
-    const { handleSubmit } = this.props;
+    console.log("!!! rendering !!!")
+    console.log(this.props)
+    console.log(this.state.registerUsers)
+    const { handleSubmit,valid } = this.props;
+    const allowedEmail= (value) => {
+        if (this.state.registerUsers.indexOf(value) === -1){
+            return "Postman not register"
+        }
+        else{
+            console.log("*******" + this.state.registerUsers)
+            return undefined
+        }
+      }
     return(
         <div className="card">
             <div className="header">
@@ -64,7 +75,7 @@ render(){
                     <label className="control-label col-md-3">Username/E-mail </label>
                     <div className="col-md-9">
                         <Field
-                        name="Postman Email"
+                        name="postmanEmail"
                         placeholder = "abc@xyz.com"
                         type="email"
                         component={renderField} 

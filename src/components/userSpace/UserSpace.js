@@ -222,7 +222,7 @@ const fetchOption = authLib.getFetchOptions();
 
       console.log("finished add Sensor");
     }
-
+//Kiran Added function starts here
     assignPackage(values){
       /*
         input state : order id ,company id, and corresponding values
@@ -239,7 +239,7 @@ const fetchOption = authLib.getFetchOptions();
           body: JSON.stringify({
           "orderID" : values.OrderID,
           "postmanID":values.postmanID,
-          "citcompanyID":values.citcompanyID,
+          "citcompanyID":values.companyID,
           "status": "Intransit"  
           })
           })
@@ -250,6 +250,8 @@ const fetchOption = authLib.getFetchOptions();
   
         console.log("finished add Sensor");
       }
+
+      //.......Kiran Added function ends here
   render(){
   return(
           <div className="content">
