@@ -94,7 +94,7 @@ const Main = ({
           <Route path="/viewIncident" component={viewIncident} />
           <Route path="/RegisterUser" component={RegisterUser} />
           
-          <Route path="/Assign" component={Assign} />
+          <Route path="/Assign/:orderid" component={Assign} />
           <Route path="/PostmanHandoverTable" component={PostmanHandoverTable} />
           <Footer />
       </div>

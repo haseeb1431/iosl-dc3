@@ -103,7 +103,7 @@ class PostmanHandoverTable extends Component {
                   <td>{item.DropAddressID}</td>
                   <td>{item.ReceiverPersonID}</td>
                   <td className="text-middle">
-                      <Link to={`/Assign`}>
+                      <Link to={`/Assign/${item.OrderID}`}>
                         <div className="btn btn-info" >Assign</div>
                       </Link>                    
                   </td>                   

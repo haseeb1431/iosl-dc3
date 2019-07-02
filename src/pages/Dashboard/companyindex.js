@@ -8,7 +8,7 @@ import React from 'react';
 //import TableWithLinks from '../Tables/ExtendedTables/TableWithLinks';
 import UserTableWithLinks from '../Tables/ExtendedTables/UserTableWithLinks';
 import PostmanHandoverTable from '../Tables/ExtendedTables/PostmanHandoverTable';
-import Register from '../Forms/RegularForms/Register';
+//import Register from '../Forms/RegularForms/Register';
 import Assign from '../Forms/RegularForms/Assign';
 
 
@@ -52,12 +52,11 @@ import Assign from '../Forms/RegularForms/Assign';
               <div className="row">
                 <div className="col-md-6">
                   <PostmanHandoverTable />
-                  <UserTableWithLinks />
+                  
                 </div>
                 <div className="col-md-6">
                   {/* <Register onSubmit={this.submit} /> */}
-                  <Assign/>
-                  <Register onSubmit={this.submit} />
+                  <UserTableWithLinks />
                 </div>
               </div>
               <div className="row">
