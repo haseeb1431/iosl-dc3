@@ -1,4 +1,7 @@
 import React from 'react';
+import authLib from '../../config/authlib'
+
+const fetchOption = authLib.getFetchOptions();
 
 const sharp = {
   display: "inline-block", 
@@ -33,7 +36,7 @@ componentDidMount() {
   this.setState({ loading: true });
   console.log(this.state.id)
   var api =   "http://localhost:8000/packages/" + this.state.id
-  fetch(api)
+  fetch(api, fetchOption)
     .then(function(response){
       if (response.ok) {
           return response.json();

@@ -4,7 +4,7 @@ import History from '../History';
 import Register from './Register';
 import authLib from '../../config/authlib'
 
-
+const fetchOption = authLib.getFetchOptions();
 
 
   class UserSpace extends React.Component{
@@ -27,7 +27,9 @@ import authLib from '../../config/authlib'
         heavy: 0,
         severe: 0,
         tempValues : [2 , 4],
-        orderID: null
+        orderID: null,
+        tempOn : false,
+        shcockOn: false
       }
       this.submit = this.submit.bind(this);
       this.addPackage =  this.addPackage.bind(this)
@@ -62,6 +64,16 @@ import authLib from '../../config/authlib'
       console.log("sumbit start")
       console.log(values)
       console.log(this.state)
+
+      if ("Temp" in values){
+        console.log("temp true")
+        this.setState({tempOn:values.Temp})
+      }
+      if ("shock" in values){
+        console.log("shock true")
+        this.setState({shcockOn: values.shock})
+      }
+
       const sender = {
         "street":values.street,
 	      "city":values.city,
@@ -84,10 +96,11 @@ import authLib from '../../config/authlib'
         set the state thereciver adress and sender .
       */
       console.log("get adreess id started with flag:" + flag)
-      fetch("http://localhost:8000/address", {
+      fetch("http://localhost:8000/address",  {
         method: 'POST',
         headers:{
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'x-access-token': fetchOption.headers['x-access-token']
         },
         body: JSON.stringify({
           "street":values.street,
@@ -132,11 +145,11 @@ import authLib from '../../config/authlib'
       var yyyy = today.getFullYear();
       
       today = mm + '-' + dd + '-' + yyyy;
-      
       fetch("http://localhost:8000/packages", {
         method: 'POST',
         headers:{
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'x-access-token': fetchOption.headers['x-access-token']
         },
         body: JSON.stringify({
           "pickaddressid":this.state.addressID,
@@ -152,7 +165,30 @@ import authLib from '../../config/authlib'
         .then(data => {
             console.log(data)
             this.state.orderID = data.OrderID
-            this.addSensore() 
+            if (this.state.tempOn)
+            {
+              console.log("temp on ");
+              const tempObj = {
+                "orderId":this.state.orderID,
+                "sensorId":1,
+                "minThreshold": this.state.tempValues[0],
+                "maxThreshold": this.state.tempValues[1]
+              }
+              this.addSensore(tempObj) 
+            }
+            if (this.state.shcockOn)
+            {
+              console.log("shock on ");
+              const shockObj = {
+                "orderId":this.state.orderID,
+                "sensorId":2,
+                "light": this.state.light,
+                "heavy": this.state.heavy,
+                "severe": this.state.severe
+              }
+              this.addSensore(shockObj) 
+            }  
+            
         })
         .catch(err => console.log(err))
 
@@ -161,7 +197,7 @@ import authLib from '../../config/authlib'
       return "The package have been registered, Thank you"
     }
 
-    addSensore(sensoreIndex){
+    addSensore(sensorBody){
     /*
       input state : order id ,sensorsID and corresponding values
       the function post the data into the OrderSensors table.  
@@ -171,14 +207,12 @@ import authLib from '../../config/authlib'
       fetch("http://localhost:8000/OrderSensors", {
         method: 'POST',
         headers:{
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'x-access-token': fetchOption.headers['x-access-token']
         },
-        body: JSON.stringify({
-          "OrderId":this.state.orderID,
-          "SensorId":sensoreIndex,
-          "MinThreshold": this.state.tempValues[0],
-          "MaxThreshold": this.state.tempValues[1]
-        })
+        body: JSON.stringify(
+          sensorBody
+        )
         })
         .then(res => res.json())
         .then((data) => {

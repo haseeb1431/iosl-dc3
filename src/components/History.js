@@ -25,8 +25,11 @@ class History extends Component {
     const options = authLib.getUserObj() ;
     console.log(options)
     const userID = options.ID
+
+    const fetchOption = authLib.getFetchOptions();
+
     this.setState({ isLoading: true });   
-    fetch("http://localhost:8000/packages/user/" + userID)
+    fetch("http://localhost:8000/packages/user/" + userID, fetchOption)
       .then(function(response){
         if (response.ok) {
             return response.json();
