@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import generateData from '../generateData';
-import { Link, Redirect } from 'react-router-dom';
-import authLib from '../../../config/authlib'
+import { Link } from 'react-router-dom';
+import authLib from '../config/authlib'
 
-class TableWithLinks extends Component {
+class History extends Component {
+  /*
+    Extract after user login the user ID in the database and 
+    present all the specific user packages hostry in a table,
+    present only main pakcages properties.
+  */
   constructor(){
     super()
     this.state = {
@@ -11,16 +15,22 @@ class TableWithLinks extends Component {
       items : [],
       isLoading: false,
       error:null,
-      // items: generateData()
     }
   }
 
-  //TODO: Please update the naming of the files
-
   componentDidMount() {
-    this.setState({ isLoading: true }); 
-    const options = authLib.getFetchOptions()  ;
-    fetch("http://localhost:8000/packagesdetails",options)
+    /**
+     fetch user data from database
+     */
+    const options = authLib.getUserObj() ;
+    console.log(options)
+    const userID = options.ID
+
+    const fetchOption = authLib.getFetchOptions();
+    
+
+    this.setState({ isLoading: true });   
+    fetch("http://localhost:8000/packages/user/" + userID, fetchOption)
       .then(function(response){
         if (response.ok) {
             return response.json();
@@ -45,19 +55,18 @@ class TableWithLinks extends Component {
   }
 
 
-  deleteItem = itemId => {
-    this.setState({
-      items: this.state.items.filter(item => item.id !== itemId)
-    });
-  }
+  // deleteItem = itemId => {
+  //   this.setState({
+  //     items: this.state.items.filter(item => item.id !== itemId)
+  //   });
+  // }
  
   render() {
-    // let { items, isShowingAlert } = this.state;
+ 
     return (
       <div className="card">
         <div className="header">
           <h4 className="title">User Packages</h4>
-          {/* <p className="category">Here is a subtitle for this table</p> */}
         </div>
         <div className="content table-responsive table-full-width">
           <table className="table table-hover table-striped">
@@ -68,9 +77,7 @@ class TableWithLinks extends Component {
                 <th>Post Code</th>
                 <th>City</th>
                 <th>Country</th>
-                
                 <th className="text-right">Status</th>
-                {/* <th className="text-middle">Details</th> */}
                 <th className="text-right">Reciver</th>
               </tr>
             </thead>
@@ -78,23 +85,15 @@ class TableWithLinks extends Component {
               {this.state.items.map(item => (
                 <tr key={item.OrderID} >
                   <td><Link to={`/package/${item.OrderID}`} style={{color: 'blue'}}>
-                      {/* <i className="pe-7s-graph"></i> */}
                       {item.OrderID}
                       </Link>
                   </td>
-                  <td>{item.StreetAddress}</td>
-                  <td>{item.PostCode}</td>
-                  <td>{item.City}</td>
-                  <td>{item.Country}</td>
+                  <td>{item.dropstreetaddress}</td>
+                  <td>{item.droppostcode}</td>
+                  <td>{item.dropcity}</td>
+                  <td>{item.dropcountry}</td>
                   <td>{item.Status}</td>
-                  <td className="text-right"> {item.ArrivalDate}</td>
-                  <td className="text-right"> {item.ArrivalDate}</td>
-                  {/* <td className="text-middle">
-                      <Link to={`/package/${item.OrderID}`}>
-                        <div className="btn btn-info" >info</div>
-                      </Link>
-                    
-                  </td> */}
+                  <td className="text-right"> {item.PickDate}</td>
                 </tr>
               ))}
             </tbody>
@@ -106,5 +105,4 @@ class TableWithLinks extends Component {
   }
 }
 
-export default TableWithLinks;
-
+export default History;

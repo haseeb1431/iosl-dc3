@@ -26,7 +26,7 @@ const validate = values => {
   return errors;
 }
 
-const ValidationForm = ({
+const IncidentForm = ({
   handleSubmit,
   onSubmit
 }) => (
@@ -47,17 +47,7 @@ const ValidationForm = ({
               </div>
 
               <div className="form-group">
-                <label className="col-sm-3 control-label">Email</label>
-                <div className="col-sm-9">
-                  <Field
-                    type="email"
-                    name="email"
-                    component={renderField} />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label className="col-sm-3 control-label">Package ID</label>
+                <label className="col-sm-3 control-label">Order ID</label>
                 <div className="col-sm-9">
                   <Field
                     type="number"
@@ -66,8 +56,9 @@ const ValidationForm = ({
                 </div>
               </div>
 
+              
               <div className="form-group">
-                <label className="col-sm-3 control-label">Sensor ID</label>
+                <label className="col-sm-3 control-label">Person ID</label>
                 <div className="col-sm-9">
                   <Field
                     type="number"
@@ -87,6 +78,6 @@ const ValidationForm = ({
   );
 
 export default reduxForm({
-  form: 'validationForm',
+  form: 'IncidentForm',
   validate
-})(ValidationForm);
+})(IncidentForm);

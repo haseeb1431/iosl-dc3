@@ -11,7 +11,14 @@ import SideBar from '../../components/SideBar';
 import ThemeOptions from '../../components/ThemeOptions';
 import MobileMenu from '../../components/MobileMenu';
 import addUser from '../Forms/RegularForms/StackedForm'
+import registerPackage from '../../components/userSpace/Register'
+import Active from '../../components/userSpace/Active';
+import UserSpace from '../../components/userSpace/UserSpace'
+import Detailed from '../../components/userSpace/Detailed'
+import History from '../../components/History'
+import UpgradeUser from '../Forms/RegularForms/UpgradeUser'
 import registerPackage from '../Forms/RegularForms/Register'
+import viewIncident from '../Incidents/index'
 /**
  * Pages
  */
@@ -23,9 +30,12 @@ import Forms from '../Forms';
 import Charts from '../Charts';
 import Calendar from '../Calendar';
 import Tables from '../Tables';
-import Detailed from '../Dashboard/Detailed'
 import companyindex from '../Dashboard/companyindex'
 import postmanindex from '../Dashboard/postmanIndex'
+import Register from '../RegisterUser'
+import RegisterUser from '../RegisterUser';
+
+
 
 const Main = ({
   mobileNavVisibility,
@@ -38,15 +48,18 @@ const Main = ({
     }
   });
   
-  //Determine which page needs to be shown as dashboard
-  var userHome=Dashboard;
+  // it is dose not matter company/postman/user
+  // main landing page is always the history of the login user
+  var userHome=History;
   const userObj = JSON.parse(sessionStorage.getItem('userAuth'));
+  console.log("Main.js started  with the user:")
+  console.log(userObj)
   if (userObj) {
     if (userObj.PersonType==3) {
-      userHome= postmanindex
+      userHome= History
     }
     else if(userObj.PersonType==2){
-      userHome = companyindex
+      userHome = History
     }
   }
 
@@ -62,9 +75,11 @@ const Main = ({
         <div className="main-panel">
         
           <Header />          
+          <Route exact path="/packages" component={UserSpace} />  
           <Route exact path="/" component={userHome} />  
-          <Route exact path="/user" component={Dashboard} />  
           <Route exact path="/package/:OrderID" component={Detailed} />
+          <Route exact path="/packages/active" component={Active} />
+          <Route path="/packages/registerPackage" component={registerPackage} />
           <Route exact path="/company" component={companyindex} />
           <Route exact path="/postman" component={postmanindex} />
           <Route path="/components" component={Components} />
@@ -72,8 +87,11 @@ const Main = ({
           <Route path="/forms" component={Forms} />
           <Route path="/tables" component={Tables} />
           <Route path="/maps" component={MapsPage} />
-          <Route path="/registerPackage" component={registerPackage} />
           <Route path="/addUser" component={addUser} />
+          <Route path="/registerPackage" component={registerPackage} />
+          <Route path="/UpgradeUser" component={UpgradeUser} />
+          <Route path="/viewIncident" component={viewIncident} />
+          <Route path="/RegisterUser" component={RegisterUser} />
           
           <Footer />
       </div>
@@ -92,3 +110,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 });
 
 export default withRouter(connect(mapStateToProp, mapDispatchToProps)(Main));
+

@@ -31,8 +31,7 @@ const Header = ({
         <Navbar.Form pullLeft>
         </Navbar.Form>
         <Nav pullRight>
-          <NavItem>Account</NavItem>
-          <NavItem onClick={handleLogout} >Log out</NavItem>
+          <NavItem  onClick={handleLogout} ><a href="/LandingPage" ></a>Log out</NavItem>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

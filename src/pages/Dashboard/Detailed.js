@@ -1,5 +1,6 @@
 import React from 'react';
 import Tracking from 'assets/images/tracking.png';
+import authLib from '../../config/authlib'
 
 const EXAMPLE = [
   {
@@ -46,9 +47,10 @@ class Detailed extends React.Component {
 
 componentDidMount() {
   this.setState({ loading: true });
+  const options = authLib.getFetchOptions()  ;
   console.log(this.state.id)
   var api =   "http://localhost:8000/packages/" + this.state.id
-  fetch(api)
+  fetch(api,options)
     .then(function(response){
       if (response.ok) {
           return response.json();

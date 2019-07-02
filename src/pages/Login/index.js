@@ -78,6 +78,43 @@ export default class Login extends Component {
     });
   }
 
+  /*checkLogin = async (email, password) => {
+    let self = this;
+    fetch('http://localhost:8000/login', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'email': email,
+        'password': password,
+      })
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+
+      if (data && data.length > 0) {
+
+        let user = data[0];
+  
+
+        switch (global.PersonType) {
+
+          case 1: self.props.history.push('/Dashboard'); break;
+          case 2: self.props.history.push('/company'); break;
+          case 3: self.props.history.push('/postman'); break;
+          default:
+            self.setState({ loginfailed: true });
+            break;
+        }
+      }
+      else {
+        self.setState({ loginfailed: true });
+      };
+    });
+
+  }
+
   handleSubmit = event => {
     event.preventDefault();
     //TODO
@@ -90,7 +127,7 @@ export default class Login extends Component {
     else {
       this.props.history.push('/Dashboard');
     }
-  }
+  }*/
 
   render() {
     
@@ -102,7 +139,7 @@ export default class Login extends Component {
       ) :
       (
         <div>
-          <div className="Login">
+          {/*<div className="Login">
             <form onSubmit={this.handleSubmit}>
               <FormGroup controlId="email" bsSize="large">
                 <ControlLabel>Email</ControlLabel>
@@ -130,21 +167,27 @@ export default class Login extends Component {
                 Login
             </Button>
             </form>
-          </div>
-
+      </div> */}
+          
           <div>
             <div className="Login">
+            <FormGroup >
               <GoogleLogin
                 clientId="204559914410-83fsef9pb97suhi6o550uqeo2utb8591.apps.googleusercontent.com"
-                buttonText="Login"
+                buttonText="Login with Google"
                 onSuccess={this.googleResponse}
                 onFailure={this.googleResponse}
               />
+               </FormGroup>
             </div>
           </div>
+          
+         
         </div>
+        
       );
 
+      
     return (
       <div>
         {content}
