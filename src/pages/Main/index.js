@@ -10,14 +10,14 @@ import Footer from './Footer';
 import SideBar from '../../components/SideBar';
 import ThemeOptions from '../../components/ThemeOptions';
 import MobileMenu from '../../components/MobileMenu';
-import addUser from '../Forms/RegularForms/StackedForm'
+// import addUser from '../Forms/RegularForms/StackedForm'
 import registerPackage from '../../components/userSpace/Register'
 import Active from '../../components/userSpace/Active';
 import UserSpace from '../../components/userSpace/UserSpace'
 import Detailed from '../../components/userSpace/Detailed'
 import History from '../../components/History'
 import UpgradeUser from '../Forms/RegularForms/UpgradeUser'
-import registerPackage from '../Forms/RegularForms/Register'
+// import registerPackage from '../Forms/RegularForms/Register'
 import viewIncident from '../Incidents/index'
 /**
  * Pages
@@ -87,7 +87,7 @@ const Main = ({
           <Route path="/forms" component={Forms} />
           <Route path="/tables" component={Tables} />
           <Route path="/maps" component={MapsPage} />
-          <Route path="/addUser" component={addUser} />
+          {/* <Route path="/addUser" component={addUser} /> */}
           <Route path="/registerPackage" component={registerPackage} />
           <Route path="/UpgradeUser" component={UpgradeUser} />
           <Route path="/viewIncident" component={viewIncident} />

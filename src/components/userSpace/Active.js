@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import authLib from '../../config/authlib'
 
+const fetchOption = authLib.getFetchOptions();
 
 class Active extends React.Component {
   /**
@@ -31,7 +32,7 @@ class Active extends React.Component {
     console.log(userID)
     
     this.setState({ isLoading: true });   
-    fetch("http://localhost:8000/packages/user/" + userID)
+    fetch("http://localhost:8000/packages/user/" + userID, fetchOption)
       .then(function(response){
         if (response.ok) {
             return response.json();
@@ -79,7 +80,8 @@ class Active extends React.Component {
     fetch("http://localhost:8000/packages/" + item.OrderID, {
       method: 'PUT',
       headers:{
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-access-token': fetchOption.headers['x-access-token']
       },
       body: JSON.stringify({
         "Status":"Canceled",
