@@ -16,6 +16,9 @@ import Active from '../../components/userSpace/Active';
 import UserSpace from '../../components/userSpace/UserSpace'
 import Detailed from '../../components/userSpace/Detailed'
 import History from '../../components/History'
+import UpgradeUser from '../Forms/RegularForms/UpgradeUser'
+import registerPackage from '../Forms/RegularForms/Register'
+import viewIncident from '../Incidents/index'
 /**
  * Pages
  */
@@ -29,6 +32,8 @@ import Calendar from '../Calendar';
 import Tables from '../Tables';
 import companyindex from '../Dashboard/companyindex'
 import postmanindex from '../Dashboard/postmanIndex'
+import Register from '../RegisterUser'
+import RegisterUser from '../RegisterUser';
 
 
 
@@ -83,6 +88,10 @@ const Main = ({
           <Route path="/tables" component={Tables} />
           <Route path="/maps" component={MapsPage} />
           <Route path="/addUser" component={addUser} />
+          <Route path="/registerPackage" component={registerPackage} />
+          <Route path="/UpgradeUser" component={UpgradeUser} />
+          <Route path="/viewIncident" component={viewIncident} />
+          <Route path="/RegisterUser" component={RegisterUser} />
           
           <Footer />
       </div>
@@ -101,3 +110,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 });
 
 export default withRouter(connect(mapStateToProp, mapDispatchToProps)(Main));
+

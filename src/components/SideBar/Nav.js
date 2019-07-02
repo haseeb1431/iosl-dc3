@@ -28,12 +28,30 @@ class Nav extends Component {
       //User Navigation bar
       return (
         <ul className="nav">
-          <li className={location.pathname === '/' ? 'active' : null}>
-            <Link to="/Dashboard">
+          <li className={location.pathname === '/Dashboard' ? 'active' : null}>
+            <Link to="/">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
           </li>
+          <li className={this.isPathActive('/forms') || this.state.formMenuOpen ? 'active' : null}>
+          <a onClick={() => this.setState({ formMenuOpen: !this.state.formMenuOpen })} data-toggle="collapse">
+            <i className="pe-7s-note2"></i>
+            <p>Package Management<b className="caret"></b></p>
+          </a>
+          <Collapse in={this.state.formMenuOpen}>
+            <div>
+              <ul className="nav">
+                <li className={this.isPathActive('/packages/registerPackage') ? 'active' : null}>
+                  <Link to="/packages/registerPackage">Register Package</Link>
+                </li>
+                <li className={this.isPathActive('/packages/active') ? 'active' : null}>
+                  <Link to="/packages/active">Delete Package</Link>
+                </li>
+              </ul>
+            </div>
+          </Collapse>
+        </li>
           <li className={this.isPathActive('/forms') || this.state.formMenuOpen ? 'active' : null}>
           <a onClick={() => this.setState({ formMenuOpen: !this.state.formMenuOpen })} data-toggle="collapse">
             <i className="pe-7s-note2"></i>
@@ -42,11 +60,11 @@ class Nav extends Component {
           <Collapse in={this.state.formMenuOpen}>
             <div>
               <ul className="nav">
-                <li className={this.isPathActive('/forms/validation-forms') ? 'active' : null}>
-                  <Link to="/forms/validation-forms">Create incident</Link>
+                <li className={this.isPathActive('/forms/incident-form') ? 'active' : null}>
+                  <Link to="/forms/incident-form">Create incident</Link>
                 </li>
-                <li className={this.isPathActive('/Tables/RegularTables') ? 'active' : null}>
-                  <Link to="/Tables/RegularTables">Incidents</Link>
+                <li className={this.isPathActive('/Incidents/viewIncident') ? 'active' : null}>
+                  <Link to="/viewIncident">Incidents</Link>
                 </li>
               </ul>
             </div>
@@ -55,6 +73,8 @@ class Nav extends Component {
         </ul>
       );
     }
+    
+
     else if(this.state.persontype == 2){
       //Company
       return (
@@ -78,8 +98,9 @@ class Nav extends Component {
           <Collapse in={this.state.componentMenuOpen}>
             <div>
               <ul className="nav">
-                  <li className={this.isPathActive('/addUser') ? 'active' : null}>
-                  <Link to="/addUser">Add Postman</Link>
+                  <li className={this.isPathActive('/UpgradeUser') ? 'active' : null}>
+                  <i className="pe-7s-id"></i>
+                  <Link to="/UpgradeUser">Postman Management</Link>
                 </li>
                 <li className={this.isPathActive('/components/grid') ? 'active' : null}>
                   <Link to="/components/grid">View Jobs </Link>
@@ -100,11 +121,11 @@ class Nav extends Component {
           <Collapse in={this.state.formMenuOpen}>
             <div>
               <ul className="nav">
-                <li className={this.isPathActive('/forms/validation-forms') ? 'active' : null}>
-                  <Link to="/forms/validation-forms">Create incident</Link>
+                <li className={this.isPathActive('/forms/incident-form') ? 'active' : null}>
+                  <Link to="/forms/incident-form">Create incident</Link>
                 </li>
-                <li className={this.isPathActive('/Tables/RegularTables') ? 'active' : null}>
-                  <Link to="/Tables/RegularTables">Incidents</Link>
+                <li className={this.isPathActive('/Incidents/viewIncident') ? 'active' : null}>
+                  <Link to="/viewIncident">Incidents</Link>
                 </li>
               </ul>
             </div>
@@ -113,7 +134,7 @@ class Nav extends Component {
         </ul>
       );
     }
-    else{
+    else if (this.state.persontype == 3){
       //PostMan
       return (
 <ul className="nav">
@@ -154,11 +175,11 @@ class Nav extends Component {
           <Collapse in={this.state.formMenuOpen}>
             <div>
               <ul className="nav">
-                <li className={this.isPathActive('/forms/validation-forms') ? 'active' : null}>
-                  <Link to="/forms/validation-forms">Create incident</Link>
+                <li className={this.isPathActive('/forms/incident-form') ? 'active' : null}>
+                  <Link to="/forms/incident-form">Create incident</Link>
                 </li>
-                <li className={this.isPathActive('/Tables/RegularTables') ? 'active' : null}>
-                  <Link to="/Tables/RegularTables">Incidents</Link>
+                <li className={this.isPathActive('/Incidents/viewIncident') ? 'active' : null}>
+                  <Link to="/viewIncident">Incidents</Link>
                 </li>
               </ul>
             </div>
