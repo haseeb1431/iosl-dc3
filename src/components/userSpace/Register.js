@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import renderField from 'components/FormInputs/renderField';
+import RangeBar from './RangeBar'
 
 const required= (value) => {
     if (!value || value === ""){
@@ -11,17 +12,49 @@ const required= (value) => {
     }
   }
 
+
+
 class Register extends React.Component {
+    /**
+     * register a new package using redux form 
+     * validation  - all filed are required to be filed except the sensores!
+     * the reciever must be a register user( in the system)
+     * only after clicking the checkbox of the sensore,values filed will appeare.
+     */
     constructor(){
         super()
         this.state = {
             registerUsers: [],
-            verifyName : "user is not register"
+            verifyName : "user is not register",
+            checkedTemp: false,
+            checkedShock: false,
+            validCheckBox: false,
+            
+            
         }
         // this.verify = this.verify.bind(this)
         // this.allowedEmail = this.allowedEmail.bind(this)
+        // this.handleChange = this.handleChange.bind(this)
 
     }
+
+    handleCheckboxChange = event =>{
+    if (event.target.name === "shock"){
+        this.setState(
+            { checkedShock: event.target.checked })
+    }
+    else{
+        this.setState(
+            { checkedTemp: event.target.checked })
+    }
+}
+
+    // handleChange(event) {
+    //     const {name, value} = event.target
+    //     this.setState({
+    //         [name]: value
+    //     }) 
+    // }
 
     componentDidMount(){
     fetch("http://localhost:8000/persons")
@@ -43,43 +76,7 @@ class Register extends React.Component {
         })    
     }
 
-    // verify(value){
-    //     console.log(value)
-    //     console.log("verify")
-    //     fetch("http://localhost:8000/persons/exists/" + value)
-    //     .then(function(response){
-    //     if (response.ok) {
-    //         return response.json();
-    //         } 
-    //         else {
-    //         throw new Error('NO receiverEmail');
-    //         }
-    //     })
-    //     .then((data) => {
-    //         console.log(data)
-    //         if (data === undefined || data.length === 0) {
-    //             console.log("false")
-    //             // this.setState({verifyName :"user is not register"})
-    //             this.setState({verifyName :false})
-    //         }
-    //         else{
-    //             console.log("ture, return nudefined")
-    //             // this.setState({verifyName :undefined})
-    //             this.setState({verifyName :true})   
-    //         }                 
-    //     })
 
-    //     // return this.state.verifyName
-    // }
-
-    // allowedEmail(value){
-    //     if (!this.state.verifyName){
-    //         return "user is not register"
-    //     }
-    //     else{
-    //         return undefined
-    //     }
-    // }
 
     render(){
         console.log("!!! rendering again!!!")
@@ -95,8 +92,7 @@ class Register extends React.Component {
                 return undefined
             }
           }
-        
-        
+
         return(
             <div className="card">
                 <div className="header">
@@ -170,7 +166,7 @@ class Register extends React.Component {
                         </div>
 
 
-                        <legend>Destination Address</legend>
+                        <legend>Destenation Address</legend>
 
                         <div className="form-group">
                             <label className="control-label col-md-3">receiver email</label>
@@ -242,21 +238,68 @@ class Register extends React.Component {
                             <label className="control-label col-md-3">Sensors</label>
                             <div className="col-md-9 checkbox-group">
                                 <Field
-                                name="checkbox1"
+                                name="Temp"
                                 type="checkbox"                               
                                 label="Heat Sensor"
+                                onChange={this.handleCheckboxChange}
                                 component={renderField} />
+                                
+                                { !this.state.checkedTemp ? null : <RangeBar tempVal={this.props.tempertureValues} temperatureChange={this.props.tempChange} />}
 
                                 <Field
-                                name="checkbox2"
+                                name="shock"
                                 type="checkbox"
-                                label="Pressure Sensors"
-                                component={renderField} />                           
+                                label="Shock sensor"
+                                onChange={this.handleCheckboxChange}
+                                component={renderField} />  
+
+                                { 
+                                !this.state.checkedShock ? null : 
+                                    <div>
+                                            <label>LIght:</label>
+                                            <br />
+                                            <input 
+                                                name="light"
+                                                type="number" 
+                                                value={this.props.light} 
+                                                onChange={this.props.handleChange} 
+                                                min="0"
+                                                max="1000"
+                                                 
+                                                />
+                                            <br />
+
+                                            <label>Heavy:</label>
+                                            <br />
+                                            <input 
+                                                name="heavy"
+                                                type="number" 
+                                                value={this.props.heavy} 
+                                                onChange={this.props.handleChange} 
+                                                min="0"
+                                                max="1000"
+                                                />
+                                            <br />
+
+                                            <label>Severe:</label>
+                                            <br />
+                                            <input 
+                                                name="severe"
+                                                type="number" 
+                                                value={this.props.severe} 
+                                                onChange={this.props.handleChange} 
+                                                min="0"
+                                                max="1000"
+                                                />
+                                            <br />
+                                    </div>
+                                }                         
                             </div>
                         </div>
                         <button disabled={!valid}  type="submit" className="btn btn-fill btn-info">Submit</button>
                     </form>
                 </div>
+                
             </div>
 
         )

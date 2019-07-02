@@ -139,7 +139,7 @@ export default class Login extends Component {
       ) :
       (
         <div>
-          <div className="Login">
+          {/*<div className="Login">
             <form onSubmit={this.handleSubmit}>
               <FormGroup controlId="email" bsSize="large">
                 <ControlLabel>Email</ControlLabel>
@@ -167,21 +167,27 @@ export default class Login extends Component {
                 Login
             </Button>
             </form>
-          </div>
-
+      </div> */}
+          
           <div>
             <div className="Login">
+            <FormGroup >
               <GoogleLogin
                 clientId="204559914410-83fsef9pb97suhi6o550uqeo2utb8591.apps.googleusercontent.com"
-                buttonText="Login"
+                buttonText="Login with Google"
                 onSuccess={this.googleResponse}
                 onFailure={this.googleResponse}
               />
+               </FormGroup>
             </div>
           </div>
+          
+         
         </div>
+        
       );
 
+      
     return (
       <div>
         {content}
