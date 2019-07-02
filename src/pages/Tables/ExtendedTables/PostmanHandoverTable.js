@@ -58,20 +58,21 @@ class PostmanHandoverTable extends Component {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Postman ID</th>
+
                 <th>Pickup Address</th>
                 <th>Pickup Date</th>
                 <th>Destination</th>
                 <th>Status</th>
 
                 <th className="text-middle">Action</th>
+                <th>Update Status</th>
               </tr>
             </thead>
             <tbody>
               {this.state.items.map(item => (
                 <tr key={item.OrderID}>
                   <td>{item.OrderID}</td>
-                  <td>{item.PostmanId}</td>
+
                   <td>{item.PickAddressID}</td>
                   <td>{item.PickDate}</td>
                   <td>{item.DropAddressID}</td>
@@ -80,6 +81,11 @@ class PostmanHandoverTable extends Component {
                   <td className="text-middle">
                     <Link to={`/components/buttons`}>
                       <div className="btn btn-wd btn-info">Handover</div>
+                    </Link>
+                  </td>
+                  <td>
+                    <Link to={`/components/buttons`}>
+                      <div className="btn btn-wd btn-info">Deliver</div>
                     </Link>
                   </td>
                 </tr>

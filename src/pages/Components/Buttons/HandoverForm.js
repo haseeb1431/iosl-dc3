@@ -19,34 +19,6 @@ class HandoverForm extends React.Component {
         </div>
         <div className="content">
           <form onSubmit={handleSubmit} className="form-horizontal">
-            <legend>Details of releasing postman</legend>
-
-            <div className="form-group">
-              <label className="control-label col-md-3">Name</label>
-              <div className="col-md-9">
-                <Field
-                  name="Releasing Postman Name"
-                  placeholder="Releasing Postman"
-                  type="text"
-                  component={renderField}
-                  //helpText="postman releasing package"
-                />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label className="control-label col-md-3">Company</label>
-              <div className="col-md-9">
-                <Field
-                  name="company"
-                  type="text"
-                  placeholder="DHL"
-                  component={renderField}
-                />
-                {/* helpText="A block of help text that breaks onto a new line." /> */}
-              </div>
-            </div>
-
             <div className="form-group">
               <label className="control-label col-md-3">packageId</label>
               <div className="col-md-9">
@@ -59,33 +31,7 @@ class HandoverForm extends React.Component {
               </div>
             </div>
 
-            <div className="form-group">
-              <label className="control-label col-md-3">sensorId</label>
-              <div className="col-md-9">
-                <Field
-                  name="sensorId"
-                  placeholder="id of sensor"
-                  type="text"
-                  component={renderField}
-                />
-              </div>
-            </div>
-
             <legend>Details of receiving postman</legend>
-
-            <div className="form-group">
-              <label className="control-label col-md-3">Name</label>
-              <div className="col-md-9">
-                <Field
-                  name="Receiving Postman "
-                  placeholder="Receiving Postman"
-                  type="text"
-                  component={renderField}
-                  // helpText="postman receiving the package"
-                />
-              </div>
-            </div>
-
             <div className="form-group">
               <label className="control-label col-md-3">company</label>
               <div className="col-md-9">
@@ -96,6 +42,18 @@ class HandoverForm extends React.Component {
                   component={renderField}
                 />
                 {/* helpText="A block of help text that breaks onto a new line." /> */}
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="control-label col-md-3">Name</label>
+              <div className="col-md-9">
+                <Field
+                  name="Receiving Postman "
+                  placeholder="Receiving Postman"
+                  type="text"
+                  component={renderField}
+                  // helpText="postman receiving the package"
+                />
               </div>
             </div>
 

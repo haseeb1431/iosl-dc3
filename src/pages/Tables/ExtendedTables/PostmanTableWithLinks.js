@@ -65,6 +65,7 @@ class TableWithLinks extends Component {
                 <th>Status</th>
 
                 <th className="text-middle">Action</th>
+                <th className="text-middle">Update Status</th>
               </tr>
             </thead>
             <tbody>
@@ -80,6 +81,11 @@ class TableWithLinks extends Component {
                   <td className="text-middle">
                     <Link to={`/components/buttons`}>
                       <div className="btn btn-wd btn-info">Handover</div>
+                    </Link>
+                  </td>
+                  <td className="text-middle">
+                    <Link to={`/components/buttons`}>
+                      <div className="btn btn-wd btn-info">Deliver</div>
                     </Link>
                   </td>
                 </tr>
