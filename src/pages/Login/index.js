@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
 import Main from '../Main';
-
+import Header from '../Login/Header'
 import { GoogleLogin } from 'react-google-login';
+
+
+
 //https://medium.com/@alexanderleon/implement-social-authentication-with-react-restful-api-9b44f4714fa
 
 export default class Login extends Component {
@@ -78,58 +81,11 @@ export default class Login extends Component {
     });
   }
 
-  /*checkLogin = async (email, password) => {
-    let self = this;
-    fetch('http://localhost:8000/login', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        'email': email,
-        'password': password,
-      })
-    }).then(function (response) {
-      return response.json();
-    }).then(function (data) {
-
-      if (data && data.length > 0) {
-
-        let user = data[0];
   
 
-        switch (global.PersonType) {
-
-          case 1: self.props.history.push('/Dashboard'); break;
-          case 2: self.props.history.push('/company'); break;
-          case 3: self.props.history.push('/postman'); break;
-          default:
-            self.setState({ loginfailed: true });
-            break;
-        }
-      }
-      else {
-        self.setState({ loginfailed: true });
-      };
-    });
-
-  }
-
-  handleSubmit = event => {
-    event.preventDefault();
-    //TODO
-    if (this.state.email == "admin@dhl.com") {
-      this.props.history.push('/company');
-    }
-    else if (this.state.email == "postman@dhl.com") {
-      this.props.history.push('/postman');
-    }
-    else {
-      this.props.history.push('/Dashboard');
-    }
-  }*/
-
   render() {
+
+  
     
     let content = this.state.isAuthenticated ?
       (
@@ -138,60 +94,28 @@ export default class Login extends Component {
         </div>
       ) :
       (
-        <div>
-          {/*<div className="Login">
-            <form onSubmit={this.handleSubmit}>
-              <FormGroup controlId="email" bsSize="large">
-                <ControlLabel>Email</ControlLabel>
-                <FormControl
-                  autoFocus
-                  type="email"
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                />
-              </FormGroup>
-              <FormGroup controlId="password" bsSize="large">
-                <ControlLabel>Password</ControlLabel>
-                <FormControl
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                  type="password"
-                />
-              </FormGroup>
-              <Button
-                block
-                bsSize="large"
-                disabled={!this.validateForm()}
-                type="submit"
-              >
-                Login
-            </Button>
-            </form>
-      </div> */}
-          
-          <div>
+            
             <div className="Login">
-            <FormGroup >
-              <GoogleLogin
+              <Header /> 
+              <GoogleLogin 
                 clientId="204559914410-83fsef9pb97suhi6o550uqeo2utb8591.apps.googleusercontent.com"
                 buttonText="Login with Google"
                 onSuccess={this.googleResponse}
                 onFailure={this.googleResponse}
-              />
-               </FormGroup>
-            </div>
-          </div>
-          
-         
-        </div>
-        
+              />           
+              </div>  
+  
+  
+  
       );
 
-      
+          
     return (
-      <div>
-        {content}
+      
+        <div>
+      {content}
       </div>
+
     );
   }
 }

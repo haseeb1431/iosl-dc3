@@ -87,7 +87,6 @@ const Main = ({
           <Route path="/forms" component={Forms} />
           <Route path="/tables" component={Tables} />
           <Route path="/maps" component={MapsPage} />
-          {/* <Route path="/addUser" component={addUser} /> */}
           <Route path="/registerPackage" component={registerPackage} />
           <Route path="/UpgradeUser" component={UpgradeUser} />
           <Route path="/viewIncident" component={viewIncident} />
