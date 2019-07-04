@@ -176,7 +176,7 @@ class Register extends React.Component {
                         </div>
 
 
-                        <legend>Destenation Address</legend>
+                        <legend>Destination Address</legend>
 
                         <div className="form-group">
                             <label className="control-label col-md-3">receiver email</label>
