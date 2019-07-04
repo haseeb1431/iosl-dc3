@@ -2,16 +2,18 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import renderField from 'components/FormInputs/renderField';
 import RangeBar from './RangeBar'
+import authLib from '../../config/authlib'
+
+const fetchOption = authLib.getFetchOptions();
 
 const required= (value) => {
-    if (!value || value === ""){
+    if (!value || value === "" || value==="select..."){
         return "this field is required"
     }
     else{
         return undefined
     }
   }
-
 
 
 class Register extends React.Component {
@@ -29,8 +31,7 @@ class Register extends React.Component {
             checkedTemp: false,
             checkedShock: false,
             validCheckBox: false,
-            
-            
+            companies : []
         }
         // this.verify = this.verify.bind(this)
         // this.allowedEmail = this.allowedEmail.bind(this)
@@ -57,26 +58,35 @@ class Register extends React.Component {
     // }
 
     componentDidMount(){
-    fetch("http://localhost:8000/persons")
-        .then(function(response){
-        if (response.ok) {
-            return response.json();
-            } 
-            else {
-            throw new Error('NO receiverEmail');
-            }
-        })
-        .then((data) => {
-            data.forEach(elemnt => {
-                this.state.registerUsers.push(elemnt.Email)
-            })                          
-        })
-        .catch(function(error){
-            console.log(error)
-        })    
+        fetch("http://localhost:8000/persons", fetchOption)
+            .then(function(response){
+            if (response.ok) {
+                return response.json();
+                } 
+                else {
+                throw new Error('NO receiverEmail');
+                }
+            })
+            .then((data) => {
+                data.forEach(elemnt => {
+                    this.state.registerUsers.push(elemnt.Email)
+                })                          
+            })
+            .catch(function(error){
+                console.log(error)
+            })
+        fetch("http://localhost:8000/company", fetchOption)
+          .then(res => res.json())
+          .then(
+              (data) => {
+              data.forEach(elemnt => {
+                  this.state.companies.push({ name: elemnt.Name, value: elemnt.Id })
+              })
+          })                          
+            .catch(function(error){
+                console.log(error)
+      });   
     }
-
-
 
     render(){
         console.log("!!! rendering again!!!")
@@ -296,7 +306,24 @@ class Register extends React.Component {
                                 }                         
                             </div>
                         </div>
-                        <button disabled={!valid}  type="submit" className="btn btn-fill btn-info">Submit</button>
+                        
+                        <legend>Company</legend>
+
+                            <div>
+                                <div>
+                                <select  
+                                    value={this.props.chosenCompany.name}
+                                    onChange={this.props.handleChange}
+                                    name="chosenCompany"
+                                    class="required"
+
+                                > 
+                                    <option selected="selected">select...</option>
+                                    {this.state.companies.map((company) => <option key={company.name} value={company.value}>{company.name}</option>)}
+                                </select>
+                            </div>
+                        </div>
+                        <button disabled={!valid }  type="submit" className="btn btn-fill btn-info">Submit</button>
                     </form>
                 </div>
                 

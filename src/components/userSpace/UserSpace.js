@@ -1,6 +1,6 @@
 import React from 'react';
 
-import History from '../History';
+// import History from '../History';
 import Register from './Register';
 import authLib from '../../config/authlib'
 
@@ -29,7 +29,9 @@ const fetchOption = authLib.getFetchOptions();
         tempValues : [2 , 4],
         orderID: null,
         tempOn : false,
-        shcockOn: false
+        shcockOn: false,
+        success: false,
+        chosenCompany:{"name":"select..."}
       }
       this.submit = this.submit.bind(this);
       this.addPackage =  this.addPackage.bind(this)
@@ -132,12 +134,12 @@ const fetchOption = authLib.getFetchOptions();
       "add package" will start. the function
     */
       console.log("starting to add package")
-      console.log(this.state.recieverID)
-      console.log(this.state.addressID)
+      console.log("reciever: " + this.state.recieverID)
+      console.log("sender: " + this.state.addressID)
       const options = authLib.getUserObj() ;
       console.log(options)
       const userID = options.ID
-      console.log(userID)
+      console.log("costumer id: " + userID)
 
       var today = new Date();
       var dd = String(today.getDate()).padStart(2, '0');
@@ -158,7 +160,8 @@ const fetchOption = authLib.getFetchOptions();
           "arrivaldate": null,
           "personid": userID,
           "receieverid":34,
-          "status": "Registered"   
+          "status": "Registered",
+          "companyId":Number(this.state.chosenCompany)
         })
         })
         .then(res => res.json())
@@ -186,15 +189,25 @@ const fetchOption = authLib.getFetchOptions();
                 "heavy": this.state.heavy,
                 "severe": this.state.severe
               }
-              this.addSensore(shockObj) 
-            }  
-            
+              this.addSensore(shockObj)
+            }
+            // this.setState({
+            //   success: true}) 
+            // },
+            // (error) => {
+            //   this.setState({
+            //     success: false,
+            //     error
+            //   });   
         })
         .catch(err => console.log(err))
 
       
       console.log("finished add package");
-      return "The package have been registered, Thank you"
+      // if (this.state.success){return this.state.orderID}
+      // else{return "The package have been registered. Thank you"}
+      return "The package have been registered. Thank you"
+        
     }
 
     addSensore(sensorBody){
@@ -215,9 +228,11 @@ const fetchOption = authLib.getFetchOptions();
         )
         })
         .then(res => res.json())
-        .then((data) => {
+        .then(
+          (data) => {
             console.log(data)
-        })
+        }
+        )
 
       console.log("finished add Sensor");
     }
@@ -227,19 +242,19 @@ const fetchOption = authLib.getFetchOptions();
           <div className="content">
             <div className="container-fluid">
             {/* if reciever id is zero default view  */}
-            {this.state.recieverID === 0 ? 
+            {this.state.recieverID === 0 || this.state.addressID ===0 ? 
               <div className="row">
-                {/* <div className="col-md-6">
-                  <History />
-                </div> */}
-                <div className="col-md-6">
+                <div className="col-md-9">
                   <Register 
                     onSubmit={this.submit} 
-                    light={this.state.light} 
+                    light={this.state.light}
+                    heavy={this.state.heavy}
+                    severe={this.state.severe}
                     tempertureValues={this.state.tempValues}
                     tempChange={this.TempChange}
+                    chosenCompany={this.state.chosenCompany}
                     handleChange={this.handleChange} />
-                </div>
+                </div> 
               </div> : 
                 <h2>{this.addPackage()}</h2>}
                  {/* if recieverID is not zero means that the user pressed sumbit and change the state. */}
