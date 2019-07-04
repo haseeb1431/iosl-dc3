@@ -56,17 +56,6 @@ const IncidentForm = ({
                 </div>
               </div>
 
-              
-              <div className="form-group">
-                <label className="col-sm-3 control-label">Person ID</label>
-                <div className="col-sm-9">
-                  <Field
-                    type="number"
-                    name="required2"
-                    component={renderField} />
-                </div>
-              </div>
-
             </div>
             <div className="footer text-center">
               <button type="submit" className="btn btn-info btn-fill">Submit</button>
