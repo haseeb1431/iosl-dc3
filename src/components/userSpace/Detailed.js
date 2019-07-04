@@ -6,7 +6,7 @@ const fetchOption = authLib.getFetchOptions();
 const sharp = {
   display: "inline-block", 
   fontSize: "12px",
-  width: "30%",
+  width: "50%",
   padding: "5px"
   
 } 
@@ -35,7 +35,7 @@ class Detailed extends React.Component {
 componentDidMount() {
   this.setState({ loading: true });
   console.log(this.state.id)
-  var api =   "http://localhost:8000/packages/" + this.state.id
+  var api =   "http://localhost:8000/packages/details/" + this.state.id
   fetch(api, fetchOption)
     .then(function(response){
       if (response.ok) {
@@ -47,14 +47,28 @@ componentDidMount() {
     })
     .then((data) => {
         console.log(data)
-          data.forEach(elemnt => {
-              this.state.items.push(elemnt)
-          })
-          this.setState({loading: false})
-          this.getSensoresData()
+          // data.forEach(elemnt => {
+          //     this.state.items.push(elemnt)
+          var row = data[0];
+          if(row.SensorId === 1)
+          {
+            row.heavy= data[1].heavy;
+            row.light= data[1].light;
+            row.severe= data[1].severe;
+            row.valuerecorded= data[1].valuerecorded;
+            
+          }
+          else{
+            row.MaxThreshold = data[1].MaxThreshold;
+            row.MinThreshold = data[1].MinThreshold;
+          }
+          console.log(row)
+          this.state.items.push(row)
+          this.setState({
+            loading: false})
+          // this.getSensoresData()
           // console.log(this.state.items.length);
-
-    })
+        })
     .catch(function(error){
         console.log(error)
     })
@@ -105,8 +119,15 @@ render() {
                                 <div className = "control-label card"><h6 style={sharp}>Drop Country:</h6><h6 style={values}> {item.dropcountry}</h6></div>
                                 <div className = "control-label card"><h6 style={sharp}>Drop PostCode:</h6><h6 style={values}> {item.droppostcode}</h6></div>
 
-                                <div className = "control-label card"><h6 style={sharp}>Sensor Type:</h6> <h6 style={values}>Heat Sensor </h6> </div>
-                                <div className = "control-label card"> <h6 style={sharp}> Status: </h6> <h6 style={values}>In Transit</h6></div> 
+                                <div className = "control-label card"><h6 style={sharp}>Company name</h6> <h6 style={values}>{item.Name}</h6> </div>
+                                <div className = "control-label card"> <h6 style={sharp}> Status: </h6> <h6 style={values}>{item.Status}</h6></div>
+
+                                <div className = "control-label card"><h6 style={sharp}>shock sensor-light</h6> <h6 style={values}>0/{item.light}</h6> </div>
+                                <div className = "control-label card"><h6 style={sharp}>shock sensor-heavy</h6> <h6 style={values}>0/{item.heavy}</h6> </div>
+                                <div className = "control-label card"><h6 style={sharp}>shock sensor-severe</h6> <h6 style={values}>0/{item.severe}</h6> </div>
+
+                                <div className = "control-label card"><h6 style={sharp}>temperature sesnor</h6> <h6 style={values}>{item.MinThreshold} &lt;  {(item.MaxThreshold + item.MinThreshold)/2} &lt;  {item.MaxThreshold}</h6> </div>
+
                             
                           </div>
                       </div>
