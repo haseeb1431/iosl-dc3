@@ -4,12 +4,12 @@ import React from 'react';
 //import EmailChart from './EmailChart';
 //import SalesChart from './SalesChart';
 //import UserBehaviorChart from './UserBehaviorChart';
-import Tasks from './Tasks';
-import TableWithLinks from '../Tables/ExtendedTables/TableWithLinks';
+//import Tasks from './Tasks';
+//import TableWithLinks from '../Tables/ExtendedTables/TableWithLinks';
 import UserTableWithLinks from '../Tables/ExtendedTables/UserTableWithLinks';
-import FormElements from '../Forms/RegularForms/FormElements';
-import Register from '../Forms/RegularForms/Register';
-import VectorMap from '../MapsPage/VectorMap';
+import PostmanHandoverTable from '../Tables/ExtendedTables/PostmanHandoverTable';
+//import Register from '../Forms/RegularForms/Register';
+import Assign from '../Forms/RegularForms/Assign';
 
 
 
@@ -51,11 +51,12 @@ import VectorMap from '../MapsPage/VectorMap';
               
               <div className="row">
                 <div className="col-md-6">
-                  <TableWithLinks />
-                  <UserTableWithLinks />
+                  <PostmanHandoverTable />
+                  
                 </div>
                 <div className="col-md-6">
-                  <Register onSubmit={this.submit} />
+                  {/* <Register onSubmit={this.submit} /> */}
+                  <UserTableWithLinks />
                 </div>
               </div>
               <div className="row">

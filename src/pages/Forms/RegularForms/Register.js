@@ -176,7 +176,7 @@ class Register extends React.Component {
                             <label className="control-label col-md-3">receiver email</label>
                             <div className="col-md-9">
                                 <Field
-                                name="receiverEmail"
+                                name="postmanEmail"
                                 placeholder = "Joh Doe"
                                 type="text"
                                 component={renderField}

@@ -1,11 +1,6 @@
-
-
 button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 20px 20px;
-  margin: 300px ;
-  border: none;
+  padding: 50px 50px;
+  margin: 275px;
   cursor: pointer;
   width: 20%;
 }
