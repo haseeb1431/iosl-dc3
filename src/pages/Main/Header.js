@@ -1,12 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { toggleMobileNavVisibility, handleLogout } from '../../reducers/Layout';
-import { Link } from 'react-router-dom';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormControl,NavLink } from 'react-bootstrap';
+import { toggleMobileNavVisibility   } from '../../reducers/Layout';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormControl } from 'react-bootstrap';
 
+
+const handleLogout = () => {
+  sessionStorage.removeItem('googleAuth');
+  sessionStorage.removeItem('userAuth');
+  sessionStorage.removeItem('userAuthToken');
+  global.isAuthenticated = false;
+  
+  //TODO: Redirect to home page
+  window.location.href = '/';
+}
 
 const Header = ({
-  showMobileMenu,
   toggleMobileNavVisibility,
   handleLogout
 }) => (
@@ -25,8 +33,10 @@ const Header = ({
         <div className="separator"></div>
         <Navbar.Form pullLeft>
         </Navbar.Form>
-        <Nav pullRight> 
-          <NavItem> <Link to="/">  Logout </Link> </NavItem>
+        {/* <Nav pullRight> 
+          <NavItem> <Link to="/">  Logout </Link> </NavItem> */}
+        <Nav pullRight>
+          <NavItem onClick={()=> handleLogout()}><a  href="/" ></a>Log out</NavItem>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
@@ -35,7 +45,8 @@ const Header = ({
 
 
 const mapDispatchToProp = dispatch => ({
-  handleLogout: () => dispatch(handleLogout())
+  toggleMobileNavVisibility: () => dispatch(toggleMobileNavVisibility()),
+  handleLogout: ()=> dispatch(handleLogout)
 });
 
 export default connect(null)(Header);

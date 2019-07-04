@@ -37,6 +37,7 @@ const fetchOption = authLib.getFetchOptions();
       this.TempChange =  this.TempChange.bind(this)
       this.getAdressId =  this.getAdressId.bind(this)
       this.addSensore =  this.addSensore.bind(this)
+      this.assignPackage = this.assignPackage.bind(this)
     }
 
     handleChange(event) { 
@@ -221,7 +222,36 @@ const fetchOption = authLib.getFetchOptions();
 
       console.log("finished add Sensor");
     }
+//Kiran Added function starts here
+    assignPackage(values){
+      /*
+        input state : order id ,company id, and corresponding values
+        the function post the data into the orederHistory table.  
+      */
+        console.log("assign package started");
+        console.log(this.state.orderID)
+        fetch("http://localhost:8000/orderHistory", {
+          method: 'POST',
+          headers:{
+            'Content-Type': 'application/json',
+            'x-access-token': fetchOption.headers['x-access-token']
+          },
+          body: JSON.stringify({
+          "orderID" : values.OrderID,
+          "postmanID":values.postmanID,
+          "citcompanyID":values.companyID,
+          "status": "Intransit"  
+          })
+          })
+          .then(res => res.json())
+          .then((data) => {
+              console.log(data)
+          })
+  
+        console.log("finished add Sensor");
+      }
 
+      //.......Kiran Added function ends here
   render(){
   return(
           <div className="content">
