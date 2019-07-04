@@ -15,8 +15,7 @@ const handleLogout = () => {
 }
 
 const Header = ({
-  toggleMobileNavVisibility,
-  handleLogout
+  toggleMobileNavVisibility
 }) => (
   <Navbar fluid={true}>
   <Navbar.Header>
@@ -33,8 +32,6 @@ const Header = ({
         <div className="separator"></div>
         <Navbar.Form pullLeft>
         </Navbar.Form>
-        {/* <Nav pullRight> 
-          <NavItem> <Link to="/">  Logout </Link> </NavItem> */}
         <Nav pullRight>
           <NavItem onClick={()=> handleLogout()}><a  href="/" ></a>Log out</NavItem>
         </Nav>
