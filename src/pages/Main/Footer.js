@@ -6,9 +6,6 @@ const Footer = () => (
       <nav className="pull-left">
         <ul>
           <li>
-            <a href="#">
-              Home
-                  </a>
           </li>     
         </ul>
       </nav>
