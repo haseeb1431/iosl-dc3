@@ -81,7 +81,7 @@ class UserTableWithLinks extends Component {
                   </td>                  
                   <td>{item.FullName}</td>
                   <td>{item.Email}</td>
-                  <td>{item.PersonType ==0 ? "Customer" : (item.PersonType ==1 ? "Company":"Postman")}</td>
+                  <td>{item.PersonType == 1 ? "Customer" : (item.PersonType ==2 ? "Company":"Postman")}</td>
                   <td className="text-middle">
                       <Link to={`/persons/${item.ID}`}>
                         <div className="btn btn-info" >edit</div>
