@@ -117,7 +117,7 @@ class Active extends React.Component {
                 <th>City</th>
                 <th>Country</th>
                 <th className="text-middle">Status</th>
-                <th className="text-middle">Reciver</th>
+                <th className="text-middle">Pick Date</th>
               </tr>
             </thead>
             <tbody>
@@ -132,7 +132,7 @@ class Active extends React.Component {
                   <td>{item.dropcity}</td>
                   <td>{item.dropcountry}</td>
                   <td>{item.Status}</td>
-                  <td className="text-middle"> {item.PickDate}</td>
+                  <td className="text-middle"> {new Date(item.PickDate).toLocaleString()}</td>
                   <td className="text-middle">
                         <div className="btn btn-danger btn-fill btn-wd" onClick={() => this.deleteItem(item)} >delete</div>
                   </td>
