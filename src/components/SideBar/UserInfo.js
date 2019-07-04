@@ -15,6 +15,9 @@ class UserInfo extends Component {
     let UserType = null;
     let { isShowingUserMenu } = this.state;
     var userObj = JSON.parse(sessionStorage.getItem('userAuth'));
+    var googleAuthObj = JSON.parse(sessionStorage.getItem('googleAuth'));
+    user.image = googleAuthObj.profileObj.imageUrl;
+    
     if (userObj.PersonType == 2) 
     {
       UserType = "Company User"
