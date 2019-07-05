@@ -1,12 +1,13 @@
 import React from 'react';
 import authLib from '../../config/authlib'
+import Timeline from './Timeline'
 
 const fetchOption = authLib.getFetchOptions();
 
 const sharp = {
   display: "inline-block", 
   fontSize: "12px",
-  width: "30%",
+  width: "50%",
   padding: "5px"
   
 } 
@@ -27,15 +28,16 @@ class Detailed extends React.Component {
         thePackage: {},
         items: [],
         id: props.match.params.OrderID,
-        characters: {}
+        characters: {},
+        timeHistory: [],
+        load: false
     }
-    this.getSensoresData = this.getSensoresData.bind(this)
   }
 
 componentDidMount() {
   this.setState({ loading: true });
   console.log(this.state.id)
-  var api =   "http://localhost:8000/packages/" + this.state.id
+  var api =   "http://localhost:8000/packages/details/" + this.state.id
   fetch(api, fetchOption)
     .then(function(response){
       if (response.ok) {
@@ -46,22 +48,49 @@ componentDidMount() {
         }
     })
     .then((data) => {
-        console.log(data)
-          data.forEach(elemnt => {
-              this.state.items.push(elemnt)
-          })
-          this.setState({loading: false})
-          this.getSensoresData()
-          // console.log(this.state.items.length);
-
-    })
+        console.log(data);
+        //check if we have rows for sensors
+        // we will merge them
+        if(data.length>1){
+          var row = data[0];
+          if(row.SensorId === 1)
+          {
+            row.heavy= data[1].heavy;
+            row.light= data[1].light;
+            row.severe= data[1].severe;
+            row.valuerecorded= data[1].valuerecorded;
+            
+          }
+          else{
+            try{
+              row.MaxThreshold = data[1].MaxThreshold;
+              row.MinThreshold = data[1].MinThreshold;
+            }
+            catch(error){
+              row.MaxThreshold = null
+              row.MinThreshold = null
+            }
+          }
+          console.log(row)
+          this.state.items.push(row)
+        }
+        else{
+          this.state.items.push(data[0]);
+        }
+          
+          this.setState({
+            loading: false})
+          this.getOrderHistory()
+        })
     .catch(function(error){
         console.log(error)
     })
 }
 
-getSensoresData(){
-  fetch("http://localhost:8000/OrderSensors/" + this.state.id, fetchOption)
+
+getOrderHistory() {
+  var api =   "http://localhost:8000/orderHistory/" + this.state.id
+  fetch(api, fetchOption)
     .then(function(response){
       if (response.ok) {
           return response.json();
@@ -71,21 +100,37 @@ getSensoresData(){
         }
     })
     .then((data) => {
-        console.log(data)
-          data.forEach(elemnt => {
-              this.state.items.push(elemnt)
-          })
-    })
-    .catch(function(error){
-        console.log(error)
-    })
+        console.log("data from orderhistory")
+        console.log(data);
+        console.log(data[0])
+        this.state.timeHistory.push(data[0])
+        this.setState({
+          load:true
+          
+          
+        });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: false,
+            error
+          });
+      }
+      )
 }
+
 
 render() {
     return (
         <div>
             {this.state.items.map(item => (
               <div className = "row">
+                  {!this.state.load?<h3>loading...</h3> : <Timeline history={this.state.timeHistory} / >}
+                <br>
+                </br>
                 <div className = "col-md-12">
                     <div className = "col-md-6">
                       <div className="card">
@@ -105,8 +150,18 @@ render() {
                                 <div className = "control-label card"><h6 style={sharp}>Drop Country:</h6><h6 style={values}> {item.dropcountry}</h6></div>
                                 <div className = "control-label card"><h6 style={sharp}>Drop PostCode:</h6><h6 style={values}> {item.droppostcode}</h6></div>
 
-                                <div className = "control-label card"><h6 style={sharp}>Sensor Type:</h6> <h6 style={values}>Heat Sensor </h6> </div>
-                                <div className = "control-label card"> <h6 style={sharp}> Status: </h6> <h6 style={values}>In Transit</h6></div> 
+                                <div className = "control-label card"><h6 style={sharp}>Company name</h6> <h6 style={values}>{item.Name}</h6> </div>
+                                <div className = "control-label card"> <h6 style={sharp}> Status: </h6> <h6 style={values}>{item.Status}</h6></div>
+                                { item.light !== null ?
+                                <div>
+                                  <div className = "control-label card"><h6 style={sharp}>shock sensor-light</h6> <h6 style={values}>0/{item.light}</h6> </div>
+                                  <div className = "control-label card"><h6 style={sharp}>shock sensor-heavy</h6> <h6 style={values}>0/{item.heavy}</h6> </div>
+                                  <div className = "control-label card"><h6 style={sharp}>shock sensor-severe</h6> <h6 style={values}>0/{item.severe}</h6> </div>
+                                </div> 
+                                : undefined}
+                                { item.MinThreshold !== null ?
+                                <div className = "control-label card"><h6 style={sharp}>temperature sesnor</h6> <h6 style={values}>{item.MinThreshold} &lt;  {(item.MaxThreshold + item.MinThreshold)/2} &lt;  {item.MaxThreshold}</h6> </div>
+                                : undefined}
                             
                           </div>
                       </div>

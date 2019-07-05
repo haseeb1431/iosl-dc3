@@ -4,6 +4,8 @@ import "./Login.css";
 import Main from '../Main';
 import Header from '../Login/Header'
 import { GoogleLogin } from 'react-google-login';
+import LogoDC3 from 'assets/images/dc3_logo.jpg';
+import About from "../Login/About";
 
 
 
@@ -97,12 +99,14 @@ export default class Login extends Component {
             
             <div className="Login">
               <Header /> 
+              <img src={LogoDC3} className="logo" pullright /> 
               <GoogleLogin 
                 clientId="204559914410-83fsef9pb97suhi6o550uqeo2utb8591.apps.googleusercontent.com"
                 buttonText="Login with Google"
                 onSuccess={this.googleResponse}
                 onFailure={this.googleResponse}
-              />           
+              />     
+              <About />
               </div>  
   
   

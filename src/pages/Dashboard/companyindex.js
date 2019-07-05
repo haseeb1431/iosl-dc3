@@ -52,25 +52,11 @@ import Assign from '../Forms/RegularForms/Assign';
               <div className="row">
                 <div className="col-md-6">
                   <PostmanHandoverTable />
-                  
                 </div>
                 <div className="col-md-6">
-                  {/* <Register onSubmit={this.submit} /> */}
                   <UserTableWithLinks />
                 </div>
               </div>
-              <div className="row">
-                {/* <div className="col-md-6">
-                  <VectorMap />
-                </div>
-                <div className="col-md-6">
-                  <Tasks />
-                </div> */}
-                {/* <div className="col-md-6">
-                  <UpgradeUser />
-                </div> */}
-              </div>
-
             </div>
           </div>
     );

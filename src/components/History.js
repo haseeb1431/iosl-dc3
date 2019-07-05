@@ -55,11 +55,6 @@ class History extends Component {
   }
 
 
-  // deleteItem = itemId => {
-  //   this.setState({
-  //     items: this.state.items.filter(item => item.id !== itemId)
-  //   });
-  // }
  
   render() {
  
@@ -77,8 +72,8 @@ class History extends Component {
                 <th>Post Code</th>
                 <th>City</th>
                 <th>Country</th>
-                <th className="text-right">Status</th>
-                <th className="text-right">Reciver</th>
+                <th >Status</th>
+                <th className="text-center">Pick Date</th>
               </tr>
             </thead>
             <tbody>
@@ -93,7 +88,8 @@ class History extends Component {
                   <td>{item.dropcity}</td>
                   <td>{item.dropcountry}</td>
                   <td>{item.Status}</td>
-                  <td className="text-right"> {item.PickDate}</td>
+                  
+                  <td className="text-right"> {new Date(item.PickDate).toLocaleString()}</td>
                 </tr>
               ))}
             </tbody>

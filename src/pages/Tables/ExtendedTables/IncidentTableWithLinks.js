@@ -16,9 +16,9 @@ class TableWithLinksIncidents extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    const options = authLib.getFetchOptions()  ;
-    fetch("http://localhost:8000/incidents",options)
-      .then(function(response) {
+    const options = authLib.getFetchOptions();
+    fetch("http://localhost:8000/incidents", options)
+      .then(function (response) {
         if (response.ok) {
           return response.json();
         } else {
@@ -34,16 +34,17 @@ class TableWithLinksIncidents extends Component {
         console.log(this.state.Incidents);
         console.log(this.state.Incidents.length);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   }
 
-  deleteItem = PersonId => {
+  //TODO: Update the state in the database as well
+  deleteItem = id => {
     this.setState({
-      Incidents: this.state.Incidents.filter(Incident => Incident.id !== PersonId)
+      Incidents: this.state.Incidents.filter(Incident => Incident.IncidentId !== id)
     });
-  };  
+  };
 
   render() {
     return (
@@ -67,13 +68,12 @@ class TableWithLinksIncidents extends Component {
                   <td>{Incident.OrderId}</td>
                   <td>{Incident.Description}</td>
                   <td className="text-middle">
-                    <Link to={`/Incidents/${Incident.PersonId}`}>
-                      <div className="btn btn-wd btn-info">Resolve Incident</div>
-                    </Link>
-                  <a rel="tooltip" className="btn btn-info btn-simple btn-xs"
-                      onClick={() => this.deleteItem(Incident.id)}>
+                    <div className="btn btn-wd btn-info">
+                      <a rel="tooltip" className="btn btn-wd btn-info btn btn-info btn-simple btn-xs"
+                        onClick={() => this.deleteItem(Incident.IncidentId)}>Resolve Incident
                       </a>
-                    
+                    </div>
+
                   </td>
                 </tr>
               ))}
