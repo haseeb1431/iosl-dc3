@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import renderField from 'components/FormInputs/renderField';
 import _ from 'lodash';
 import authLib from '../../../config/authlib'
+import { Alert } from "react-bootstrap";
 
 const fetchOption = authLib.getFetchOptions();
 
@@ -24,7 +25,7 @@ class IncidentForm extends React.Component {
   constructor() {
     super()
     this.state = {
-      Incidents: [],
+      IncidentSuccess: false
     }
     // this.submit = this.submit.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -52,10 +53,12 @@ class IncidentForm extends React.Component {
         "OrderId": values.target[1].value,
         "PersonId": userID,
       })
+
     })
       .then(res => res.json())
       .then(data => {
         console.log(data)
+        this.setState({ IncidentSuccess: true });
       })
   }
 
@@ -68,7 +71,7 @@ class IncidentForm extends React.Component {
         <div className="col-md-12">
           <div className="card">
             <div className="header"><h4>Create Incident</h4></div>
-            <form className="form-horizontal" onSubmit={this.handleSubmit}>
+            <form className="form-horizontal" onSubmit={ this.handleSubmit}>
               <div className="content">
                 <div className="form-group">
                   <label className="col-sm-3 control-label">Issue Description</label>
@@ -98,6 +101,9 @@ class IncidentForm extends React.Component {
             </form>
           </div>
         </div>
+        <Alert variant="danger" className={this.state.IncidentSuccess ? 'visible' : 'hidden'}>
+          Incident was successfully Raised ! Thank you !
+          </Alert>
       </div>
     );
   }

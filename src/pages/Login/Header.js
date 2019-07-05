@@ -17,10 +17,7 @@ const Header = ({
       <Navbar.Collapse>
       
         <Navbar.Form pullLeft>
-        <img src={LogoDC3} width={128}
-        height={62} className="logo" />  
         </Navbar.Form>
-        <div className="separator"></div>
         <Nav pullRight> 
         </Nav>
       </Navbar.Collapse>

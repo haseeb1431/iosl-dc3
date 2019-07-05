@@ -21,6 +21,7 @@ class Active extends React.Component {
       isLoading: false,
       error:null,
     }
+    this.addToOrderHistory = this.addToOrderHistory.bind(this)
   }
 
 
@@ -92,13 +93,40 @@ class Active extends React.Component {
         "DropAddressID": item.DropAddressID
       })
       })
-        .then(res => console.log(res)) //res.json())//
+        .then(res => console.log(res))
+        .then(this.addToOrderHistory(item.OrderID))
+        //res.json())//
         // .then(data => {
         //   console.log(data)
         //   this.setState({
         //   addressID : data.AddressID})
         // })
         .catch(err => console.log(err))
+  }
+
+  addToOrderHistory(orderID){
+    console.log("add addToOrderHistory started");
+    console.log(orderID)
+    fetch("http://localhost:8000/OrderHistory", {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        'x-access-token': fetchOption.headers['x-access-token']
+      },
+      body: JSON.stringify({
+        "orderId": orderID,
+        "handoverDate": new Date(),
+        "status": "canceled"
+      })
+      })
+      .then(res => res.json())
+      .then(
+        (data) => {
+          console.log(data)
+      }
+      )
+
+    console.log("finished addToOrderHistory");
   }
  
   render() {
