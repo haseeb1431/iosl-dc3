@@ -24,7 +24,9 @@ class Active extends React.Component {
     this.addToOrderHistory = this.addToOrderHistory.bind(this)
   }
 
-
+  /**
+   * get all the package of the specific user and filte to present only registered
+   */
   componentDidMount() {
 
     const options = authLib.getUserObj() ;
@@ -60,11 +62,10 @@ class Active extends React.Component {
       })
   }
 
-
-  deleteItem(itemToDelete ){
     /**
      * get an item to delete anf remove from view 
      */
+  deleteItem(itemToDelete ){
     console.log("deleted item start")
     console.log(itemToDelete)
     this.setState({items: this.state.items.filter(item => item.OrderID !== itemToDelete.OrderID)
@@ -72,10 +73,10 @@ class Active extends React.Component {
     this.changedStatus(itemToDelete)
   }
 
+  /**
+   * put request to the database changeing the status of the the item to Canceled
+   */
   changedStatus(item){ 
-    /**
-     * put request to the database changeing the status of the the item to Canceled
-     */
     console.log("changedStatus start")
     console.log(item.OrderID)
     fetch("http://localhost:8000/packages/" + item.OrderID, {
@@ -95,15 +96,13 @@ class Active extends React.Component {
       })
         .then(res => console.log(res))
         .then(this.addToOrderHistory(item.OrderID))
-        //res.json())//
-        // .then(data => {
-        //   console.log(data)
-        //   this.setState({
-        //   addressID : data.AddressID})
-        // })
         .catch(err => console.log(err))
   }
 
+  /**
+   * after canceling, update the package order history table
+   * @param {*} orderID  package id
+   */
   addToOrderHistory(orderID){
     console.log("add addToOrderHistory started");
     console.log(orderID)

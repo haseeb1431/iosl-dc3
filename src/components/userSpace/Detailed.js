@@ -18,7 +18,13 @@ const values = {
   padding: "5px"
 } 
 
-
+/**
+ * the detailed class responisbale to presting the user packages in detiled view,
+ * all the paramters the user entered will show
+ * sensors:
+ *  the user define limit\range for the shock\temperature sensore 
+ *  here it will present  shcok sensor case "how many times the event happend"/"how many time the user asked" example 4/5 
+ */
 class Detailed extends React.Component {
   constructor(props){
     super(props)
@@ -34,6 +40,11 @@ class Detailed extends React.Component {
     }
   }
 
+/**
+ * get the order id and get fetch from the database the order details
+ * data is coming as a two objects (because of the different sensors )
+ * the object will concatnate to one object.
+ */
 componentDidMount() {
   this.setState({ loading: true });
   console.log(this.state.id)
@@ -49,8 +60,6 @@ componentDidMount() {
     })
     .then((data) => {
         console.log(data);
-        //check if we have rows for sensors
-        // we will merge them
         if(data.length>1){
           var row = data[0];
           if(row.SensorId === 1)
@@ -87,7 +96,10 @@ componentDidMount() {
     })
 }
 
-
+/**
+ * for presenting the timeline
+ * get all thepackage history - handovers
+ */
 getOrderHistory() {
   var api =   "http://localhost:8000/orderHistory/" + this.state.id
   fetch(api, fetchOption)
@@ -109,9 +121,6 @@ getOrderHistory() {
           
         });
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
           this.setState({
             isLoaded: false,
@@ -151,6 +160,7 @@ render() {
 
                                 <div className = "control-label card"><h6 style={sharp}>Company name</h6> <h6 style={values}>{item.Name}</h6> </div>
                                 <div className = "control-label card"> <h6 style={sharp}> Status: </h6> <h6 style={values}>{item.Status}</h6></div>
+                                {/* conditional render, only show in case the user wanted sensors with the package */}
                                 { item.light !== null ?
                                 <div>
                                   <div className = "control-label card"><h6 style={sharp}>shock sensor-light</h6> <h6 style={values}>0/{item.light}</h6> </div>
