@@ -29,7 +29,7 @@ class Detailed extends React.Component {
         items: [],
         id: props.match.params.OrderID,
         characters: {},
-        timeHistory: [],
+        timeHistory: null,
         load: false
     }
   }
@@ -102,8 +102,7 @@ getOrderHistory() {
     .then((data) => {
         console.log("data from orderhistory")
         console.log(data);
-        console.log(data[0])
-        this.state.timeHistory.push(data[0])
+        this.state.timeHistory=data
         this.setState({
           load:true
           

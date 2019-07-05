@@ -24,8 +24,8 @@ class Timeline extends React.Component {
  
     let {curIdx, prevIdx} = this.state;
     let curStatus = this.props.history[curIdx].Status;
-    let prevStatus = prevIdx >= 0 ?  + this.props.history[prevIdx].CompanyId : '';
-    let postman = prevIdx >= 0 ?  + this.props.history[prevIdx].PostmanId : '';
+    let company = this.props.history[curIdx].Name ;
+    let postman = this.props.history[curIdx].FullName;
   
     return (     
       <div>
@@ -46,7 +46,7 @@ class Timeline extends React.Component {
                 outline: "#dfdfdf",
                 
               }}
-              index={this.state.curIdx}
+              index={this.props.history.length - 1}
               indexClick={index => {
                 const curIdx = this.state.curIdx;
                 this.setState({ curIdx: index, prevIdx: curIdx });
@@ -58,7 +58,7 @@ class Timeline extends React.Component {
             {/* any arbitrary component can go here */}
             Status: {curStatus}
             <br></br> 
-            Company: {prevStatus}
+            Company: {company}
             <br></br>
             postman: {postman}
             </div>
