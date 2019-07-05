@@ -34,7 +34,7 @@ class IncidentForm extends React.Component {
 
   handleSubmit(values) {
     values.preventDefault(); 
-    debugger;
+  
 
     console.log(values)
     const options = authLib.getUserObj();
@@ -53,7 +53,6 @@ class IncidentForm extends React.Component {
         "OrderId": values.target[1].value,
         "PersonId": userID,
       })
-
     })
       .then(res => res.json())
       .then(data => {
