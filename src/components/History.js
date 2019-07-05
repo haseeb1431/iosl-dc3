@@ -4,7 +4,7 @@ import authLib from '../config/authlib'
 
 class History extends Component {
   /*
-    Extract after user login the user ID in the database and 
+    Extract after user login the user ID from the database and 
     present all the specific user packages hostry in a table,
     present only main pakcages properties.
   */
@@ -18,17 +18,14 @@ class History extends Component {
     }
   }
 
-  componentDidMount() {
     /**
-     fetch user data from database
+     * get all user packages and upadte the data to the dtate
      */
+  componentDidMount() {
     const options = authLib.getUserObj() ;
     console.log(options)
     const userID = options.ID
-
     const fetchOption = authLib.getFetchOptions();
-    
-
     this.setState({ isLoading: true });   
     fetch("http://localhost:8000/packages/user/" + userID, fetchOption)
       .then(function(response){
@@ -53,16 +50,8 @@ class History extends Component {
           console.log(error)
       })
   }
-
-
-  // deleteItem = itemId => {
-  //   this.setState({
-  //     items: this.state.items.filter(item => item.id !== itemId)
-  //   });
-  // }
- 
+//  a simple table 
   render() {
- 
     return (
       <div className="card">
         <div className="header">
@@ -77,8 +66,8 @@ class History extends Component {
                 <th>Post Code</th>
                 <th>City</th>
                 <th>Country</th>
-                <th className="text-right">Status</th>
-                <th className="text-right">Reciver</th>
+                <th >Status</th>
+                <th className="text-center">Pick Date</th>
               </tr>
             </thead>
             <tbody>
@@ -93,7 +82,8 @@ class History extends Component {
                   <td>{item.dropcity}</td>
                   <td>{item.dropcountry}</td>
                   <td>{item.Status}</td>
-                  <td className="text-right"> {item.PickDate}</td>
+                  
+                  <td className="text-right"> {new Date(item.PickDate).toLocaleString()}</td>
                 </tr>
               ))}
             </tbody>

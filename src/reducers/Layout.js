@@ -10,6 +10,10 @@ export const toggleMobileNavVisibility = () => (dispatch, getState) => {
   dispatch(setMobileNavVisibility(!visibility));
 }
 
+export const handleLogout = () => (dispatch, getState) => {
+  sessionStorage.clear();
+}
+
 export default function reducer(state = {
   mobileNavVisibility: false
 }, action) {

@@ -23,7 +23,7 @@ class Nav extends Component {
     if (userObj && userObj.PersonType) {
       this.state.persontype = userObj.PersonType;
     }
-
+   
     if (this.state.persontype == 1) {
       //User Navigation bar
       return (
@@ -34,12 +34,13 @@ class Nav extends Component {
               <p>Dashboard</p>
             </Link>
           </li>
-          <li className={this.isPathActive('/forms') || this.state.formMenuOpen ? 'active' : null}>
-          <a onClick={() => this.setState({ formMenuOpen: !this.state.formMenuOpen })} data-toggle="collapse">
-            <i className="pe-7s-note2"></i>
+          <li className={this.isPathActive('/forms') || this.state.componentMenuOpen ? 'active' : null}>
+          <a onClick={() => this.setState({ componentMenuOpen: !this.state.componentMenuOpen })}
+            data-toggle="collapse">
+            <i className="pe-7s-id"></i>
             <p>Package Management<b className="caret"></b></p>
           </a>
-          <Collapse in={this.state.formMenuOpen}>
+          <Collapse in={this.state.componentMenuOpen}>
             <div>
               <ul className="nav">
                 <li className={this.isPathActive('/packages/registerPackage') ? 'active' : null}>
@@ -52,12 +53,12 @@ class Nav extends Component {
             </div>
           </Collapse>
         </li>
-          <li className={this.isPathActive('/forms') || this.state.formMenuOpen1 ? 'active' : null}>
-          <a onClick={() => this.setState({ formMenuOpen1: !this.state.formMenuOpen1 })} data-toggle="collapse">
+          <li className={this.isPathActive('/forms') || this.state.formMenuOpen ? 'active' : null}>
+          <a onClick={() => this.setState({ formMenuOpen: !this.state.formMenuOpen })} data-toggle="collapse">
             <i className="pe-7s-note2"></i>
             <p>Incident Management<b className="caret"></b></p>
           </a>
-          <Collapse in={this.state.formMenuOpen1}>
+          <Collapse in={this.state.formMenuOpen}>
             <div>
               <ul className="nav">
                 <li className={this.isPathActive('/forms/incident-form') ? 'active' : null}>
@@ -105,8 +106,8 @@ class Nav extends Component {
                 <li className={this.isPathActive('/components/grid') ? 'active' : null}>
                   <Link to="/components/grid">View Jobs </Link>
                 </li>
-                <li className={this.isPathActive('/components/') ? 'active' : null}>
-                  <Link to="/components/">Assign Package</Link>
+                <li className={this.isPathActive('forms/regular-forms/assign') ? 'active' : null}>
+                  <Link to="forms/regular-forms/assign">Assign Package</Link>
                 </li>
               </ul>
             </div>

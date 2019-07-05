@@ -2,16 +2,23 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import renderField from 'components/FormInputs/renderField';
 import RangeBar from './RangeBar'
+import authLib from '../../config/authlib'
 
+const fetchOption = authLib.getFetchOptions();
+
+/**
+ * valid\verification. 
+ * get a value from the field and verify it is not empty\undefiend
+ * @param  value  - field value 
+ */
 const required= (value) => {
-    if (!value || value === ""){
+    if (!value || value === "" || value==="select..."){
         return "this field is required"
     }
     else{
         return undefined
     }
   }
-
 
 
 class Register extends React.Component {
@@ -29,15 +36,13 @@ class Register extends React.Component {
             checkedTemp: false,
             checkedShock: false,
             validCheckBox: false,
-            
-            
+            companies : []
         }
-        // this.verify = this.verify.bind(this)
-        // this.allowedEmail = this.allowedEmail.bind(this)
-        // this.handleChange = this.handleChange.bind(this)
-
     }
 
+    /**
+     * when checkbox pressed change the checkbox with new status
+     */
     handleCheckboxChange = event =>{
     if (event.target.name === "shock"){
         this.setState(
@@ -48,41 +53,47 @@ class Register extends React.Component {
             { checkedTemp: event.target.checked })
     }
 }
-
-    // handleChange(event) {
-    //     const {name, value} = event.target
-    //     this.setState({
-    //         [name]: value
-    //     }) 
-    // }
-
+    /**
+     * before loading the register compnent getting al regitered users and allowed compnies
+     */
     componentDidMount(){
-    fetch("http://localhost:8000/persons")
-        .then(function(response){
-        if (response.ok) {
-            return response.json();
-            } 
-            else {
-            throw new Error('NO receiverEmail');
-            }
-        })
-        .then((data) => {
-            data.forEach(elemnt => {
-                this.state.registerUsers.push(elemnt.Email)
-            })                          
-        })
-        .catch(function(error){
-            console.log(error)
-        })    
+        fetch("http://localhost:8000/persons", fetchOption)
+            .then(function(response){
+            if (response.ok) {
+                return response.json();
+                } 
+                else {
+                throw new Error('NO receiverEmail');
+                }
+            })
+            .then((data) => {
+                data.forEach(elemnt => {
+                    this.state.registerUsers.push(elemnt.Email)
+                })                          
+            })
+            .catch(function(error){
+                console.log(error)
+            })
+        fetch("http://localhost:8000/company", fetchOption)
+          .then(res => res.json())
+          .then(
+              (data) => {
+              data.forEach(elemnt => {
+                  this.state.companies.push({ name: elemnt.Name, value: elemnt.Id })
+              })
+          })                          
+            .catch(function(error){
+                console.log(error)
+      });   
     }
 
-
-
     render(){
-        console.log("!!! rendering again!!!")
         console.log(this.props)
         console.log(this.state.registerUsers)
         const { handleSubmit , valid } = this.props;
+        /**
+         * allowd email it is a function to verify that the user is a register user 
+         */
         const allowedEmail= (value) => {
             if (this.state.registerUsers.indexOf(value) === -1){
                 return "user is not register"
@@ -166,7 +177,7 @@ class Register extends React.Component {
                         </div>
 
 
-                        <legend>Destenation Address</legend>
+                        <legend>Destination Address</legend>
 
                         <div className="form-group">
                             <label className="control-label col-md-3">receiver email</label>
@@ -296,7 +307,24 @@ class Register extends React.Component {
                                 }                         
                             </div>
                         </div>
-                        <button disabled={!valid}  type="submit" className="btn btn-fill btn-info">Submit</button>
+                        
+                        <legend>Company</legend>
+
+                            <div>
+                                <div>
+                                <select  
+                                    value={this.props.chosenCompany.name}
+                                    onChange={this.props.handleChange}
+                                    name="chosenCompany"
+                                    class="required"
+
+                                > 
+                                    <option selected="selected">select...</option>
+                                    {this.state.companies.map((company) => <option key={company.name} value={company.value}>{company.name}</option>)}
+                                </select>
+                            </div>
+                        </div>
+                        <button disabled={!valid }  type="submit" className="btn btn-fill btn-info">Submit</button>
                     </form>
                 </div>
                 
@@ -305,7 +333,7 @@ class Register extends React.Component {
         )
     }
 }
-// disabled={this.state.validate}
+
 export default reduxForm({
     form: 'formElements'
   })(Register);

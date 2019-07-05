@@ -21,9 +21,12 @@ class Active extends React.Component {
       isLoading: false,
       error:null,
     }
+    this.addToOrderHistory = this.addToOrderHistory.bind(this)
   }
 
-
+  /**
+   * get all the package of the specific user and filte to present only registered
+   */
   componentDidMount() {
 
     const options = authLib.getUserObj() ;
@@ -59,11 +62,10 @@ class Active extends React.Component {
       })
   }
 
-
-  deleteItem(itemToDelete ){
     /**
      * get an item to delete anf remove from view 
      */
+  deleteItem(itemToDelete ){
     console.log("deleted item start")
     console.log(itemToDelete)
     this.setState({items: this.state.items.filter(item => item.OrderID !== itemToDelete.OrderID)
@@ -71,10 +73,10 @@ class Active extends React.Component {
     this.changedStatus(itemToDelete)
   }
 
+  /**
+   * put request to the database changeing the status of the the item to Canceled
+   */
   changedStatus(item){ 
-    /**
-     * put request to the database changeing the status of the the item to Canceled
-     */
     console.log("changedStatus start")
     console.log(item.OrderID)
     fetch("http://localhost:8000/packages/" + item.OrderID, {
@@ -92,13 +94,38 @@ class Active extends React.Component {
         "DropAddressID": item.DropAddressID
       })
       })
-        .then(res => console.log(res)) //res.json())//
-        // .then(data => {
-        //   console.log(data)
-        //   this.setState({
-        //   addressID : data.AddressID})
-        // })
+        .then(res => console.log(res))
+        .then(this.addToOrderHistory(item.OrderID))
         .catch(err => console.log(err))
+  }
+
+  /**
+   * after canceling, update the package order history table
+   * @param {*} orderID  package id
+   */
+  addToOrderHistory(orderID){
+    console.log("add addToOrderHistory started");
+    console.log(orderID)
+    fetch("http://localhost:8000/OrderHistory", {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        'x-access-token': fetchOption.headers['x-access-token']
+      },
+      body: JSON.stringify({
+        "orderId": orderID,
+        "handoverDate": new Date(),
+        "status": "canceled"
+      })
+      })
+      .then(res => res.json())
+      .then(
+        (data) => {
+          console.log(data)
+      }
+      )
+
+    console.log("finished addToOrderHistory");
   }
  
   render() {
@@ -117,7 +144,7 @@ class Active extends React.Component {
                 <th>City</th>
                 <th>Country</th>
                 <th className="text-middle">Status</th>
-                <th className="text-middle">Reciver</th>
+                <th className="text-middle">Pick Date</th>
               </tr>
             </thead>
             <tbody>
@@ -132,7 +159,7 @@ class Active extends React.Component {
                   <td>{item.dropcity}</td>
                   <td>{item.dropcountry}</td>
                   <td>{item.Status}</td>
-                  <td className="text-middle"> {item.PickDate}</td>
+                  <td className="text-middle"> {new Date(item.PickDate).toLocaleString()}</td>
                   <td className="text-middle">
                         <div className="btn btn-danger btn-fill btn-wd" onClick={() => this.deleteItem(item)} >delete</div>
                   </td>

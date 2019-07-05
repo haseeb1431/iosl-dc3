@@ -32,11 +32,12 @@ import Calendar from '../Calendar';
 import Tables from '../Tables';
 import companyindex from '../Dashboard/companyindex'
 import postmanindex from '../Dashboard/postmanIndex'
-import Register from '../RegisterUser'
 import RegisterUser from '../RegisterUser';
 
 
 
+import Assign from '../Forms/RegularForms/Assign';
+import PostmanHandoverTable from '../Tables/ExtendedTables/PostmanHandoverTable';
 const Main = ({
   mobileNavVisibility,
   hideMobileMenu,
@@ -87,12 +88,13 @@ const Main = ({
           <Route path="/forms" component={Forms} />
           <Route path="/tables" component={Tables} />
           <Route path="/maps" component={MapsPage} />
-          {/* <Route path="/addUser" component={addUser} /> */}
           <Route path="/registerPackage" component={registerPackage} />
           <Route path="/UpgradeUser" component={UpgradeUser} />
           <Route path="/viewIncident" component={viewIncident} />
           <Route path="/RegisterUser" component={RegisterUser} />
           
+          <Route path="/Assign/:orderid" component={Assign} />
+          <Route path="/PostmanHandoverTable" component={PostmanHandoverTable} />
           <Footer />
       </div>
       </div>

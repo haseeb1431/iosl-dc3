@@ -2,6 +2,7 @@ import React from 'react';
 import UpgradeUser from './UpgradeUser';
 import HorizontalForm from './HorizontalForm';
 import FormElements from './FormElements';
+import Assign from './Assign';
 
 const RegularForms = () => (
   <div>
@@ -12,6 +13,9 @@ const RegularForms = () => (
       <div className="col-md-6">
         <HorizontalForm  onSubmit={values => alert('Enter values: ' + JSON.stringify(values, null, 2))} />
       </div>
+      {/* <div className="col-md-6">
+        <Assign  onSubmit={values => alert('Enter values: ' + JSON.stringify(values, null, 2))} />
+      </div> */}
     </div>
     <div className="row">
       <div className="col-md-12">
