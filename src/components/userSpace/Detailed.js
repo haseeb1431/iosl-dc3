@@ -48,7 +48,10 @@ componentDidMount() {
         }
     })
     .then((data) => {
-        console.log(data)
+        console.log(data);
+        //check if we have rows for sensors
+        // we will merge them
+        if(data.length>1){
           var row = data[0];
           if(row.SensorId === 1)
           {
@@ -70,6 +73,11 @@ componentDidMount() {
           }
           console.log(row)
           this.state.items.push(row)
+        }
+        else{
+          this.state.items.push(data[0]);
+        }
+          
           this.setState({
             loading: false})
           this.getOrderHistory()
