@@ -160,9 +160,6 @@ class Nav extends Component {
                   <li className={this.isPathActive('/components/buttons') ? 'active' : null}>
                   <Link to="/components/buttons">Handover</Link>
                 </li>
-                <li className={this.isPathActive('/components/grid') ? 'active' : null}>
-                  <Link to="/components/grid">View Jobs </Link>
-                </li>
               </ul>
             </div>
           </Collapse>
