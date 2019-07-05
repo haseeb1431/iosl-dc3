@@ -34,7 +34,7 @@ class IncidentForm extends React.Component {
 
   handleSubmit(values) {
     values.preventDefault(); 
-    debugger;
+  
 
     console.log(values)
     const options = authLib.getUserObj();
