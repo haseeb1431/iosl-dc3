@@ -40,6 +40,7 @@ const fetchOption = authLib.getFetchOptions();
       this.getAdressId =  this.getAdressId.bind(this)
       this.addSensore =  this.addSensore.bind(this)
       this.assignPackage = this.assignPackage.bind(this)
+      this.addToOrderHistory = this.addToOrderHistory.bind(this)
     }
 
     handleChange(event) { 
@@ -192,6 +193,7 @@ const fetchOption = authLib.getFetchOptions();
               }
               this.addSensore(shockObj)
             }
+            this.addToOrderHistory(today)
             // this.setState({
             //   success: true}) 
             // },
@@ -237,6 +239,32 @@ const fetchOption = authLib.getFetchOptions();
 
       console.log("finished add Sensor");
     }
+
+    addToOrderHistory(today){
+      console.log("add addToOrderHistory started");
+      console.log(this.state.orderID)
+      fetch("http://localhost:8000/OrderHistory", {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json',
+          'x-access-token': fetchOption.headers['x-access-token']
+        },
+        body: JSON.stringify({
+          "orderId": this.state.orderID,
+          "handoverDate":today,
+          "status": "Registered"
+        })
+        })
+        .then(res => res.json())
+        .then(
+          (data) => {
+            console.log(data)
+        }
+        )
+
+      console.log("finished addToOrderHistory");
+    }
+
 //Kiran Added function starts here
     assignPackage(values){
       /*
