@@ -79,7 +79,7 @@ class TableWithLinks extends Component {
                   <td>{item.Status}</td>
 
                   <td className="text-middle">
-                    <Link to={`/components/buttons`}>
+                    <Link to={`/components/buttons/${item.OrderID}`}>
                       <div className="btn btn-wd btn-info">Handover</div>
                     </Link>
                   </td>
