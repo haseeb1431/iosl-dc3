@@ -1,69 +1,94 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import renderField from 'components/FormInputs/renderField';
+import authLib from '../../../config/authlib'
+import { Alert } from "react-bootstrap";
 
+const fetchOption = authLib.getFetchOptions();
 
-
-/*checkEmail = async (email) => {
-  let self = this;
-  fetch('http://localhost:8000/persons', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'email': email,
-    })
-  }).then(function (response) {
-    return response.json();
-  }).then(function (data) {
-
-    if (data && data.length > 0)  {
-      IsEmailExists : true;
-    }else {
-      IsEmailExists : false;
-    } */
-
-const validate = values => {
-  const errors = {};
-  if (!values.email) {
-    errors.email = 'Email is required';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
+const required = (value) => {
+  if (!value || value === "") {
+    return "this field is required"
   }
-  return errors;
-};
+  else {
+    return undefined
+  }
+}
+
+class UpgradeUser extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      UpgradeFailure: false,
+      UpgradeSuccess: false,
+      IsEmailExists: false
+    }
+    // this.submit = this.submit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
 
 
+ 
+  handleSubmit(values) {
+      
+    values.preventDefault(); 
+    console.log(values)
 
-const UpgradeUser = ({
-  submitting,
-  handleSubmit,
-  submitForm
-}) => {
+      fetch('http://localhost:8000/persons/userTypeByEmail', {
+        method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': fetchOption.headers['x-access-token']
+      },
+      body: JSON.stringify({
+        "email": values.target[0].value,
+        "persontype": values.target["Radio"].value
+      })
+    })
+      .then(res => res.json())
+      .then(data => { 
+        if (data && data.success == true) {
+        this.setState({ UpgradeSuccess: true });
+        this.setState({ UpgradeFailure: false });
+        }
+        else
+        {
+        this.setState({ UpgradeSuccess: false });
+        this.setState({ UpgradeFailure: true });
+        }
+      })
+    }
+  
+
+    render() {
+
     return (<div className="card">
       <div className="header">
         <h4>Upgrade Users</h4>
       </div>
       <div className="content">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit= {this.handleSubmit} >
 
           <div className="form-group">
             <label className="control-label">Email</label>
-            <Field name="email" type="email" component={renderField} />
+            <Field 
+            name="email" 
+            type="email" 
+            validate={required}
+            component={renderField} />
           </div>
 
 
           <div className="radio-group">
             <Field
-              name="radioOnOff"
+              name="Radio"
               type="radio"
               label="Upgrade to Postman User"
               value="3"
               component={renderField} />
 
             <Field
-              name="radioOnOff"
+              name="Radio"
               type="radio"
               label="Upgrade to Company User"
               value="2"
@@ -71,13 +96,19 @@ const UpgradeUser = ({
 
           </div>
 
-          <button type="submit" className="btn btn-fill btn-info" enabled={submitting}>Upgrade</button>
+          <button type="submit" className="btn btn-fill btn-info">Upgrade</button>
         </form>
       </div>
+      <Alert variant="danger" className={this.state.UpgradeSuccess ? 'visible' : 'hidden'}>
+          Upgrade was successful ! Thank you !
+          </Alert>
+      <Alert variant="danger" className={this.state.UpgradeFailure ? 'visible' : 'hidden'}>
+          User doesn't exist in the system !
+          </Alert>
     </div>);
   };
+}
 
 export default reduxForm({
-  form: 'UpgradeUser',
-  validate
+  form: 'UpgradeUser'
 })(UpgradeUser)
