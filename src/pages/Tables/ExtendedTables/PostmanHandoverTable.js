@@ -89,7 +89,7 @@ class PostmanHandoverTable extends Component {
             </thead>
             <tbody>
               {this.state.items.map(item => (
-                <tr key={item.state='Registered'}>
+                <tr key={item.OrderID}>
                   <td>
                     <Link
                       to={`/package/${item.OrderID}`}
