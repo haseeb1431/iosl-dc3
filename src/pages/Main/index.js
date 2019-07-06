@@ -37,6 +37,8 @@ import RegisterUser from "../RegisterUser";
 
 import Assign from "../Forms/RegularForms/Assign";
 import PostmanHandoverTable from "../Tables/ExtendedTables/PostmanHandoverTable";
+import HandoverFormFull from "../Components/Buttons/HandoverFormFull";
+import DeliveryPage from "../Components/Buttons/DeliveryPage";
 const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
   history.listen(() => {
     if (mobileNavVisibility === true) {
@@ -79,6 +81,11 @@ const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
           <Route exact path="/postman" component={postmanindex} />
           {/* <Route path="/components" component={Components} /> */}
           <Route path="/postman/handover/:orderid" component={HandoverForm} />
+          <Route path="/postman/handoverdetails" component={HandoverFormFull} />
+          <Route
+            path="/postman/delivery/:dropaddressid"
+            component={DeliveryPage}
+          />
           <Route path="/profile" component={UserProfile} />
           <Route path="/forms" component={Forms} />
           <Route path="/tables" component={Tables} />
