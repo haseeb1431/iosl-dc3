@@ -9,7 +9,6 @@ import Header from './Header';
 import Footer from './Footer';
 import SideBar from '../../components/SideBar';
 import ThemeOptions from '../../components/ThemeOptions';
-import MobileMenu from '../../components/MobileMenu';
 // import addUser from '../Forms/RegularForms/StackedForm'
 import registerPackage from '../../components/userSpace/Register'
 import Active from '../../components/userSpace/Active';
