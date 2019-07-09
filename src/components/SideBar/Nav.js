@@ -141,8 +141,8 @@ class Nav extends Component {
       //PostMan
       return (
 <ul className="nav">
-          <li className={location.pathname === '/postman' ? 'active' : null}>
-            <Link to="/postman">
+          <li className={location.pathname === '/' ? 'active' : null}>
+            <Link to="/">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
@@ -165,6 +165,9 @@ class Nav extends Component {
                 <li className={this.isPathActive('/components/grid') ? 'active' : null}>
                   <Link to="/components/grid">View Jobs </Link>
                 </li>
+                <li className={this.isPathActive('/postman') ? 'active' : null}>
+                  <Link to="/postman">postman </Link>
+                  </li>
               </ul>
             </div>
           </Collapse>

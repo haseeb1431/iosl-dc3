@@ -31,7 +31,11 @@ class History extends Component {
     if(options.PersonType==2)
     {
       queryURL = "http://localhost:8000/packagesaddressdetails/";
-    } 
+    }
+    if(options.PersonType==3)
+    {
+      queryURL = "http://localhost:8000/orderHistoryDetails/";
+    }
     fetch(queryURL, fetchOption)
       .then(function(response){
         if (response.ok) {
