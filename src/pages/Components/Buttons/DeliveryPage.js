@@ -1,6 +1,7 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
-import authLib from '../../../config/authlib';
+import authLib from "../../../config/authlib";
+import { Alert } from "react-bootstrap";
 
 class DeliveryPage extends React.Component {
   constructor(props) {
@@ -10,14 +11,14 @@ class DeliveryPage extends React.Component {
       loading: false,
       thePackage: {},
       items: [],
-      deliveryData: props.match.params.dropaddressid
+      deliveryData: props.match.params.dropaddressid,
+      StatusChange: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(values) {
-
     values.preventDefault();
 
     const fetchOption = authLib.getFetchOptions();
@@ -25,45 +26,41 @@ class DeliveryPage extends React.Component {
 
     //TODO: Use global.backendURL
     fetch("http://localhost:8000/package/" + this.state.deliveryData, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': fetchOption.headers['x-access-token']
+        "Content-Type": "application/json",
+        "x-access-token": fetchOption.headers["x-access-token"]
       },
       body: JSON.stringify({
-        "Status": "Delievered"
+        Status: "Delievered"
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        this.setState({ StatusChange: true });
+      });
+
+    fetch("http://localhost:8000/OrderHistory", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": fetchOption.headers["x-access-token"]
+      },
+      body: JSON.stringify({
+        orderId: this.state.deliveryData,
+        handoverDate: new Date(),
+        status: "Delievered",
+        postmanId: userObj.ID
       })
     })
       .then(res => res.json())
       .then(data => {
         console.log(data);
       });
-
-
-    fetch("http://localhost:8000/OrderHistory", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': fetchOption.headers['x-access-token']
-      },
-      body: JSON.stringify({
-        "orderId": this.state.deliveryData,
-        "handoverDate": new Date(),
-        "status": "Delievered",
-        "postmanId": userObj.ID
-      })
-    })
-      .then(res => res.json())
-      .then(
-        (data) => {
-          console.log(data)
-        }
-      )
   }
 
-
   render() {
-
     return (
       <div className="card">
         <div className="header">
@@ -75,11 +72,20 @@ class DeliveryPage extends React.Component {
         <div className="content">
           <form onSubmit={this.handleSubmit} className="form-horizontal">
             <legend>The package is being delivered here</legend>
-
-            <button type="submit" className="btn btn-fill btn-info">
-              Confirm
-            </button>
+            <div className="row">
+              <button type="submit" className="btn btn-fill btn-info">
+                Confirm
+              </button>
+            </div>
           </form>
+          <div className="row">
+            <Alert
+              variant="danger"
+              className={this.state.StatusChange ? "visible" : "hidden"}
+            >
+              Package delivery was successfully Confirmed ! Thank you !
+            </Alert>
+          </div>
         </div>
       </div>
     );
