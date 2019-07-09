@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import generateData from "../generateData";
 import { Link, Redirect } from "react-router-dom";
 import authLib from '../../../config/authlib'
 

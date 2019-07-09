@@ -1,5 +1,4 @@
 import React from 'react';
-import TableWithSwitch from './TableWithSwitch';
 import TableWithLinks from './TableWithLinks';
 
 
@@ -8,9 +7,6 @@ const ExtendedTables = () => (
     <div className="row">
       <div className="col-md-6">
         <TableWithLinks />
-      </div>
-      <div className="col-md-6">
-        <TableWithSwitch />
       </div>
     </div>
     <div className="row">

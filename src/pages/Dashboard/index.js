@@ -1,18 +1,11 @@
 //User dashboard file
 
 import React from 'react';
-//import EmailChart from './EmailChart';
-//import SalesChart from './SalesChart';
-//import UserBehaviorChart from './UserBehaviorChart';
-import Tasks from './Tasks';
 import TableWithLinks from '../Tables/ExtendedTables/TableWithLinks';
 import FormElements from '../Forms/RegularForms/FormElements';
 import Register from '../Forms/RegularForms/Register';
-import VectorMap from '../MapsPage/VectorMap';
 
 
-
-// const Dashboard = () => (
   class Dashboard extends React.Component{
     constructor(){
       super()
@@ -20,30 +13,6 @@ import VectorMap from '../MapsPage/VectorMap';
       }
     }
     
-    // {
-    //   userid:,
-    //   pickup:{
-    //     name:
-    //     pickupaddress:{
-    //       'street':''
-    //       country:
-    //       zip:
-    //       city:
-    //     }
-    //   },
-    //   drop:{
-    //     name:
-    //     email:
-    //     pickupaddress:{
-    //       'street':''
-    //       country:
-    //       zip:
-    //       city:
-    //     }
-    //   }
-
-
-   
 
 
     submit(values){
@@ -81,15 +50,6 @@ import VectorMap from '../MapsPage/VectorMap';
                 </div>
               </div>
               <div className="row">
-                {/* <div className="col-md-6">
-                  <VectorMap />
-                </div>
-                <div className="col-md-6">
-                  <Tasks />
-                </div> */}
-                {/* <div className="col-md-6">
-                  <UpgradeUser />
-                </div> */}
               </div>
 
             </div>
