@@ -106,9 +106,6 @@ class Nav extends Component {
                 <li className={this.isPathActive('/components/grid') ? 'active' : null}>
                   <Link to="/components/grid">View Jobs </Link>
                 </li>
-                <li className={this.isPathActive('forms/regular-forms/assign') ? 'active' : null}>
-                  <Link to="forms/regular-forms/assign">Assign Package</Link>
-                </li>
               </ul>
             </div>
           </Collapse>

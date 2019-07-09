@@ -38,7 +38,7 @@ class Assign extends React.Component {
             alert('Please provide correct email address');
             return;
         }
-        debugger;
+    
         var todayDate = authLib.getTodayDate();
         var email = event.target[0].value;
         var postmanid = this.getPostmenId(email);
