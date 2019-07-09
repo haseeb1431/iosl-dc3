@@ -26,8 +26,13 @@ class History extends Component {
     console.log(options)
     const userID = options.ID
     const fetchOption = authLib.getFetchOptions();
-    this.setState({ isLoading: true });   
-    fetch("http://localhost:8000/packages/user/" + userID, fetchOption)
+    this.setState({ isLoading: true });  
+    var queryURL = "http://localhost:8000/packages/user/" + userID;
+    if(options.PersonType==2)
+    {
+      queryURL = "http://localhost:8000/packagesaddressdetails/";
+    } 
+    fetch(queryURL, fetchOption)
       .then(function(response){
         if (response.ok) {
             return response.json();
