@@ -83,7 +83,7 @@ class TableWithLinks extends Component {
                     </Link>
                   </td>
                   <td className="text-middle">
-                    <Link to={`/postman/delivery/${item.DropAddressID}`}>
+                    <Link to={`/postman/delivery/${item.OrderID}`}>
                       <div className="btn btn-wd btn-info">Deliver</div>
                     </Link>
                   </td>
