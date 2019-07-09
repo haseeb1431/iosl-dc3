@@ -105,9 +105,6 @@ class Nav extends Component {
                   
                   <Link to="/UpgradeUser">Postman Management</Link>
                 </li>
-                <li className={this.isPathActive('/components/grid') ? 'active' : null}>
-                  <Link to="/components/grid">View Jobs </Link>
-                </li>
                 <li className={this.isPathActive('/company') ? 'active' : null}>
                   <Link to="/company">Assign Package</Link>
                 </li>

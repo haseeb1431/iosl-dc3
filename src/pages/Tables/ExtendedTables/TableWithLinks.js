@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import generateData from '../generateData';
 import { Link, Redirect } from 'react-router-dom';
 import authLib from '../../../config/authlib'
 
@@ -11,7 +10,6 @@ class TableWithLinks extends Component {
       items : [],
       isLoading: false,
       error:null,
-      // items: generateData()
     }
   }
 
@@ -78,7 +76,6 @@ class TableWithLinks extends Component {
               {this.state.items.map(item => (
                 <tr key={item.OrderID} >
                   <td><Link to={`/package/${item.OrderID}`} style={{color: 'blue'}}>
-                      {/* <i className="pe-7s-graph"></i> */}
                       {item.OrderID}
                       </Link>
                   </td>
@@ -89,12 +86,6 @@ class TableWithLinks extends Component {
                   <td>{item.Status}</td>
                   <td className="text-right"> {item.ArrivalDate}</td>
                   <td className="text-right"> {item.ArrivalDate}</td>
-                  {/* <td className="text-middle">
-                      <Link to={`/package/${item.OrderID}`}>
-                        <div className="btn btn-info" >info</div>
-                      </Link>
-                    
-                  </td> */}
                 </tr>
               ))}
             </tbody>

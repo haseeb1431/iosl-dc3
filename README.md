@@ -114,7 +114,6 @@ git push
 │   │   │   ├── GridCollection.js
 │   │   │   ├── Paragraph.js
 │   │   │   └── index.js
-│   │   ├── Icons.js
 │   │   ├── Notifications.js
 │   │   ├── Panels
 │   │   │   ├── AccordionGroup.js
@@ -131,11 +130,6 @@ git push
 │   │   ├── UserBehaviorChart.js
 │   │   └── index.js
 │   ├── Forms
-│   │   ├── ExtendedForms
-│   │   │   ├── DatePicker.js
-│   │   │   ├── Switches.js
-│   │   │   ├── TagSection.js
-│   │   │   └── index.js
 │   │   ├── RegularForms
 │   │   │   ├── FormElements.js
 │   │   │   ├── HorizontalForm.js
@@ -150,11 +144,6 @@ git push
 │   │   ├── Footer.js
 │   │   ├── Header.js
 │   │   └── index.js
-│   ├── MapsPage
-│   │   ├── GoogleMap.js
-│   │   ├── Map.js
-│   │   ├── VectorMap.js
-│   │   └── index.js
 │   ├── Tables
 │   │   ├── ExtendedTables
 │   │   │   ├── BigTable.js
@@ -167,12 +156,7 @@ git push
 │   │   │   ├── PlainBackgroundTable.js
 │   │   │   ├── StripedTable.js
 │   │   │   └── index.js
-│   │   ├── generateData.js
 │   │   └── index.js
-│   └── UserProfile
-│       ├── ProfileForm.js
-│       ├── UserInfo.js
-│       └── index.js
 ├── reducers
 │   ├── Auth.js
 │   ├── Layout.js
