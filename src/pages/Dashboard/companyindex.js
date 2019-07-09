@@ -50,11 +50,8 @@ import Assign from '../Forms/RegularForms/Assign';
             <div className="container-fluid">
               
               <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-12">
                   <PostmanHandoverTable />
-                </div>
-                <div className="col-md-6">
-                  <UserTableWithLinks />
                 </div>
               </div>
             </div>
