@@ -6,6 +6,11 @@ import authLib from '../../config/authlib'
 
 const fetchOption = authLib.getFetchOptions();
 
+/**
+ * valid\verification. 
+ * get a value from the field and verify it is not empty\undefiend
+ * @param  value  - field value 
+ */
 const required= (value) => {
     if (!value || value === "" || value==="select..."){
         return "this field is required"
@@ -33,12 +38,11 @@ class Register extends React.Component {
             validCheckBox: false,
             companies : []
         }
-        // this.verify = this.verify.bind(this)
-        // this.allowedEmail = this.allowedEmail.bind(this)
-        // this.handleChange = this.handleChange.bind(this)
-
     }
 
+    /**
+     * when checkbox pressed change the checkbox with new status
+     */
     handleCheckboxChange = event =>{
     if (event.target.name === "shock"){
         this.setState(
@@ -49,14 +53,9 @@ class Register extends React.Component {
             { checkedTemp: event.target.checked })
     }
 }
-
-    // handleChange(event) {
-    //     const {name, value} = event.target
-    //     this.setState({
-    //         [name]: value
-    //     }) 
-    // }
-
+    /**
+     * before loading the register compnent getting al regitered users and allowed compnies
+     */
     componentDidMount(){
         fetch("http://localhost:8000/persons", fetchOption)
             .then(function(response){
@@ -89,10 +88,12 @@ class Register extends React.Component {
     }
 
     render(){
-        console.log("!!! rendering again!!!")
         console.log(this.props)
         console.log(this.state.registerUsers)
         const { handleSubmit , valid } = this.props;
+        /**
+         * allowd email it is a function to verify that the user is a register user 
+         */
         const allowedEmail= (value) => {
             if (this.state.registerUsers.indexOf(value) === -1){
                 return "user is not register"
@@ -332,7 +333,7 @@ class Register extends React.Component {
         )
     }
 }
-// disabled={this.state.validate}
+
 export default reduxForm({
     form: 'formElements'
   })(Register);

@@ -1,22 +1,23 @@
 import React from "react";
 import HorizontalTimeline from "react-horizontal-timeline";
-import authLib from '../../config/authlib'
+import { toUnicode } from "punycode";
 
-const h22 = {
-  fontWeight: "Bold", 
-  fontSize: "12px",
-  display: "inline-block",
-  padding: "5px"
-}
+/**
+ * A timeline compenent.
+ * Show horizntal time line
+ * Props contain package timeline history
+ * 
+ */
 
+ //TODO
+  // take our css
 class Timeline extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       curIdx: 0,      
       prevIdx: 0,
-      timeHistory: [],
-      load:false
+      timeHistory: []
     };
   }
 
@@ -55,7 +56,6 @@ class Timeline extends React.Component {
             />
           </div>
             <div className="text-center">
-            {/* any arbitrary component can go here */}
             Status: {curStatus}
             <br></br> 
             Company: {company}
