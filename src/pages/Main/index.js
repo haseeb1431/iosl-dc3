@@ -9,7 +9,6 @@ import Header from "./Header";
 import Footer from "./Footer";
 import SideBar from "../../components/SideBar";
 import ThemeOptions from "../../components/ThemeOptions";
-import MobileMenu from "../../components/MobileMenu";
 import registerPackage from "../../components/userSpace/Register";
 import Active from "../../components/userSpace/Active";
 import UserSpace from "../../components/userSpace/UserSpace";
@@ -23,11 +22,7 @@ import HandoverForm from "../Components/Buttons/HandoverForm";
  */
 import Dashboard from "../Dashboard";
 import Components from "../Components";
-import UserProfile from "../UserProfile";
-import MapsPage from "../MapsPage";
 import Forms from "../Forms";
-import Charts from "../Charts";
-import Calendar from "../Calendar";
 import Tables from "../Tables";
 import companyindex from "../Dashboard/companyindex";
 import postmanindex from "../Dashboard/postmanIndex";
@@ -80,11 +75,7 @@ const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
           <Route exact path="/postman" component={postmanindex} />
           <Route path="/postman/handover/:orderid" component={HandoverForm} />
           <Route path="/postman/handoverdetails" component={HandoverFormFull} />
-          <Route
-            path="/postman/delivery/:dropaddressid"
-            component={DeliveryPage}
-          />
-          <Route path="/profile" component={UserProfile} />
+          <Route path="/postman/delivery/:dropaddressid" component={DeliveryPage} />
           <Route path="/forms" component={Forms} />
           <Route path="/tables" component={Tables} />
           <Route path="/registerPackage" component={registerPackage} />
