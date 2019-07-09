@@ -80,12 +80,14 @@ class Nav extends Component {
       //Company
       return (
       <ul className="nav">
-          <li className={location.pathname === '/company' ? 'active' : null}>
-            <Link to="/company">
+          <li className={location.pathname === '/' ? 'active' : null}>
+            <Link to="/">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
           </li>
+
+          
 
           <li className={this.isPathActive('/components') || this.state.componentMenuOpen ? 'active' : null}>
           <a onClick={() => this.setState({ componentMenuOpen: !this.state.componentMenuOpen })}
@@ -100,14 +102,14 @@ class Nav extends Component {
             <div>
               <ul className="nav">
                   <li className={this.isPathActive('/UpgradeUser') ? 'active' : null}>
-                  <i className="pe-7s-id"></i>
+                  
                   <Link to="/UpgradeUser">Postman Management</Link>
                 </li>
                 <li className={this.isPathActive('/components/grid') ? 'active' : null}>
                   <Link to="/components/grid">View Jobs </Link>
                 </li>
-                <li className={this.isPathActive('forms/regular-forms/assign') ? 'active' : null}>
-                  <Link to="forms/regular-forms/assign">Assign Package</Link>
+                <li className={this.isPathActive('/company') ? 'active' : null}>
+                  <Link to="/company">Assign Package</Link>
                 </li>
               </ul>
             </div>
