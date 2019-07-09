@@ -163,7 +163,7 @@ class Nav extends Component {
                   <Link to="/postman/handoverdetails">Handover</Link>
                 </li>
                 <li className={this.isPathActive('/postman') ? 'active' : null}>
-                  <Link to="/postman">postman </Link>
+                  <Link to="/postman">Postman </Link>
                   </li>
               </ul>
             </div>

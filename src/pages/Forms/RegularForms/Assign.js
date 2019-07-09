@@ -101,10 +101,7 @@ class Assign extends React.Component {
                 })
 
                 this.setState({ loading: false });
-            })
-
-        global.backendURL
-
+            });
     }
 
 
