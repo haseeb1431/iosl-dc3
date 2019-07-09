@@ -80,12 +80,14 @@ class Nav extends Component {
       //Company
       return (
       <ul className="nav">
-          <li className={location.pathname === '/company' ? 'active' : null}>
-            <Link to="/company">
+          <li className={location.pathname === '/' ? 'active' : null}>
+            <Link to="/">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
           </li>
+
+          
 
           <li className={this.isPathActive('/components') || this.state.componentMenuOpen ? 'active' : null}>
           <a onClick={() => this.setState({ componentMenuOpen: !this.state.componentMenuOpen })}
@@ -100,10 +102,14 @@ class Nav extends Component {
             <div>
               <ul className="nav">
                   <li className={this.isPathActive('/UpgradeUser') ? 'active' : null}>
+                  
                   <Link to="/UpgradeUser">Postman Management</Link>
                 </li>
                 <li className={this.isPathActive('/components/grid') ? 'active' : null}>
                   <Link to="/components/grid">View Jobs </Link>
+                </li>
+                <li className={this.isPathActive('/company') ? 'active' : null}>
+                  <Link to="/company">Assign Package</Link>
                 </li>
               </ul>
             </div>
@@ -135,8 +141,8 @@ class Nav extends Component {
       //PostMan
       return (
 <ul className="nav">
-          <li className={location.pathname === '/postman' ? 'active' : null}>
-            <Link to="/postman">
+          <li className={location.pathname === '/' ? 'active' : null}>
+            <Link to="/">
               <i className="pe-7s-graph"></i>
               <p>Dashboard</p>
             </Link>
@@ -153,12 +159,12 @@ class Nav extends Component {
           <Collapse in={this.state.componentMenuOpen}>
             <div>
               <ul className="nav">
-                  <li className={this.isPathActive('/components/buttons') ? 'active' : null}>
-                  <Link to="/components/buttons">Handover</Link>
+                  <li className={this.isPathActive('/postman/handoverdetails') ? 'active' : null}>
+                  <Link to="/postman/handoverdetails">Handover</Link>
                 </li>
-                <li className={this.isPathActive('/components/grid') ? 'active' : null}>
-                  <Link to="/components/grid">View Jobs </Link>
-                </li>
+                <li className={this.isPathActive('/postman') ? 'active' : null}>
+                  <Link to="/postman">Postman </Link>
+                  </li>
               </ul>
             </div>
           </Collapse>

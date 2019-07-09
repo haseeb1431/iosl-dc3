@@ -6,6 +6,7 @@ import './assets/styles/base.scss';
 import configureStore from './config/configureStore';
 import { Provider } from 'react-redux';
 import LandingPage from './pages/Login';
+import global from './pages/globals'
 
 const store = configureStore();
 const rootElement = document.getElementById('root');
