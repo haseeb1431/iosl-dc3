@@ -64,7 +64,7 @@ class History extends Component {
     return (
       <div className="card">
         <div className="header">
-          <h4 className="title">User Packages</h4>
+          <h4 className="title">My Packages</h4>
         </div>
         <div className="content table-responsive table-full-width">
           <table className="table table-hover table-striped">
