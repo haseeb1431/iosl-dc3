@@ -10,7 +10,6 @@ class UserTableWithLinks extends Component {
       items : [],
       isLoading: false,
       error:null,
-      // items: generateData()
     }
   }
 
@@ -51,12 +50,10 @@ class UserTableWithLinks extends Component {
   }
 
   render() {
-    // let { items, isShowingAlert } = this.state;
     return (
       <div className="card">
         <div className="header">
           <h4 className="title">Users</h4>
-          {/* <p className="category">Here is a subtitle for this table</p> */}
         </div>
         <div className="content table-responsive table-full-width">
           <table className="table table-hover table-striped">
@@ -75,7 +72,6 @@ class UserTableWithLinks extends Component {
               {this.state.items.map(item => (
                 <tr key={item.ID} >
                   <td><Link to={`/persons/${item.ID}`} style={{color: 'blue'}}>
-                      {/* <i className="pe-7s-graph"></i> */}
                       {item.ID}
                       </Link>
                   </td>                  

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import generateData from "../generateData";
 import { Link, Redirect } from "react-router-dom";
 import authLib from "../../../config/authlib";
 
@@ -78,7 +77,7 @@ class TableWithLinks extends Component {
                   <td>{item.DropAddressID}</td>
                   <td>{item.Status}</td>
                   <td className="text-middle">
-                    <Link to={`/postman/handover/${item.OrderID}`}>
+                    <Link to={`/assign/${item.OrderID}`}>
                       <div className="btn btn-wd btn-info">Handover</div>
                     </Link>
                   </td>

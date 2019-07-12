@@ -9,15 +9,12 @@ import Header from "./Header";
 import Footer from "./Footer";
 import SideBar from "../../components/SideBar";
 import ThemeOptions from "../../components/ThemeOptions";
-import MobileMenu from "../../components/MobileMenu";
-// import addUser from '../Forms/RegularForms/StackedForm'
 import registerPackage from "../../components/userSpace/Register";
 import Active from "../../components/userSpace/Active";
 import UserSpace from "../../components/userSpace/UserSpace";
 import Detailed from "../../components/userSpace/Detailed";
 import History from "../../components/History";
 import UpgradeUser from "../Forms/RegularForms/UpgradeUser";
-// import registerPackage from '../Forms/RegularForms/Register'
 import viewIncident from "../Incidents/index";
 import HandoverForm from "../Components/Buttons/HandoverForm";
 /**
@@ -25,11 +22,7 @@ import HandoverForm from "../Components/Buttons/HandoverForm";
  */
 import Dashboard from "../Dashboard";
 import Components from "../Components";
-import UserProfile from "../UserProfile";
-import MapsPage from "../MapsPage";
 import Forms from "../Forms";
-import Charts from "../Charts";
-import Calendar from "../Calendar";
 import Tables from "../Tables";
 import companyindex from "../Dashboard/companyindex";
 import postmanindex from "../Dashboard/postmanIndex";
@@ -59,6 +52,7 @@ const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
       userHome = History;
     }
   }
+  
 
   return (
     <div
@@ -79,22 +73,15 @@ const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
           <Route path="/packages/registerPackage" component={UserSpace} />
           <Route exact path="/company" component={companyindex} />
           <Route exact path="/postman" component={postmanindex} />
-          {/* <Route path="/components" component={Components} /> */}
           <Route path="/postman/handover/:orderid" component={HandoverForm} />
           <Route path="/postman/handoverdetails" component={HandoverFormFull} />
-          <Route
-            path="/postman/delivery/:dropaddressid"
-            component={DeliveryPage}
-          />
-          <Route path="/profile" component={UserProfile} />
+          <Route path="/postman/delivery/:dropaddressid" component={DeliveryPage} />
           <Route path="/forms" component={Forms} />
           <Route path="/tables" component={Tables} />
-          <Route path="/maps" component={MapsPage} />
           <Route path="/registerPackage" component={registerPackage} />
           <Route path="/UpgradeUser" component={UpgradeUser} />
           <Route path="/viewIncident" component={viewIncident} />
           <Route path="/RegisterUser" component={RegisterUser} />
-
           <Route path="/Assign/:orderid" component={Assign} />
           <Route
             path="/PostmanHandoverTable"
@@ -108,13 +95,13 @@ const Main = ({ mobileNavVisibility, hideMobileMenu, history }) => {
   );
 };
 
-const mapStateToProp = state => ({
-  mobileNavVisibility: state.Layout.mobileNavVisibility
-});
+ const mapStateToProp = state => ({
+   mobileNavVisibility: state.Layout.mobileNavVisibility
+ });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  hideMobileMenu: () => dispatch(setMobileNavVisibility(false))
-});
+ const mapDispatchToProps = (dispatch, ownProps) => ({
+   hideMobileMenu: () => dispatch(setMobileNavVisibility(false))
+ });
 
 export default withRouter(
   connect(
