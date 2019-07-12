@@ -1,5 +1,7 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+
+
 # dependencies
 /node_modules
 
@@ -36,6 +38,8 @@ yarn-error.log*
 *.fot
 *.cb
 *.cb2
+*.drawio
+/drawio/*
 
 ## Intermediate documents:
 *.dvi
