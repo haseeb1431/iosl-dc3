@@ -18,7 +18,7 @@ const getUserObj = () => {
 }
 
 const getFetchOptions = (requesttype) => {
-    
+    debugger;
     if(!requesttype) requesttype='GET'; //default is GET
 
     var user = getUserObj();
