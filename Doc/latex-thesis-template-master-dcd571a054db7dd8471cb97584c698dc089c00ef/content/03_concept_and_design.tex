@@ -1,4 +1,83 @@
 \chapter{Concept and Design}
 \label{cha:conceptanddesign}
 
-Describe the concept and the design of your work here
+DC3 does have 3 different types of personas, Company, Customer and Postman. Hence we had to design the system differently for each user persona. Our front end application is a Single Page Application (SPA) using reactive native. Our back-end is developed by using Node JS leveraging Express framework. 
+
+\section{Database Design}
+DC3 database has 8 tables. Order, Person, Order History and Order sensors are the major tables while others play an important role as well.  designs majorly circulate around Orders table. We have normalized the database to avoid storing redundant data e.g. Order and Sensors had many to many relationship so we divided it and created another table, OrderSensors. Let’s understand the philosophy behind each table
+
+
+\subsection{Company}
+The company table is persisting the information about all the companies. It stores the company name and a brief description of the company. 
+
+\begin{center}
+\begin{tabular}{ |l|l|l| } 
+ \hline
+Id & Int - auto increment & Unique company ID \\
+ \hline
+Name & varchar & Company Name \\
+ \hline
+Description & varchar & Brief company description \\
+ \hline
+\end{tabular}
+\end{center}
+
+
+
+\subsection{Address}
+Address table is maintaining all kind of address across the whole system, be it order adree or customer home address. Hence it has relationship with Order and Person. Order table has two address Ids, each for pick and delivery address of the order
+
+\begin{center}
+\begin{tabular}{ |l|l|l| } 
+ \hline
+AddressID & Int - auto increment & \\
+ \hline
+StreetAddress  & varchar  & \\
+ \hline
+City  & varchar &\\
+ \hline
+Country  & varchar &\\
+ \hline
+PostCode  & int &\\
+ \hline
+\end{tabular}
+\end{center}
+
+
+
+
+\subsection{Company}
+The company table is persisting the information about all the companies. It stores the company name and a brief description of the company. 
+
+\begin{center}
+\begin{tabular}{ |l|l|l| } 
+ \hline
+Id & Int - auto increment & Unique company ID \\
+ \hline
+Name & varchar & Company Name \\
+ \hline
+Description & varchar & Brief company description \\
+ \hline
+\end{tabular}
+\end{center}
+
+
+THis is copied for references
+\section{Frond-end}
+
+\textbf{IDE}: Visual Studio code\\
+\textbf{Language}: React\\
+\textbf{Libraries used}:
+\begin{itemize}
+    \item react-router-dom
+    \item receiver mail must be a register user
+\end{itemize}
+
+
+\subsection{Costumer}
+Libraries used:
+\begin{itemize}
+\item rc-slider for creating the tempatrue slide bar 
+\item react-horizontal-timeline for the time line
+\item redux-form for the registration form
+\end{itemize}
