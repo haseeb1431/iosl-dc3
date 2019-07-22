@@ -1,7 +1,22 @@
 \chapter{Concept and Design}
 \label{cha:conceptanddesign}
 
-DC3 does have 3 different types of personas, Company, Customer and Postman. Hence we had to design the system differently for each user persona. Our front end application is a Single Page Application (SPA) using reactive native. Our back-end is developed by using Node JS leveraging Express framework. 
+DC3 dashboard has 3 different types of personas - Company, Customer and Postman. Hence we had to design the system differently for each user persona. Our front end application is a Single Page Application (SPA) using reactive JS. Our back-end is developed by using Node JS leveraging Express framework. 
+
+\section{Architecture}
+DC3 follows a modular approach for the whole system. As shown in the bigger picture, entry point for the system is social login, Google in this case. we are using passportJS which can be used to integrate other social strategies e.g. GitHub, Facebook as well. Furthermore, passport does provide local strategy as well where we can configure local database as well for authentication and authorization. This feature would be useful when we different vendors does deploy their own instances of the diLLas service and want to authorize the existing customer base from their own system. we have detailed overview for google authorization explained later as well 
+
+//Add diagram from slides for bigger picture
+
+Once user is logged-in, for example from browser, an access-token is stored into the local session storage for being used on the front end SPA (Single Page Application) react app.  This token is used for further communication between front-end and back-end. It contains user profile and authorization info. This info is leveraged to protect the different endpoints on the server side and provide related data based on the user type. For example, when a customer hits the /packages endpoint he will be able to see his own packages only but when a company user hits the same endpoint, he will get all the company level packages in the response.
+
+\section{Authentication \& Authorization with Google}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{images/Google Auth.jpeg}\\
+	\caption{Authentication \& Authorization}
+	\label{fig:Authentication and Authorization}
+\end{figure}
 
 \section{Database Design}
 DC3 database has 8 tables. Order, Person, Order History and Order sensors are the major tables while others play an important role as well.  designs majorly circulate around Orders table. We have normalized the database to avoid storing redundant data e.g. Order and Sensors had many to many relationship so we divided it and created another table, OrderSensors. Let’s understand the philosophy behind each table
@@ -10,45 +25,145 @@ DC3 database has 8 tables. Order, Person, Order History and Order sensors are th
 \subsection{Company}
 The company table is persisting the information about all the companies. It stores the company name and a brief description of the company. 
 
-\begin{center}
-\begin{tabular}{ |l|l|l| } 
- \hline
-Id & Int - auto increment & Unique company ID \\
- \hline
-Name & varchar & Company Name \\
- \hline
-Description & varchar & Brief company description \\
- \hline
-\end{tabular}
-\end{center}
+\begin{table}[!ht]
+	%\small
+	\centering
+	\begin{tabular}{ |l|l|l| }
+		\hline
+		Id & Int - auto increment & Unique company ID \\
+		\hline
+		Name & varchar & Company Name \\
+		\hline
+		Description & varchar & Brief company description \\
+		\hline
+	\end{tabular}
+	\caption{company table}
+\end{table}
 
 
 
 \subsection{Address}
 Address table is maintaining all kind of address across the whole system, be it order adree or customer home address. Hence it has relationship with Order and Person. Order table has two address Ids, each for pick and delivery address of the order
 
+
+
+\begin{table}[!ht]
+	%\small
+	\centering
+	\begin{tabular}{ |l|l| }
+		\hline
+		AddressID & Int - auto increment & \\
+		\hline
+		StreetAddress  & varchar  & \\
+		\hline
+		City  & varchar &\\
+		\hline
+		Country  & varchar &\\
+		\hline
+		PostCode  & int &\\
+		\hline
+	\end{tabular}
+	\caption{Address table}
+\end{table}
+
+
+
+\subsection{Sensor}
+The sensor table is a repository of unique sensors we have available in the system. It will store the names, and different possible thresholds a specific sensors has. It was designed in a generic way to store the different sensors in the same table. 
+
+
+
+
+\begin{table}[!ht]
+	\small
+	\centering
+	\begin{tabular}{ |l|l|l| }
+		\hline
+		Id  & Int - Autoincrement  & \\
+		\hline
+		Name  & varchar & \\
+		\hline
+		MinValue & varchar & Minimum possible reading for the sensor  \\
+		\hline
+		MaxValue & varchar & Maximum possible reading for the sensor\
+		\hline
+		DisplayUnit  & varchar & \\
+		\hline
+	\end{tabular}
+	\caption{Sensor table}
+\end{table}
+
+
+\subsection{Person}
+The Person table is storing various kinds of user information. It stores personal information for the company, customer and postman. Additionally, it maintains the social login values for the user. Once a user signs up, it defaults to a customer but admin or company user can change his role to postman or admin (company) user. 
+
+\begin{table}[!ht]
+    \begin{center}
+    \begin{tabular}{ |l|l|l| } 
+    \hline
+    Id & Int - auto increment & Unique company ID \\
+    \hline
+    FullName & varchar & \\
+    \hline
+    Email  & varchar & \\
+     \hline
+    Password & varchar & Minimum possible reading for the sensor \\
+     \hline
+    DateOfBirth & varchar & Maximum possible reading for the sensor \\
+     \hline
+    PersonType & varchar & Person type e.g. customer, postman or company \\
+    \hline
+    PersonRole & int & Stores person role or associated company id \\
+    \hline
+    GoogleProviderId & varchar & Google user-id \\
+    \hline
+    GoogleAccessToken & varchar & Logged-in user access token\\
+    \hline
+    \end{tabular}
+    \end{center}
+    \caption{Person table}
+\end{table}
+
+
+
+\subsection{Orders}
+Orders table is keeping most of the data in the database and it will have a higher churn rate than any other table in the whole system. It stores a lot of referential ids from other tables than actual data e.g. pick \& drop address, person, company. 
+
+\begin{table}[!ht]
 \begin{center}
 \begin{tabular}{ |l|l|l| } 
  \hline
-AddressID & Int - auto increment & \\
+Id & Int - auto increment & Unique Order ID \\
  \hline
-StreetAddress  & varchar  & \\
- \hline
-City  & varchar &\\
- \hline
-Country  & varchar &\\
- \hline
-PostCode  & int &\\
+
+OrderID & Int - AutoIncrement  & \\
+\hline
+PickAddressID & Int & Pick up address id\\
+\hline
+DropAddresID  & Int  & Drop address Id\\
+\hline
+PickDate  & date & Registration or pick up date\\
+\hline
+ArrivalDate & date & Delivery date\\
+\hline
+PersonID & int & Package Sender id\\
+\hline
+ReceiverPersonID & int & Package Receiver id\\
+\hline
+Status & varchar & E.g. Registered, In-Transit or Delivered\\
+\hline
+CompanyId & int & Reference for associated company\\
+
  \hline
 \end{tabular}
 \end{center}
+    \caption{Orders table}
+\end{table}
+
+\subsection{OrderSensors}
 
 
-
-
-\subsection{Company}
-The company table is persisting the information about all the companies. It stores the company name and a brief description of the company. 
-
+\begin{table}[!ht]
 \begin{center}
 \begin{tabular}{ |l|l|l| } 
  \hline
@@ -60,24 +175,31 @@ Description & varchar & Brief company description \\
  \hline
 \end{tabular}
 \end{center}
+    \caption{OrderSensors table}
+\end{table}
+
+\subsection{Incident}
+
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{ |l|l|l| } 
+ \hline
+Id & Int - auto increment & Unique company ID \\
+ \hline
+Name & varchar & Company Name \\
+ \hline
+Description & varchar & Brief company description \\
+ \hline
+\end{tabular}
+\end{center}
+    \caption{Incident table}
+\end{table}
 
 
-THis is copied for references
-\section{Frond-end}
-
-\textbf{IDE}: Visual Studio code\\
-\textbf{Language}: React\\
-\textbf{Libraries used}:
-\begin{itemize}
-    \item react-router-dom
-    \item receiver mail must be a register user
-\end{itemize}
-
-
-\subsection{Costumer}
-Libraries used:
-\begin{itemize}
-\item rc-slider for creating the tempatrue slide bar 
-\item react-horizontal-timeline for the time line
-\item redux-form for the registration form
-\end{itemize}
+\subsection{Database Diagram}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1\textwidth]{images/IOSLDBDiagramlatex.png}\\
+	\caption{Database Diagram}
+	\label{fig:Database Diagram}
+\end{figure}
