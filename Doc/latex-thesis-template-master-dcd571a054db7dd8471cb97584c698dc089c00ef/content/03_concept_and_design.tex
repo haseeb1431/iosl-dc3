@@ -1,25 +1,44 @@
 \chapter{Concept and Design}
 \label{cha:conceptanddesign}
 
-DC3 dashboard has 3 different types of personas - Company, Customer and Postman. Hence we had to design the system differently for each user persona. Our front end application is a Single Page Application (SPA) using reactive JS. Our back-end is developed by using Node JS leveraging Express framework. 
+DC3 dashboard has 3 different types of personas - Company, Customer and Postman. Hence we had to design the system differently for each user persona. Our front end application is a Single Page Application (SPA) using react JS. Our back-end is developed by using Node JS leveraging Express framework. 
 
 \section{Architecture}
 DC3 follows a modular approach for the whole system. As shown in the bigger picture, entry point for the system is social login, Google in this case. we are using passportJS which can be used to integrate other social strategies e.g. GitHub, Facebook as well. Furthermore, passport does provide local strategy as well where we can configure local database as well for authentication and authorization. This feature would be useful when we different vendors does deploy their own instances of the diLLas service and want to authorize the existing customer base from their own system. we have detailed overview for google authorization explained later as well 
 
-//Add diagram from slides for bigger picture
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1 \textwidth]{images/bigger_picture.png}\\
+	\caption{System Architecture(abstract view)}
+	\label{fig:System Architecture(abstract view)}
+\end{figure}
 
 Once user is logged-in, for example from browser, an access-token is stored into the local session storage for being used on the front end SPA (Single Page Application) react app.  This token is used for further communication between front-end and back-end. It contains user profile and authorization info. This info is leveraged to protect the different endpoints on the server side and provide related data based on the user type. For example, when a customer hits the /packages endpoint he will be able to see his own packages only but when a company user hits the same endpoint, he will get all the company level packages in the response.
 
-\section{Authentication \& Authorization with Google}
+\section{Authentication and Authorization with Google}
+Authentication is a vital part of the project and most real world applications need authentication and authorization. While authentication identifies some entity as a valid user, authorization defines the actions that the user is allowed to perform, based on his/her roles and rights. There are many solutions to provide for authentication or authorization in an application and we had two major choices,
+
+\begin{itemize}
+\item First one was to keep user state management on Redux.
+\item Second was to use a Facebook or a Google Authentication integration with our application.
+\end{itemize}
+
+We chose to go with the second choice as it was a new learning for the team to integrate it with our application, reduces the burden for the users to register themselves rather directly sign in with their Google accounts and more importantly because it provides back-end services to securely authenticate users, paired with easy-to-use client SDKs. It can authenticate users using passwords and federated identity provider credentials. 
+
+In our application, once the user clicks on the Google authenticate button,it directs the user to Google's OAuth 2.0 server, which requests access to the user's meta data from the Google drive with a read only scope. Further after granting or denying the access to the user, is then redirected to the original page, which pareses the access token from the string. The page then uses this access token to make  a simple API request which calls the Drive API's to retrieve the information about the authorized user's Google account. If this request is successful then the API response is logged in the browser.
+For the first time user's we check our local database to determine the existence and add the user to our database if the user name does not exist and fill in the vital information using the above fetched information from the authorized user's Google account. If the user name exists before hand, we validate the token from the server side with the OAuth2.0 provider and once validated, a JSON Web Token (JWT)  is produced to securely provide authorization to the front end.
+We use a main component in our database table "Persons" that is "PersonType" component which determines the role given to a user.Based on this value we determine if the user is either a customer,postman or a company representative. The role with the lowest features is the role of a user, which is the value provided by default to the user on first time log in and henceforth the company role has  authorization to upgrade the user to a postman or a company representative. Initial company role setup is done by the admin. The below figure provides a overview of the functioning of the Google authentication and Authorization based on role integrated to our DC3 application.
+
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.5\textwidth]{images/Google Auth.jpeg}\\
+	\includegraphics[width=0.5\textwidth]{images/GoogleAuth.jpeg}\\
 	\caption{Authentication \& Authorization}
 	\label{fig:Authentication and Authorization}
 \end{figure}
 
+
 \section{Database Design}
-DC3 database has 8 tables. Order, Person, Order History and Order sensors are the major tables while others play an important role as well.  designs majorly circulate around Orders table. We have normalized the database to avoid storing redundant data e.g. Order and Sensors had many to many relationship so we divided it and created another table, OrderSensors. Let’s understand the philosophy behind each table
+DC3 database has 8 tables. Order, Person, Order History and Order sensors are the major tables while others play an important role as well.  Designs majorly circulate around Orders table. We have normalized the database to avoid storing redundant data e.g. Order and Sensors had many to many relationship so we divided it and created another table, OrderSensors. Let’s understand the philosophy behind each table
 
 
 \subsection{Company}
@@ -37,7 +56,7 @@ The company table is persisting the information about all the companies. It stor
 		Description & varchar & Brief company description \\
 		\hline
 	\end{tabular}
-	\caption{company table}
+	\caption{Company table}
 \end{table}
 
 
@@ -50,11 +69,11 @@ Address table is maintaining all kind of address across the whole system, be it 
 \begin{table}[!ht]
 	%\small
 	\centering
-	\begin{tabular}{ |l|l| }
+	\begin{tabular}{ |l|l|l| }
 		\hline
-		AddressID & Int - auto increment & \\
+		AddressId  & Int - Autoincrement & \\
 		\hline
-		StreetAddress  & varchar  & \\
+		StreetAddress  & varchar & \\
 		\hline
 		City  & varchar &\\
 		\hline
@@ -85,7 +104,7 @@ The sensor table is a repository of unique sensors we have available in the syst
 		\hline
 		MinValue & varchar & Minimum possible reading for the sensor  \\
 		\hline
-		MaxValue & varchar & Maximum possible reading for the sensor\
+		MaxValue & varchar & Maximum possible reading for the sensor\\
 		\hline
 		DisplayUnit  & varchar & \\
 		\hline
@@ -161,8 +180,6 @@ CompanyId & int & Reference for associated company\\
 \end{table}
 
 \subsection{OrderSensors}
-
-
 \begin{table}[!ht]
 \begin{center}
 \begin{tabular}{ |l|l|l| } 
@@ -179,7 +196,6 @@ Description & varchar & Brief company description \\
 \end{table}
 
 \subsection{Incident}
-
 \begin{table}[!ht]
 \begin{center}
 \begin{tabular}{ |l|l|l| } 
@@ -194,7 +210,6 @@ Description & varchar & Brief company description \\
 \end{center}
     \caption{Incident table}
 \end{table}
-
 
 \subsection{Database Diagram}
 \begin{figure}[!ht]

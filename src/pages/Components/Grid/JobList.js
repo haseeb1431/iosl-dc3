@@ -60,8 +60,6 @@ class JobList extends Component {
                 <th>Releasing Postman</th>
                 <th>Releasing Company</th>
                 <th>Destination</th>
-
-                <th className="text-middle">Details</th>
               </tr>
             </thead>
             <tbody>
@@ -80,17 +78,9 @@ class JobList extends Component {
                   <td>{item.PostCode}</td>
                   <td>{item.City}</td>
 
-                  <td className="text-middle">
-                    <Link to={`/package/${item.OrderID}`}>
-                      <div className="btn btn-wd btn-info">info</div>
-                    </Link>
-                    {/* <a rel="tooltip" */}
-                    {/* //   className="btn btn-info btn-simple btn-xs"
-                    //   // onClick={() => this.deleteItem(item.id)}
-                    //   onClick={() => <Redirect to='/package' />}>
-                    //   <i className="fa fa-remove"></i> */}
-                    {/* // </a> */}
-                  </td>
+                  
+                    
+                   
                 </tr>
               ))}
             </tbody>

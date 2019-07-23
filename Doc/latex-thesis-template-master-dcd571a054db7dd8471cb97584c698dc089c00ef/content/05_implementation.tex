@@ -67,7 +67,7 @@ After pressing the sumbit button the following occures:\\
 3. \textbf {http://localhost:8000/OrderSensors}  post request to enter the sensors (if exist)  to the sensore table, return a sensore id\\
 4.\textbf {http://localhost:8000/OrderHistory}  post request to enter the action(registration) as part of the order history for later on use in the time-line\\
 
-\subsubsection{cancel package}
+\subsubsection{Cancel package}
 The feature cancel package allows the user to delete a cancel package.
 After pressing the navbar "delete package" option, the user will be directed to the Activs.js compnent.\newline
 The user will be shown only packages in a "register" status, \textbf{any other package which has being dispatch already can not be cancel}.\newline
@@ -101,82 +101,4 @@ Postman user in the system will be able to do the following activities:-
     \caption{DC3 Postman}
     \label{fig:}
 \end{figure}
-
-
-
-
-
-\section{Back-end}
-Back-end or server is a layer on top of the database and Blockchain for the front-end. It does handle the authentication and authorization and does take care of fetching and sending data to the hyper-ledger fabric. We are using following technologies 
-
-\textbf{IDE}: Visual Studio code\\
-\textbf{Language}: JavaScript\\
-\textbf{Frameworks}: NodeJS with Express
-
-
-
-\subsection{Project Structure}
-Project structure has is modular and functionality has been divided into folder based on functionality. Hence we have two major folders at the root, server and test, with some other application level files 
-
-
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=4cm]{images/directystructure.png}
-    \caption{Directory Structure}
-    \label{fig:}
-\end{figure}
-
-\begin{itemize}
-
-\item {\textbf{Server}}: This folder contains all the logic related to server functionality. 
-\begin{itemize}
-\item {\textbf{Config}}: This folder contains the configuration for the server side. authkeys.js does contain the secret keys used across the application for google social login and to generate the token for authorization. Passport.js contains the logic for google strategy. we can write another strategy in the same file as well e.g. github or local strategy. In future, When we are going to integreate the platform with different vendors, we will be using the local passport strategy using the vendor database. After that, route.js does contain all the routes for the application. any new routes needs to be registered in this file. Finally token.util.js contains utility functions to generate and send the token to the client back. It also exposes the method to generate the token which is used for mocked unit testing. 
-
-\item {\textbf{lib}}: Library or lib folder does contain the middleware for our back-end application. Right now we have only one, secureMiddleware, to secure our API endpoints. It does check if access-token header is provided in rquest body, cookie or querystring and then decode it using our secret. If successful it will set the user profile on the request object, otherwise throw 401 response. 
-
-\item {\textbf{models}}: Models folder does contain all the different models to fetch the data from database or block chain. Each file represent an entity in the system or a related database relation.  Furthermore, index.js file contains the references of all the models and is used almost everywhere in the system as single reference point for the models. 
-
-\item {\textbf{SQL}}: SQL folder contains the database schema which can be used to deploy or create the database while setting up a project on a new machine. Additionally, it contains a schema file to generate the database diagram on dbdiagram.io as well. 
-\end{itemize}
-
-
-\item {\textbf{test}}: This folder contains all the unit tests. Each file contains the tests for the respective model file. Test does use mocha and chai frameworks.
-
-\item {\textbf{env}}: .env is environment file to setup variables at the start of the project instead of reading from the config file, it will be read from the environment. This file is git ignored. It isn't used at the moment as we are reading db config from the db.js directly for now. 
-
-\item {\textbf{eslintrc.json}}: ESlint configuration can be changed using this file. We are using Airbnb base syntax for our linting.  
-
-\item {\textbf{gitignore}}: GitIgnore is used to tell git which files we don't want to store in the source control. 
-
-
-\item {\textbf{package.json}}: This file contains all the configuration to setup the project. When we do npm install, it will read this file and install all the package on end user machine. It also contains the dev dependencies. We have different scripts configured to run e.g. running the server or run server in the debug mode, run linter. 
-
-\item {\textbf{server.js}}: This is the starting file where our project starts. This file will bootstrap the application by configuring different modules, followed by loading the routes and then running the http server on specific ports. We also configure the express server, body parser (which parse the request body), cookie-parser, passport js and most importantly CORS to send cross origin requests.   
-
-\end{itemize}
-
-\subsection{Unit Testing}
-We are using mocha framework for unit and integration testing in our project. Additionally we have used chai as an assertion framework for our tests. Each test has a title or test case description followed by request and expected results. A sample test is as follows
-
-\begin{verbatim}
-  /*
-  * /GET company/id
-  * Test the single company records from the database
-  */
-  it('It should GET single company', (done) => {
-    chai.request(server)
-      .get('/company/2')
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('array');
-        res.body.length.should.be.eql(1);
-        done();
-      });
-  });
-
-
-
-\end{verbatim}
-
-We used chai request to call the endpoint, set the access token for the secured endpoints, and then compare the results with  the expectation. We also have tests which will send different access token to validate the authorization of the endpoints e.g. postman can see only packages assigned to him and not all the packages or a customer cannot request a handover for a package. 
 

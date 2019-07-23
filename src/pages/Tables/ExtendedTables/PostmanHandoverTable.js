@@ -39,7 +39,7 @@ class PostmanHandoverTable extends Component {
 
   this.setState({ isLoading: true });   
    
-    fetch("http://localhost:8000/packages",getFetchOptions())
+    fetch("http://localhost:8000/packagesaddressdetails",getFetchOptions())
       .then(function(response){
         if (response.ok) {
             return response.json();
@@ -82,7 +82,7 @@ class PostmanHandoverTable extends Component {
                 <th>Sender Details</th>
                 <th>Pickup Adress</th>
                 <th>Destination</th>
-                <th>Receiver Details</th>
+                <th>Status</th>
 
                 <th>Action</th>
               </tr>
@@ -99,11 +99,12 @@ class PostmanHandoverTable extends Component {
                     </Link>
                   </td>
                   <td>{item.FullName}</td>
-                  <td>{item.PickAddressID}</td>
-                  <td>{item.DropAddressID}</td>
-                  <td>{item.ReceiverPersonID}</td>
+                  <td>{item.pickstreetaddress}</td>
+                  <td>{item.dropstreetaddress}</td>
+                  <td>{item.Status}</td>
                   <td className="text-middle">
-                      <Link to={`/Assign/${item.OrderID}`}>
+                      <Link to={`/Assign/${item.OrderID}`}
+                      alon={6}>
                         <div className="btn btn-info" >Assign</div>
                       </Link>                    
                   </td>                   
