@@ -80,3 +80,25 @@ From the system perspective while the package is being canceled, the data is not
       \item textbf {http://localhost:8000/OrderHistory}  post reqest. update the timeline, add the event to history
 \end{enumerate}
 \end{enumerate}
+
+\subsection{Postman}
+\textbf{Overview of the functionality:}
+
+Postman user in the system will be able to do the following activities:-
+\begin{itemize}
+\item {\textbf{View all the packages that have been assigned to him: }}(PostmanTableWithLinks.js) When the Company user assigns a package (PackageId) to a particular postman (PostmanId) then a relevant record is created into the table orderHistory. All the packages that are assigned to the current user are fetched using http://localhost:8000/orderHistory
+
+\item \textbf{View the information about the package such as pickup address, drop address, status etc:} The table orderHistory contains columns that hold the relevant data of the package required for the postman to identify every package.
+\item \textbf{Able to change the status of the package as Delivered once the actual delivery has been made:} whenever a postman physically delivers the package to the recipient at the respective Drop Address, then he is able to press the button 'Deliver' that invokes the function to setthe status of the Package as 'Delivered' and enter a new row in the packageHistory table only to denote that the package is now counted as one of the delivered packages.
+\item \textbf{Able to Handover the package by assigning it to another Postman and change the status accordingly: }whenever a postman reaches an intermediate point in the route of the package where he has to hand it over to another postman, then the 'Handover' button is used to redirect to another component HandoverForm.js where the user id of the receiving postman needs to be entered. This functionality allows one postman to assign a package to nother postman by changing the 'AssignedTo' data in the relevant table. After this subroutine is invoked the handed over parcel  starts to appear in the dashboard of the receiving postman.
+\item \textbf{Able to raise Incident whenever there is any violation of policies:} A postman to who the package has been assigned or handed over is able to judge the condition of the package and raise an incident mentioning the details of the package and the nature of violation also mentioning its current condition using the form created in the Incident.js component.
+\item \textbf{View the Incidents that have been raised in the past: }Under the heading 'Incident Management' there is a link 'View Incidents' that redirects to ViewIncidents.js component that pulls data from the Incidents table and allows the Postman to see the relevant list of Incidents raised by or against him that have not yet been resolved.
+\end{itemize}
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=4cm]{images/snet/DC3 Postman.png}
+    \caption{DC3 Postman}
+    \label{fig:}
+\end{figure}
+
