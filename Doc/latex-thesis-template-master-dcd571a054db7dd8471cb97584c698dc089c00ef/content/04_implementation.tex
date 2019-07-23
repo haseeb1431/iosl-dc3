@@ -1,7 +1,7 @@
 \chapter{Implementation}
 \label{cha:implementation}
 
-In the chapter we explain how the implementation is done for both the fornthand and the backend sides.
+In the chapter we explain how the implementation is done for both the frontend and the backend sides.
 We first elaborate on the different roles exist in the frontend:
 
 \section{Frond-end}
@@ -28,13 +28,13 @@ The costumer has the following abilities:
 
 \begin{itemize}
     \item register a package
-    \item delete a package with status "registered"
+    \item delete a package
     \item show a package detail view 
     \item time line
 \end{itemize}
 
 
-\subsection{Register a package}
+\subsubsection{Register a package}
 The register package process divided by two component:
 \begin{itemize}
 \item RegisterPackage.js - view (child)
@@ -66,3 +66,17 @@ After pressing the sumbit button the following occures:\\
 2. \textbf {http://localhost:8000/packages}  post request to enter the packages to the packages tables, return a package \\
 3. \textbf {http://localhost:8000/OrderSensors}  post request to enter the sensors (if exist)  to the sensore table, return a sensore id\\
 4.\textbf {http://localhost:8000/OrderHistory}  post request to enter the action(registration) as part of the order history for later on use in the time-line\\
+
+\subsubsection{cancel package}
+The feature cancel package allows the user to delete a cancel package.
+After pressing the navbar "delete package" option, the user will be directed to the Activs.js compnent.\newline
+The user will be shown only packages in a "register" status, \textbf{any other package which has being dispatch already can not be cancel}.\newline
+From the system perspective while the package is being canceled, the data is not deleted from storage,it will only be marked as canceled. algorithm:
+\begin{enumerate}
+  \item \textbf{http://localhost:8000/packages/user/}  get request before component moount: upload all packages with "register" status
+  \item if user press delete:
+  \begin{enumerate}
+      \item textbf {http://localhost:8000/packages/:id}  put request to change the spesific package to "cancel" mode.
+      \item textbf {http://localhost:8000/OrderHistory}  post reqest. update the timeline, add the event to history
+\end{enumerate}
+\end{enumerate}
