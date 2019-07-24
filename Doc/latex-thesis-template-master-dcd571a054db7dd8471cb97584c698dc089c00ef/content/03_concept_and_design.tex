@@ -36,6 +36,8 @@ We use a main component in our database table "Persons" that is "PersonType" com
 	\label{fig:Authentication and Authorization}
 \end{figure}
 
+%pk%
+
 
 \section{Database Design}
 DC3 database has 8 tables. Order, Person, Order History and Order sensors are the major tables while others play an important role as well.  Designs majorly circulate around Orders table. We have normalized the database to avoid storing redundant data e.g. Order and Sensors had many to many relationship so we divided it and created another table, OrderSensors. Let’s understand the philosophy behind each table
