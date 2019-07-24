@@ -24,10 +24,10 @@ Authentication is a vital part of the project and most real world applications n
 \item Second was to use a Facebook or a Google Authentication integration with our application.
 \end{itemize}
 
-We chose to go with the second choice as it was a new learning for the team to integrate it with our application, reduces the burden for the users to register themselves rather directly sign in with their Google accounts and more importantly because it provides back-end services to securely authenticate users, paired with easy-to-use client SDKs. It can authenticate users using passwords and federated identity provider credentials. 
+We chose to go with the second choice as it was a new learning for the team to integrate it with our application using the PassportJS framework, it also reduces the burden of the users to register themselves rather directly sign in with their Google accounts and more importantly because it provides back-end services to securely authenticate users, paired with easy-to-use client SDKs. It can authenticate users using passwords and federated identity provider credentials.  
 
 In our application, once the user clicks on the Google authenticate button,it directs the user to Google's OAuth 2.0 server, which requests access to the user's meta data from the Google drive with a read only scope. Further after granting or denying the access to the user, is then redirected to the original page, which pareses the access token from the string. The page then uses this access token to make  a simple API request which calls the Drive API's to retrieve the information about the authorized user's Google account. If this request is successful then the API response is logged in the browser.
-For the first time user's we check our local database to determine the existence and add the user to our database if the user name does not exist and fill in the vital information using the above fetched information from the authorized user's Google account. If the user name exists before hand, we validate the token from the server side with the OAuth2.0 provider and once validated, a JSON Web Token (JWT)  is produced to securely provide authorization to the front end.
+For the first time user's we check our local database to determine the existence and add the user to our database if the user name does not exist and fill in the vital information using the above fetched information from the authorized user's Google account. We have achieved the same with the help of the PassportJS framework where it provides us local strategy to configure our local database for such authentications. Also if the user name exists before hand, we validate the token from the server side with the OAuth2.0 provider and once validated, a JSON Web Token (JWT)  is produced to securely provide authorization to the front end.
 We use a main component in our database table "Persons" that is "PersonType" component which determines the role given to a user.Based on this value we determine if the user is either a customer,postman or a company representative. The role with the lowest features is the role of a user, which is the value provided by default to the user on first time log in and henceforth the company role has  authorization to upgrade the user to a postman or a company representative. Initial company role setup is done by the admin. The below figure provides a overview of the functioning of the Google authentication and Authorization based on role integrated to our DC3 application.
 
 \begin{figure}[!ht]
@@ -144,10 +144,8 @@ The Person table is storing various kinds of user information. It stores persona
     \caption{Person table}
 \end{table}
 
-
-
 \subsection{Orders}
-Orders table is keeping most of the data in the database and it will have a higher churn rate than any other table in the whole system. It stores a lot of referential ids from other tables than actual data e.g. pick \& drop address, person, company. 
+Orders table is keeping most of the data in the database and it will have a higher churn rate than any other table in the whole system. It stores a lot of referential ids from other tables than actual data e.g. pick \& drop address, person, company. It also consists of the status of the package which determines to be the major representative of package information.
 
 \begin{table}[!ht]
 \begin{center}
@@ -181,15 +179,36 @@ CompanyId & int & Reference for associated company\\
 \end{table}
 
 \subsection{OrderSensors}
+OrderSensors table consists of all the vital information of the sensor be it the threshold of the shock sensors or the threshold of the temperature sensors. It also consists of the values recorded for the package and is differentiated using the combination of OrderId and the SensorId entities being considered from the above tables.
 \begin{table}[!ht]
 \begin{center}
 \begin{tabular}{ |l|l|l| } 
  \hline
-Id & Int - auto increment & Unique company ID \\
+Id & Int - auto increment & Unique sensor ID \\
  \hline
-Name & varchar & Company Name \\
+OrderId & Int &  \\
  \hline
-Description & varchar & Brief company description \\
+SensorOd & Int & \\
+ \hline
+MinThreshold & Int & Minimum Threshold for sensor\\
+ \hline
+MaxThreshold & Int & Maximum Threshold for sensor\\
+ \hline
+valuerecorded & Int & Value recorded by the sensor\\
+ \hline
+light & Int & Definition of light impact \\
+ \hline
+heavy & Int & Definition of heavy impact \\
+ \hline
+severe & Int & Definition of severe impact \\
+ \hline
+bclight & Int &  \\
+ \hline
+bcheavy & Int &  \\
+ \hline
+bcsevere & Int &  \\
+ \hline
+bctemprature & Int &  \\
  \hline
 \end{tabular}
 \end{center}
@@ -197,15 +216,19 @@ Description & varchar & Brief company description \\
 \end{table}
 
 \subsection{Incident}
+
+The Incident table consists of all incident raised by all users in the form of a unique incident Id and a brief description of the incident. It is linked with the user and the packages using the OrderId and the PersonId respectively.
 \begin{table}[!ht]
 \begin{center}
 \begin{tabular}{ |l|l|l| } 
  \hline
-Id & Int - auto increment & Unique company ID \\
+IncidentId & Int - auto increment & Unique Incident ID \\
  \hline
-Name & varchar & Company Name \\
+Description & varchar & Brief Incident Description \\
  \hline
-Description & varchar & Brief company description \\
+OrderId & Int &  \\
+ \hline
+PersonId & Int &  \\
  \hline
 \end{tabular}
 \end{center}
